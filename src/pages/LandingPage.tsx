@@ -1,21 +1,43 @@
 import Hero from "../components/Landing/Hero";
-// import JobPostForm from "../components/Landing/JobPostForm";
-import WhatMakesBetter from "../components/Landing/WhatMakesBetter";
+import Howto from "../components/Landing/Howto";
+import PopluarCategory from "../components/Landing/PopluarCategory";
 
 const LandingPage = () => {
+
+
+
   return (
-    <div>
+
+
+    <main className="w-full h-full">
+
+
+      {/* Hero */}
       <div>
         <Hero />
       </div>
-      <div className="container mx-auto px-56 pt-10">
-        {/* <JobPostForm /> */}
-      </div>
+
+
       <div>
-        <WhatMakesBetter/>
+
+        <PopluarCategory />
+
       </div>
-    </div>
-  );
+
+
+      <div>
+        <Howto />
+      </div>
+
+
+
+    </main>
+
+
+  )
+
+
+
 };
 
 export default LandingPage;

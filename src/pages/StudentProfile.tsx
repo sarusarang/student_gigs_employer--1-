@@ -1,0 +1,496 @@
+import { motion, AnimatePresence } from "framer-motion"
+import { BriefcaseBusiness, Building2, Clock, CreditCard, FileText, GraduationCap, GraduationCapIcon, Languages, Laptop, Lightbulb, Mail, MapPin, Medal, Phone } from "lucide-react";
+
+
+
+
+export default function StudentProfile() {
+
+
+    // Scroll to top when page is loaded
+    window.scrollTo({ top: 0, behavior: 'smooth', });
+
+
+    return (
+
+        <>
+
+            <main className="pt-20 sm:pt-12">
+
+
+                <div className="container">
+
+
+                    <div className=" w-full m-auto px-1 sm:px-16">
+
+
+
+                        <div>
+
+                            <section className="pt-10">
+
+
+                                {/* Banner Image */}
+                                <div className="relative group h-[25vh] md:h-[25vh] lg:h-[45vh] rounded-lg  md:rounded-2xl lg:rounded-3xl ">
+                                    <img
+                                        src={"https://cdn.vectorstock.com/i/500p/39/11/programming-and-software-development-web-page-vector-30433911.jpg"}
+                                        alt="banner"
+                                        loading="lazy"
+                                        className="w-full h-full object-cover rounded-lg md:rounded-2xl lg:rounded-3xl"
+                                    />
+
+                                </div>
+
+
+
+                                {/* Profile Image */}
+                                <div className="flex justify-between -mt-6 sm:-mt-10 sm:ms-8 sm:me-10 ms-2">
+
+                                    <div className="flex justify-between space-x-4">
+
+                                        <div className="flex items-center gap-4">
+                                            <div className="relative group">
+                                                <div className="relative w-24 h-24 md:w-32 md:h-32">
+                                                    <img
+                                                        src={"https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"}
+                                                        alt="profile"
+                                                        loading="lazy"
+                                                        className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
+                                                    />
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="md:pt-12 pt-10">
+                                            <h1 className="font-semibold text-md md:text-lg">John Doe</h1>
+                                            <p className="font-[1rem] text-md md:text-lg text-gray-400">
+                                                Software Enginner
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+
+
+                            <section className="grid grid-cols-1 md:grid-cols-2 gap-9 px-2 sm:px-10">
+
+
+                                {/* About */}
+                                <div className="pt-10">
+
+                                    <div className=" ">
+
+
+                                        <h3 className="text-2xl  font-semibold capitalize text-gray-900 pb-5">
+                                            About Me
+                                        </h3>
+
+                                        {/* About User */}
+                                        <p className="text-md sm:text-[1.1rem] font-[1rem] text-gray-500 leading-relaxed text-justify">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quae.
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                <div className="md:p-4">
+                                    <div className="max-w-full md:max-w-2xl mx-auto">
+                                        <div className="shadow-sm bg-gray-50 rounded-lg p-4 md:p-6">
+                                            <h1 className="text-lg font-bold text-gray-500 mb-4">
+                                                Personal Details:
+                                            </h1>
+
+                                            <table className="w-full text-sm text-left text-gray-600 font-bold">
+
+
+                                                <tbody>
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <Mail className="inline-block w-4 h-4 mr-2" />
+                                                            Contact Email:
+                                                        </th>
+                                                        <td className="px-4 py-2 text-gray-800 block md:table-cell">
+                                                            sarangsaru445@gmail.com
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <Phone className="inline-block w-4 h-4 mr-2" />
+                                                            Phone Number:
+                                                        </th>
+                                                        <td className="px-4 py-2 text-gray-800 block md:table-cell">
+                                                            +918129886275
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <CreditCard className="inline-block w-4 h-4 mr-2" />
+                                                            Current Address:
+                                                        </th>
+                                                        <td className="px-4 py-2 text-gray-800 block md:table-cell">
+                                                            "SARANG" Peralassery, Vadakumbad po(670622), Cannanore (Kannur), Kerala, 670622
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <MapPin className="inline-block w-4 h-4 mr-2" />
+                                                            Preferred Work Location (City/Area):
+                                                        </th>
+                                                        <td className="px-4 py-2 text-gray-800 block md:table-cell">
+                                                            Andkhoy
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <Clock className="inline-block w-4 h-4 mr-2" />
+                                                            Available Work Hours:
+                                                        </th>
+                                                        <td className="px-4 py-2 text-gray-800 block md:table-cell">
+                                                            60 Hrs
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    <tr className="border-b border-gray-200">
+                                                        <th scope="row" className="px-4 py-2 font-medium whitespace-nowrap text-start block md:table-cell">
+                                                            <Languages className="inline-block w-4 h-4 mr-2" />
+                                                            Languages Known:
+                                                        </th>
+                                                        <td className="py-2 px-4 text-gray-800 block md:table-cell">
+                                                            English, Malayalam, Bengali, Hindi, Latin, English
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+
+                                            <div className="w-full flex items-center justify-center py-4">
+
+                                                <button className="font-bold text-md flex items-center justify-center w-52 hover:cursor-pointer bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors duration-300">
+                                                    <FileText size={24} className="mr-2" />  Download Cv
+                                                </button>
+
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </section>
+
+
+
+                            {/* Skills */}
+                            <section className="w-full py-4 px-2 sm:px-10">
+
+                                <h1 className="text-2xl pt-3 pb-5 pl-2 text-start font-semibold text-gray-900 flex items-center">
+                                    Technical Skills <Laptop className="inline-block ml-2" size={28} />
+                                </h1>
+
+                                <div className="flex flex-wrap justify-start">
+
+
+                                    <div className="w-full md:w-1/2 xl:w-1/3 mb-5 px-2">
+
+                                        <div className="flex justify-between mb-1">
+                                            <span className="text-base font-medium text-gray-400">
+                                                React Js
+                                            </span>
+                                            <span className="text-sm font-medium text-gray-400">60%</span>
+                                        </div>
+
+                                        <div className="w-full bg-gray-200 rounded-full">
+                                            <div
+                                                className="bg-[#059669] h-2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                                style={{ width: `60%` }}
+                                            ></div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div className="w-full md:w-1/2 xl:w-1/3 mb-5 px-2">
+
+                                        <div className="flex justify-between mb-1">
+                                            <span className="text-base font-medium text-gray-400">
+                                                Python
+                                            </span>
+                                            <span className="text-sm font-medium text-gray-400">40%</span>
+                                        </div>
+
+                                        <div className="w-full bg-gray-200 rounded-full">
+                                            <div
+                                                className="bg-[#059669] h-2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                                style={{ width: `40%` }}
+                                            ></div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div className="w-full md:w-1/2 xl:w-1/3 mb-5 px-2">
+
+                                        <div className="flex justify-between mb-1">
+                                            <span className="text-base font-medium text-gray-400">
+                                                Ui Ux
+                                            </span>
+                                            <span className="text-sm font-medium text-gray-400">80%</span>
+                                        </div>
+
+                                        <div className="w-full bg-gray-200 rounded-full">
+                                            <div
+                                                className="bg-[#059669] h-2 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                                                style={{ width: `80%` }}
+                                            ></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </section>
+
+
+
+
+                            {/* Soft Skills */}
+                            <section className="w-full py-10 px-2 sm:px-10">
+
+                                <h1 className="text-2xl pt-3 pb-5 pl-2 text-start font-semibold text-gray-900 flex items-center">
+                                    Soft Skills <Lightbulb className="inline-block ml-2" size={28} />
+                                </h1>
+
+                                <div className="flex flex-wrap gap-2">
+
+                                    <span className="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                                        Communication
+                                    </span>
+
+                                    <span className="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                                        Teamwork
+                                    </span>
+
+                                    <span className="bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+                                        Problem Solving
+                                    </span>
+
+                                </div>
+
+                            </section>
+
+
+
+                            {/* Experience */}
+                            <section className="w-full pb-8 sm:px-10 px-2 py-10">
+
+                                <h1 className="text-2xl py-3 pl-2 text-start font-semibold text-gray-900 flex items-center">
+                                    Experience <BriefcaseBusiness size={28} className="ml-2" />
+                                </h1>
+
+
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 py-5 gap-10">
+
+                                    <div className="flex gap-5" >
+                                        <div>
+                                            <img
+                                                className="w-14 h-14 object-cover rounded-full"
+                                                src="https://thumbs.dreamstime.com/b/office-building-icon-linear-logo-mark-set-collection-black-white-web-office-building-icon-linear-logo-mark-black-330207065.jpg"
+                                                alt="company-logo"
+                                                loading="lazy"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <div className="flex items-center">
+                                                <h1 className="text-xl text-gray-900 font-semibold sm:me-5 me-2">
+                                                    Software Developer
+                                                </h1>
+                                                <p className="text-center font-semibold text-gray-500">
+                                                    2024 -{" "}
+                                                    Present
+                                                </p>
+                                            </div>
+
+                                            <p className="pb-2 font-semibold text-indigo-500">
+                                                Ex-Media
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="flex gap-5">
+                                        <div>
+                                            <img
+                                                className="w-14 h-14 object-cover rounded-full"
+                                                src="https://thumbs.dreamstime.com/b/office-building-icon-linear-logo-mark-set-collection-black-white-web-office-building-icon-linear-logo-mark-black-330207065.jpg"
+                                                alt="company-logo"
+                                                loading="lazy"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <div className="flex items-center">
+                                                <h1 className="text-xl text-gray-900 font-semibold sm:me-5 me-2">
+                                                    Software Enginner
+                                                </h1>
+                                                <p className="text-center font-semibold text-gray-500">
+                                                    2023 -{" "}
+                                                    2024
+                                                </p>
+                                            </div>
+
+                                            <p className="pb-2 font-semibold text-indigo-500">
+                                                Google Inc
+                                            </p>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </section>
+
+
+
+
+                            {/* Education */}
+                            <div className="w-full max-w-7xl mx-auto py-0 sm:py-6 px-0 sm:px-0 mb-10">
+
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4 px-2 flex items-center">
+                                    Educational Qualifications <GraduationCapIcon size={28} className="ml-2" />
+                                </h2>
+
+                                <AnimatePresence>
+
+
+
+                                    <div className="space-y-4 sm:space-y-8">
+
+
+                                        <motion.div
+
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -20 }}
+                                            transition={{ duration: 0.3 }}
+                                            className="group relative border-b border-gray-100 bg-gray-50/50 hover:bg-gray-50/50 transition-all duration-300"
+                                        >
+                                            <div className="px-3 py-4 sm:px-6 sm:py-8">
+                                                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-8">
+                                                    {/* Left Column - Year */}
+                                                    <div className="sm:w-24 pt-1">
+                                                        <span className="text-sm sm:text-md font-medium text-gray-500">
+                                                            2026
+                                                        </span>
+                                                    </div>
+
+                                                    {/* Middle Column - Main Content */}
+                                                    <div className="flex-1 space-y-3">
+                                                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                                                            <div className="flex items-center gap-2">
+                                                                <GraduationCap className="h-5 w-8 sm:h-5 sm:w-5 text-blue-500" />
+                                                                <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                                    Kannur University
+                                                                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs sm:text-sm font-semibold text-blue-700 ms-2">
+                                                                        Bachelor of Engineering
+                                                                    </span>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="space-y-2">
+                                                            <div className="flex items-center gap-2 text-gray-600">
+                                                                <Building2 className="h-4 w-4" />
+                                                                <span className="text-xs sm:text-sm">Computer Science</span>
+                                                            </div>
+
+
+                                                            <div className="flex items-start gap-2 text-gray-600">
+                                                                <Medal className="h-4 w-4 mt-0.5 text-yellow-500" />
+                                                                <span className="text-xs sm:text-sm">
+                                                                    Hackthon Winner , Football , Cricket
+                                                                </span>
+                                                            </div>
+
+
+                                                        </div>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                            {/* Hover line indicator */}
+                                            <div className="absolute left-0 top-0 h-full w-0.5 bg-blue-500 opacity-100 transition-all duration-200" />
+
+                                        </motion.div>
+
+                                    </div>
+
+
+
+                                </AnimatePresence>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </main>
+
+
+        </>
+
+
+    )
+
+
+}

@@ -64,6 +64,7 @@ const JobPostForm: React.FC = () => {
   };
 
   return (
+    
     <div className="container mx-auto p-4 ">
       <div className="bg-gradient-to-l from-green-500 to-green-700 mb-5">
         <h1 className="text-3xl font-bold mb-4 text-center text-white p-4">

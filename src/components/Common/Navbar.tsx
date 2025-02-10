@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Building, CircleUserRound, Contact, GraduationCap, House, KeyRound, LogOut, Search, Settings, Telescope, Text, User } from 'lucide-react';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Binoculars, BriefcaseBusiness, Contact, GraduationCap, House, KeyRound, LogOut, Search, Text, User } from 'lucide-react';
 import {
   Dialog,
   Disclosure,
@@ -15,14 +15,17 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import toast from "react-hot-toast";
+import { useAuth } from "../../Context/AuthContext";
 
 
 export default function Header() {
 
 
+  const Navigate = useNavigate()
+
+
   // Set Login and logout status
   const [LoginStatus, SetLoginStatus] = useState(false)
-
 
 
   // To check if the user is scrolled
@@ -44,12 +47,15 @@ export default function Header() {
   const location = useLocation();
 
 
+  // To use auth context logout
+  const { logout } = useAuth()
+
 
 
   // Add a scroll event listener
   useEffect(() => {
 
-    setcolor(location.pathname === "/employerlist" || location.pathname === "/employerdeatils" || location.pathname === "/jobfilter" || location.pathname === "/jobdeatils" ? true : false)
+    setcolor(location.pathname === "/" || location.pathname === "/findtalent" || location.pathname === "/employerprofile" ? true : false)
 
     const handleScroll = () => {
 
@@ -59,7 +65,7 @@ export default function Header() {
 
       } else {
         setScrolled(false);
-        setcolor(location.pathname === "/employerlist" || location.pathname === "/employerdeatils" || location.pathname === "/jobfilter" || location.pathname === "/jobdeatils" ? true : false)
+        setcolor(location.pathname === "/" || location.pathname === "/findtalent" || location.pathname === "/employerprofile" ? true : false)
       }
 
     };
@@ -94,8 +100,12 @@ export default function Header() {
   // Logout
   const HandleLogOut = () => {
 
-    localStorage.removeItem("token");
+    logout()
+
     toast.success("Logout Successful...!")
+
+    Navigate("/")
+
     SetLoginStatus(true)
 
   }
@@ -107,72 +117,115 @@ export default function Header() {
 
     <>
 
-      <main className={` z-10 fixed top-0 left-0 w-full transition-colors duration-300 ${scrolled ? "bg-white shadow-md" : "bg-transparent"
+      <main className={` z-50 fixed top-0 left-0 w-full transition-colors duration-300 ${scrolled ? "bg-white shadow-md" : "bg-transparent"
         }`}>
-
-
 
         <header className="">
 
-          <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between sm:p-0 sm:py-0 px-2 py-1 lg:px-0 md:px-8">
+          <nav aria-label="Global" className="mx-auto flex flex-col sm:flex-row max-w-7xl items-center justify-between sm:p-0 sm:py-0 px-2 py-1 lg:px-0 md:px-8">
 
-            <div className="flex lg:flex-1">
-              <Link to={'/'} className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  alt="nav-icon"
-                  src="/logos1.png"
-                  loading="lazy"
-                  className="sm:h-24 sm:w-56 h-16 w-36"
-                />
+
+            <div className="flex items-center justify-between">
+
+              <div className="flex lg:flex-1">
+                <Link to={'/'} className="-m-1.5 p-1.5">
+                  <span className="sr-only">Your Company</span>
+                  <img
+                    alt="nav-icon"
+                    src="/logos1.png"
+                    loading="lazy"
+                    className="sm:h-24 sm:w-56 h-16 w-36"
+                  />
+                </Link>
+              </div>
+
+
+              {/* Home for mobile view */}
+              <Link to={'/'} className={`ms-1 text-md font-semibold text-gray-400 hover:text-green-600 sm:hidden block ${color ? "text-white" : ""}`}>
+                <House size={24} />
               </Link>
+
+              {/* Search  for mobile view */}
+              <div className="flex items-center border rounded-full px-1 overflow-hidden  sm:hidden mx-1 border-gray-200">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className={`w-full px-2 py-1 text-xs focus:outline-none  ${color ? 'bg-transparent text-white placeholder-white' : 'text-gray-900'}`}
+                />
+                <Link
+                  to={'/search'}
+                  className={`p-2 flex items-center justify-center ${color ? 'bg-transparent hover:bg-gray-600' : ""} text-md font-semibold`}
+                >
+                  <Search size={16} className={`${color ? 'text-white' : 'text-gray-900'}`} />
+
+                </Link>
+              </div>
+
+
+              <div className="flex lg:hidden">
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(true)}
+                  className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 ${color ? "text-white" : "text-black"}`}
+                >
+                  <span className="sr-only">Open main menu</span>
+
+                  <Text aria-hidden="true" className="size-6" />
+
+                </button>
+
+              </div>
+
             </div>
 
 
-            {/* Find Student Talents for mobile view */}
-            <Link to={'/'}>
 
-              <button className={`bg-orange-500 text-white font-semibold text-xs px-2 py-2 flex items-center gap-x-2 sm:hidden`}>
-                <GraduationCap size={16} /> Find Student Talents
-              </button>
+            {/* Buttons */}
+            <div className='flex justify-center items-center gap-x-2 mb-2 sm:hidden'>
 
-            </Link>
+              {/* Find Student Talents for mobile view */}
+              <Link to={'/findtalent'}>
+
+                <button className={`bg-orange-500 hover:cursor-pointer text-white font-semibold text-xs px-5 py-2 flex items-center sm:hidden`}>
+                  <GraduationCap size={16} className="me-2" /> Find Student Talents
+                </button>
+
+              </Link>
 
 
-            <div className="flex lg:hidden">
-              <button
-                type="button"
-                onClick={() => setMobileMenuOpen(true)}
-                className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 ${color ? "text-white" : ""}`}
-              >
-                <span className="sr-only">Open main menu</span>
+              {/* Post Job for mobile view */}
+              <Link to={'/postjob'}>
 
-                <Text aria-hidden="true" className="size-6" />
+                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-blue-500 ms-2 text-white font-semibold text-xs px-5 py-2  sm:hidden`}>
+                  Post Job <BriefcaseBusiness size={18} />
+                </button>
 
-              </button>
+              </Link>
+
 
             </div>
+
 
 
 
             {/* Navbar items */}
-            <PopoverGroup className="hidden lg:flex lg:gap-x-4 items-center">
+            <PopoverGroup className="hidden lg:flex lg:gap-x-5 items-center">
 
 
-              {/* Explore Gigs */}
-              <Link to={'/jobfilter'}>
+              {/* Post Job */}
+              <Link to={'/postjob'}>
 
-                <button className={` flex items-center gap-x-2 bg-blue-500 ms-2 text-white font-semibold text-md px-16 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
-                  Explore Gigs <Telescope size={24} />
+                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-blue-500 ms-2 text-white font-semibold text-md px-20 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
+                  Post Job <BriefcaseBusiness size={20} />
                 </button>
 
               </Link>
 
 
               {/* Find Student Talents */}
-              <Link to={'/'}>
+              <Link to={'/findtalent'}>
 
-                <button className={`flex items-center gap-x-2 bg-orange-500 text-white font-semibold text-md px-16 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
+                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-orange-500 text-white font-semibold text-md px-16 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
                   Find Student Talents <GraduationCap size={24} />
                 </button>
 
@@ -190,12 +243,16 @@ export default function Header() {
               <Popover className="relative">
 
 
-                <PopoverButton className={`flex items-center gap-x-1 text-sm/6 font-semibold text-gray-400 ${color ? "text-white" : ""}`}>
-
-                  <CircleUserRound size={30} />
-
+                <PopoverButton
+                  className={`flex items-center gap-x-1 text-sm/6 font-semibold text-gray-400 ${color ? "text-white" : ""}`}
+                >
+                  <img
+                    src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ="
+                    loading="lazy"
+                    alt="User profile"
+                    className="w-[30px] h-[30px] rounded-full object-cover"
+                  />
                 </PopoverButton>
-
 
                 <PopoverPanel
                   transition
@@ -210,7 +267,7 @@ export default function Header() {
 
                       <div className="flex-auto">
 
-                        <Link to={'/userprofile'} className="font-semibold text-gray-900 flex items-center text-center">
+                        <Link to={'/employerprofile'} className="font-semibold text-gray-900 flex items-center text-center">
 
                           <User size={20} className="me-2" />
 
@@ -230,10 +287,10 @@ export default function Header() {
 
                       <div className="flex-auto">
 
-                        <Link to={'/settings'} className="font-semibold text-gray-900 flex items-center">
+                        <Link to={'/'} className="font-semibold text-gray-900 flex items-center">
 
-                          <Settings size={20} className="me-2" />
-                          Settings
+                          <Binoculars size={20} className="me-2" />
+                          Your Posts
 
                         </Link>
 
@@ -293,11 +350,11 @@ export default function Header() {
 
 
               {/* Search */}
-              {/* <div className="flex items-center border rounded-full px-2 overflow-hidden">
+              <div className="flex items-center border rounded-full px-2 overflow-hidden border-gray-200">
                 <input
                   type="text"
                   placeholder="Search..."
-                  className={`w-full px-4 py-2 text-md focus:outline-none  ${color ? 'bg-transparent text-white' : 'text-gray-900'}`}
+                  className={`w-full px-4 py-2 text-md focus:outline-none border-none  ${color ? 'bg-transparent text-white placeholder-white' : 'text-gray-900 bg-transparent'}`}
                 />
                 <Link
                   to={'/search'}
@@ -305,7 +362,7 @@ export default function Header() {
                 >
                   <Search className={`${color ? 'text-white' : 'text-gray-900'}`} />
                 </Link>
-              </div> */}
+              </div>
 
             </PopoverGroup>
 
@@ -314,7 +371,7 @@ export default function Header() {
 
 
 
-          {/* Mobile Nav */}
+          {/* Mobile Nav sidebar */}
           <Transition show={mobileMenuOpen} as={Fragment}>
 
             <Dialog onClose={setMobileMenuOpen} className="lg:hidden relative z-50">
@@ -352,11 +409,11 @@ export default function Header() {
                   <div className="flex items-center justify-between">
 
 
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <a href="/" className="-m-1.5 p-1.5">
                       <span className="sr-only">Your Company</span>
                       <img
                         alt="nav-icon"
-                        src="/Nav-Logo.png"
+                        src="/logos1.png"
                         loading="lazy"
                         className="h-20 w-auto"
                       />
@@ -416,7 +473,7 @@ export default function Header() {
 
                                   {/* Profile */}
                                   <Link
-                                    to="/userprofile"
+                                    to="/employerprofile"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
                                   >
@@ -435,8 +492,8 @@ export default function Header() {
                                     className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
                                   >
                                     <div className="flex items-center space-x-2">
-                                      <Settings className="h-5 w-5" />
-                                      <span>Settings</span>
+                                      <Binoculars className="h-5 w-5" />
+                                      <span>Your Posts</span>
                                     </div>
                                   </Link>
 
@@ -475,8 +532,8 @@ export default function Header() {
                             onClick={() => setMobileMenuOpen(false)}
                             className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                           >
-                            <Telescope className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                            <span>Search Gig Jobs</span>
+                            <BriefcaseBusiness className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+                            <span>Post Job</span>
                           </Link>
 
 
@@ -502,16 +559,6 @@ export default function Header() {
                             <span>Contact</span>
                           </Link>
 
-
-                          {/* Companies */}
-                          <Link
-                            to="/employerlist"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
-                          >
-                            <Building className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-                            <span>Companies</span>
-                          </Link>
 
 
 

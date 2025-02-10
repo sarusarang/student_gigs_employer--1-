@@ -1,1 +1,65 @@
 @import "tailwindcss";
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+::selection {
+    background: black;
+    /* background color for the selected text */
+    color: white;
+    /* text color for the selected text */
+}
+
+/* For WebKit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+    /* width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+    /* background of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: black;
+    /* color of the scrollbar thumb */
+    border-radius: 6px;
+    /* rounded edges for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(46, 46, 46);
+    cursor: pointer;
+    /* color when hovering over the thumb */
+}
+
+
+
+/* Profile dropdown */
+.dropdown {
+
+    display: block;
+
+
+}
+
+.dropdown::before {
+
+    content: '';
+    position: absolute;
+    top: -0.8rem;
+    right: 3.2rem;
+    width: 25px;
+    height: 25px;
+    transform: rotate(45deg);
+    background-color: white;
+    border-top: 1px solid #d1d5db;
+    border-left: 1px solid #d1d5db;
+
+}

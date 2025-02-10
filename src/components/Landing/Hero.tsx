@@ -1,78 +1,171 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/swiper-bundle.css';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { Telescope } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
 const Hero = () => {
+
+
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+
+  // Slides
+  const slides = [
+    {
+      image: "https://img.freepik.com/free-photo/boss-approving-congratulating-young-successful-employee_155003-32602.jpg?uid=R148571391&ga=GA1.1.193612807.1732337220&semt=ais_hybrid",
+      title: "Hire Student Talent",
+      description: "Connect with skilled students ready to contribute",
+    },
+    {
+      image: "https://img.freepik.com/free-photo/smiling-young-businessman_1098-778.jpg?uid=R148571391&ga=GA1.1.193612807.1732337220&semt=ais_hybrid",
+      title: "Hire Student Talent",
+      description: "Connect with skilled students ready to contribute",
+    }
+  ]
+
+
   return (
-    <div className="container mx-auto md:px-44 md:pt-10 px-5 bg-orange-600/5">
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="flex flex-col justify-center relative -top-4 ">
-          <div className="pt-30 md:pt-0">
-            <h1 className="text-5xl font-semibold text-[#161C2D] leading-tight ">
-              Start Building <br /> Your{" "}
-              <span className="text-[#059669]"> Dream Career</span> <br /> with
-              StudentGigs
-            </h1>
-          </div>
-          <div>
-            <p className="pt-5 font-xl leading-8 text-gray-500">
-              Find Jobs,Employment and Career Opportunities.Some of the
-              Companies we've helped recruit excellent applicants over the years
-            </p>
-          </div>
-          <div className=" bg-white flex justify-between p-3 mt-10 rounded-sm">
-            <div className="bg-gray-100 w-2/3 rounded-sm flex">
-              <input
-                type="text"
-                placeholder="Search Your Keywords"
-                className="pl-3"
-              />
+
+
+    <main className="w-full h-screen">
+
+
+      <div className='pt-0 sm:pt-0 h-[100vh]'>
+
+
+
+        <div className="relative w-full h-full">
+
+
+
+          <div className="absolute inset-0">
+
+
+            {/* Slider */}
+            <div className="relative w-full h-[105%]">
+
+              <Swiper
+                modules={[Autoplay, EffectFade]}
+                spaceBetween={0}
+                slidesPerView={1}
+                effect="fade"
+                autoplay={{
+                  delay: 4000,
+                  disableOnInteraction: false,
+                }}
+                onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+                className="w-full h-full"
+              >
+
+                {slides.map((slide, index) => (
+
+                  <SwiperSlide key={index}>
+
+                    <div className="relative w-full h-full">
+
+                      <img
+                        src={slide.image}
+                        alt={`Slide ${index + 1}`}
+                        loading='lazy'
+                        className="w-full h-full object-cover"
+                      />
+
+                      <div className="absolute inset-0 bg-black/40" />
+
+                      <AnimatePresence mode="wait">
+
+                        {activeIndex === index && (
+
+                          // display text
+                          <div className="absolute sm:top-72 sm:left-16 top-56 left-5  text-white">
+
+                            <motion.h1
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5 }}
+                              className="sm:text-5xl text-3xl font-bold mb-4 max-w-2xl"
+                            >
+                              {slide.title}
+                            </motion.h1>
+
+                            <motion.p
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5, delay: 0.2 }}
+                              className="sm:text-xl text-md text-gray-200"
+                            >
+                              {slide.description}
+                            </motion.p>
+
+                            <motion.button
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -20 }}
+                              transition={{ duration: 0.5, delay: 0.4 }}
+                              className="mt-8 px-8 py-3 flex justify-center items-center bg-orange-500 text-white rounded-md font-semibold hover:bg-orange-600 transition-colors"
+                            >
+                              <Link to="/jobfilter" className='flex items-center'> Explore <Telescope size={20} className="ml-2" /></Link>
+                            </motion.button>
+
+                          </div>
+
+                        )}
+                      </AnimatePresence>
+
+
+                    </div>
+
+
+                  </SwiperSlide>
+
+
+                ))}
+
+
+              </Swiper>
+
+              {/* Slider dots */}
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
+                {slides.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${activeIndex === index ? 'w-8 bg-white' : 'bg-white/50'
+                      }`}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="w-1/3 rounded-sm">
-              <button className="bg-[#059669] text-white py-3 w-full hover:bg-[#059646] hover:scale-105 duration-300">
-                Search
-              </button>
+
+            {/* Curved bottom section */}
+            <div className="relative w-full h-[15%]">
+              <div className="absolute -top-12 w-full overflow-hidden z-20">
+                <svg
+                  viewBox="0 0 1440 320"
+                  className="w-full h-24"
+                  preserveAspectRatio="none"
+                >
+                  <path
+                    fill="#ffffff"
+                    fillOpacity="1"
+                    d="M0,128L48,133.3C96,139,192,149,288,144C384,139,480,117,576,122.7C672,128,768,160,864,165.3C960,171,1056,149,1152,133.3C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+                  ></path>
+                </svg>
+              </div>
             </div>
+
+
           </div>
         </div>
-        <div className="flex justify-center relative -top-20 md:top-0">
-          <div className="bg-white p-4 rounded-lg md:h-30 h-40 md:w-[350px] shadow-lg relative z-1 top-50 left-20 hover:translate-y-4 duration-300">
-            <p className="w-full font-semibold pb-2">5K+ Candidates Got Job</p>
-            <div className="flex pb-2">
-              <img
-                className="rounded-full w-10 h-10 p-1 bg-white shadow-md relative "
-                src="https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_hybrid"
-                alt=""
-              />
-              <img
-                className="rounded-full w-10 h-10 p-1 bg-white shadow-md relative -left-2"
-                src="https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_hybrid"
-                alt=""
-              />
-              <img
-                className="rounded-full w-10 h-10 p-1 bg-white shadow-md relative -left-4"
-                src="https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_hybrid"
-                alt=""
-              />
-              <img
-                className="rounded-full w-10 h-10 p-1 bg-white shadow-md relative -left-6 hidden md:block"
-                src="https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_hybrid"
-                alt=""
-              />
-              {/* <img
-                className="rounded-full w-10 h-10 p-1 bg-white shadow-md relative -left-8"
-                src="https://img.freepik.com/free-photo/vertical-shot-happy-dark-skinned-female-with-curly-hair_273609-15519.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_hybrid"
-                alt=""
-              /> */}
-              {/* <div className="rounded-full w-10 h-10 font-bold text-white  bg-green-500 shadow-md relative -left-8">
-                +
-              </div> */}
-            </div>
-          </div>
-          <img
-            src="https://jobstack-shreethemes.vercel.app/static/media/hero.d093ca4a46aa2af2bca3.png"
-            alt="no image"
-            className="w-[70%]  justify-center"
-          />
-        </div>
+
       </div>
-    </div>
+
+    </main>
   );
 };
 

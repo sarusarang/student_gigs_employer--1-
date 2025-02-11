@@ -110,7 +110,7 @@ const LandingPage = () => {
       </div>
 
       {/* Container for Google One Tap */}
-      <div id="oneTap" data-theme_id="dark" className="absolute top-8 left-3" />
+      <div id="oneTap" data-theme_id="dark" className="absolute top-5 right-3" />
     </main>
   );
 };

@@ -1,6 +1,10 @@
-import { Link} from "react-router-dom";
-import { useForm } from "react-hook-form"
+import { UserLogin, GoogleAuth, UserRegister } from "../Hooks/UserLogin";
 import { useState } from "react";
+import { useForm } from "react-hook-form"
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useGoogleLogin } from "@react-oauth/google";
+import { useAuth } from "../Context/AuthContext";
 
 
 
@@ -18,17 +22,276 @@ type Inputs = {
 
 export default function Auth() {
 
+
+    const Navigate = useNavigate()
+
+
+    // Get the current path
+    const location = useLocation();
+
+
     // Login and register status
     const [Status, SetStatus] = useState(true)
 
 
+
     // React Hook Form state
-    const { register, formState: { errors } } = useForm<Inputs>()
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
+
 
 
     // Scroll to top when page is loaded
     window.scrollTo({ top: 0, behavior: 'smooth', });
 
+
+
+    // Mutate for user Register
+    const { mutate } = UserRegister()
+
+
+
+    // Mutate for user Login
+    const { mutate: mutateLogin } = UserLogin()
+
+
+
+    // Mutate for Google Login
+    const { mutate: mutateGoogleLogin } = GoogleAuth()
+
+
+
+    // login Provider
+    const { login } = useAuth()
+
+
+
+
+    // Submit Register
+    const SubmitRegister = (data: any) => {
+
+        const formdata = new FormData()
+
+        formdata.append("email", data.email)
+        formdata.append("username", data.username)
+        formdata.append("password", data.password)
+        formdata.append("password_confirm", data.repassword)
+
+
+        // Mutate
+        mutate(formdata, {
+
+            onSuccess: (response) => {
+
+                if (response.status >= 200 && response.status <= 300) {
+
+                    toast.success("User Register Successfully")
+
+                    SetStatus(!Status)
+
+                    reset()
+
+                }
+                else {
+
+                    console.log(response)
+
+                    reset()
+
+                    handleErrors(response?.response?.data);
+
+                }
+
+            }
+
+        })
+
+        // Function to handle and display errors
+        const handleErrors = (errors: any) => {
+
+            if (errors) {
+
+                Object.entries(errors).forEach(([key, value]) => {
+
+                    if (Array.isArray(value)) {
+                        value.forEach((message: string) => {
+                            toast.error(`${message}`);
+                        });
+                    } else {
+                        toast.error(`${key}: ${value}`);
+                    }
+
+                })
+
+            } else {
+
+                toast.error("Something went wrong. Please try again.")
+
+            }
+
+        }
+
+    }
+
+
+    // Submit Login
+    const SubmitLogin = (data: any) => {
+
+        const formdata = new FormData()
+
+        formdata.append("username", data.username)
+        formdata.append("password", data.password)
+
+
+        // Mutate
+        mutateLogin(formdata, {
+
+            onSuccess: (response) => {
+
+                if (response.status >= 200 && response.status <= 300) {
+
+                    toast.success("User Register Successfully")
+
+                    // Get previous route or default to home
+                    const from = location.state?.from?.pathname || "/";
+
+
+                    reset()
+
+
+                    login(response.data.access)
+
+
+                    Navigate(from, { replace: true })
+
+
+
+                }
+                else {
+
+                    console.log(response)
+
+                    handleErrors(response?.response?.data);
+
+                }
+
+            }
+
+        })
+
+        
+        // Function to handle and display errors
+        const handleErrors = (errors: any) => {
+
+            if (errors) {
+
+                Object.entries(errors).forEach(([value]) => {
+
+                    if (Array.isArray(value)) {
+                        value.forEach((message: string) => {
+                            toast.error(`${message}`);
+                        });
+                    } else {
+                        toast.error(`${value}`);
+                    }
+
+                })
+
+            } else {
+
+                toast.error("Something went wrong. Please try again.")
+
+            }
+
+        }
+
+    }
+
+
+
+    // Google Login
+    const GoogleLogin = useGoogleLogin({
+
+        onSuccess: async (tokenResponse) => {
+
+
+            try {
+
+                const AccessToken = tokenResponse.access_token
+
+
+                // Getting User Info Form Google
+                const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+                    headers: {
+                        Authorization: `Bearer ${AccessToken}`,
+                    },
+                });
+
+
+                if (!userInfoResponse.ok) {
+
+                    toast.error("Something went wrong. Please try again.")
+
+                    throw new Error('Failed to fetch user info');
+
+
+                }
+                else {
+
+                    const userInfo = await userInfoResponse.json();
+
+                    const formdata = new FormData()
+
+                    formdata.append("username", userInfo.name)
+                    formdata.append("email", userInfo.email)
+
+
+                    // Mutate
+                    mutateGoogleLogin(formdata, {
+
+                        onSuccess: (response) => {
+
+                            if (response.status >= 200 && response.status <= 300) {
+
+                                // Get previous route or default to home
+                                const from = location.state?.from?.pathname || "/";
+
+                                login(response.data.access)
+
+                                toast.success("Login Successfull..!")
+
+                                Navigate(from, { replace: true })
+
+                            }
+                            else {
+
+                                console.log(response)
+
+                                toast.error("Something went wrong. Please try again.")
+
+                            }
+
+                        }
+
+                    })
+
+                }
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+        onError(errorResponse) {
+
+            console.log(errorResponse);
+
+            toast.error("Google Login Failed. Please try again.")
+
+        },
+
+    })
 
 
     return (
@@ -62,7 +325,7 @@ export default function Auth() {
                                     <p className="mt-2 text-left text-gray-500">please enter your details.</p>
 
 
-                                    <form className="flex flex-col pt-3 md:pt-8" >
+                                    <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit(SubmitLogin)}>
 
                                         {/* Username */}
                                         <div className="flex flex-col pt-4">
@@ -100,7 +363,7 @@ export default function Auth() {
                                     </div>
 
 
-                                    <button className="-2 shadow-md  mt-8 flex items-center justify-center rounded-md border px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white"><img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google</button>
+                                    <button onClick={() => GoogleLogin()} className="-2 shadow-md  mt-8 flex items-center justify-center rounded-md border px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white"><img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google</button>
 
 
                                     <div className="py-12 text-center">
@@ -121,7 +384,7 @@ export default function Auth() {
                                     <p className="mt-2 text-left text-gray-500">please enter your details.</p>
 
 
-                                    <form className="flex flex-col pt-3 md:pt-8">
+                                    <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit(SubmitRegister)}>
 
                                         {/* Username */}
                                         <div className="flex flex-col pt-4">

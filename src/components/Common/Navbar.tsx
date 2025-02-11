@@ -132,7 +132,7 @@ export default function Header() {
                   <span className="sr-only">Your Company</span>
                   <img
                     alt="nav-icon"
-                    src="/logos1.png"
+                    src="/Nav-Icon.png"
                     loading="lazy"
                     className="sm:h-24 sm:w-56 h-16 w-36"
                   />
@@ -413,7 +413,7 @@ export default function Header() {
                       <span className="sr-only">Your Company</span>
                       <img
                         alt="nav-icon"
-                        src="/logos1.png"
+                        src="/Nav-Icon.png"
                         loading="lazy"
                         className="h-20 w-auto"
                       />

@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 
 const Landing = lazy(() => import("./pages/LandingPage"));
@@ -90,6 +91,7 @@ function App() {
 
       {!Hide && <Footer />}
 
+      <Toaster position="top-center" />
 
     </Suspense>
 

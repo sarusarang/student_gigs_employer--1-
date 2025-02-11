@@ -23,8 +23,9 @@ const LandingPage = () => {
 
   // Track if the popup has been shown using localStorage
   const [hasShownPopup, setHasShownPopup] = useState(() => {
-    // Initialize from localStorage, or false if not found
+
     return localStorage.getItem('hasShownGooglePopup') === 'true';
+
   });
 
 
@@ -106,7 +107,7 @@ const LandingPage = () => {
       toast.error("Login failed. Please try again.");
 
     }
-  };
+  }
 
 
 
@@ -118,7 +119,7 @@ const LandingPage = () => {
   }, [isAuthenticated]);
 
 
-  
+
   // Initialize Google One Tap
   useGoogleOneTapLogin({
     onSuccess: handleLoginSuccess,
@@ -134,35 +135,34 @@ const LandingPage = () => {
 
 
 
-  // Set up dark theme
-  useEffect(() => {
-    const container = document.getElementById('oneTap');
-    if (container) {
-      container.setAttribute('data-theme_id', 'dark');
-    }
-  }, []);
-
-
-  
   return (
+
     <main className="w-full h-full">
+
+
       {/* Hero */}
       <div>
         <Hero />
       </div>
 
+
       <div>
         <PopluarCategory />
       </div>
+
 
       <div>
         <Howto />
       </div>
 
+
       {/* Container for Google One Tap */}
-      <div id="oneTap" data-theme_id="dark" className="absolute top-5 right-3" />
+      <div id="oneTap" className="absolute top-5 right-3" />
+
 
     </main>
+
+
   );
 };
 

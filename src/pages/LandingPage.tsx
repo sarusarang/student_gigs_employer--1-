@@ -28,7 +28,7 @@ const LandingPage = () => {
     if (isAuthenticated || hasShownPopup.current) return;
 
     try {
-      
+
 
       if (!credentialResponse.credential) {
         toast.error("Login failed - no credentials received");
@@ -95,7 +95,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <main className="w-full h-full">
+    <main className="w-full h-full relative">
       {/* Hero */}
       <div>
         <Hero />
@@ -110,7 +110,7 @@ const LandingPage = () => {
       </div>
 
       {/* Container for Google One Tap */}
-      <div id="oneTap" data-theme_id="dark" />
+      <div id="oneTap" data-theme_id="dark" className="absolute top-8 left-3" />
     </main>
   );
 };

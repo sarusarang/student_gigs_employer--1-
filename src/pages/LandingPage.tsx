@@ -5,38 +5,31 @@ import { useGoogleOneTapLogin, CredentialResponse } from '@react-oauth/google';
 import { useAuth } from "../Context/AuthContext";
 import { GoogleAuth } from "../Hooks/UserLogin";
 import toast from "react-hot-toast";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 const LandingPage = () => {
+
+
   // Google AUTH
   const { mutate: mutateGoogleLogin } = GoogleAuth();
   
   // Context auth
   const { login, isAuthenticated } = useAuth();
   
-  // Track if the popup has been shown using localStorage
-  const [hasShownPopup, setHasShownPopup] = useState(() => {
-    // Initialize from localStorage, or false if not found
-    return localStorage.getItem('hasShownGooglePopup') === 'true';
-  });
+  // Track if the popup has been shown
+  const hasShownPopup = useRef(false);
 
-  // Function to mark popup as shown
-  const markPopupAsShown = () => {
-    setHasShownPopup(true);
-    localStorage.setItem('hasShownGooglePopup', 'true');
-  };
 
-  // Function to reset popup state
-  const resetPopupState = () => {
-    setHasShownPopup(false);
-    localStorage.removeItem('hasShownGooglePopup');
-  };
 
   // Handle successful login
   const handleLoginSuccess = async (credentialResponse: CredentialResponse) => {
-    if (isAuthenticated) return;
+
+
+    if (isAuthenticated || hasShownPopup.current) return;
 
     try {
+
+
       if (!credentialResponse.credential) {
         toast.error("Login failed - no credentials received");
         return;
@@ -61,7 +54,6 @@ const LandingPage = () => {
           if (response.status >= 200 && response.status <= 300) {
             login(response.data.access);
             toast.success("Login Successful!");
-            markPopupAsShown(); // Mark popup as shown on successful login
           } else {
             console.error("Login failed:", response);
             toast.error("Login failed. Please try again.");
@@ -78,25 +70,21 @@ const LandingPage = () => {
     }
   };
 
-  // Reset popup state when user logs out
-  useEffect(() => {
-    if (!isAuthenticated) {
-      resetPopupState();
-    }
-  }, [isAuthenticated]);
 
-  // Initialize Google One Tap
+
+  // Initialize Google One Tap at component level
   useGoogleOneTapLogin({
     onSuccess: handleLoginSuccess,
     onError: () => {
       console.error("Google One Tap login failed");
       toast.error("Google One Tap Login Failed. Please try again.");
-      markPopupAsShown(); // Mark popup as shown even on error
+      hasShownPopup.current = true;
     },
     cancel_on_tap_outside: false,
     prompt_parent_id: 'oneTap',
-    disabled: isAuthenticated || hasShownPopup,
+    disabled: isAuthenticated || hasShownPopup.current, // Disable the popup if authenticated or already shown
   });
+
 
   // Set up dark theme
   useEffect(() => {

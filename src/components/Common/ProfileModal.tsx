@@ -95,7 +95,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting, isDirty },
+        formState: { errors, isSubmitting },
         reset,
         setValue,
         control

@@ -264,7 +264,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+                className="fixed inset-0 z-50 flex items-center justify-center sm:p-4 bg-black/40 backdrop-blur-sm"
             >
 
 
@@ -272,7 +272,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     exit={{ y: 20, opacity: 0 }}
-                    className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+                    className="w-full sm:max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden"
                 >
 
 
@@ -373,7 +373,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
 
 
                                     {/* Content */}
-                                    <div className="px-8 py-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+                                    <div className="sm:px-8 px-4 py-6 max-h-[calc(100vh-200px)] overflow-y-auto">
 
 
                                         <div className="space-y-8">
@@ -678,7 +678,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                                 onClick={onClose}
-                                                className="px-6 py-2.5 text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
+                                                className="px-6 hover:cursor-pointer py-2.5 text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
                                             >
                                                 Cancel
                                             </motion.button>
@@ -687,7 +687,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                                 disabled={isSubmitting}
-                                                className="px-6 py-2.5  text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                                                className="px-6 py-2.5 hover:cursor-pointer text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                                             >
                                                 {isSubmitting ? (
                                                     <>

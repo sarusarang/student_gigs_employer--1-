@@ -135,7 +135,7 @@ export default function Header() {
                     alt="nav-icon"
                     src="/Nav-Icon.png"
                     loading="lazy"
-                    className="sm:h-20 sm:w-44 h-16 w-36"
+                    className="sm:h-20 sm:w-44 h-12 w-28"
                   />
                 </Link>
               </div>
@@ -405,7 +405,7 @@ export default function Header() {
                         alt="nav-icon"
                         src="/Nav-Icon.png"
                         loading="lazy"
-                        className="h-20 w-auto"
+                        className="h-14 w-auto"
                       />
                     </a>
 

@@ -1,4 +1,4 @@
-import { MousePointerClick } from "lucide-react";
+import { History, MousePointerClick } from "lucide-react";
 
 
 export default function CompanyOpenCard() {
@@ -14,8 +14,8 @@ export default function CompanyOpenCard() {
 
                 <div className="w-full px-3 sm:px-0 sm:w-3/4 m-auto">
 
-                    <h1 className="text-2xl font-semibold pb-3 text-gray-800 pt-10">
-                        Recent Posts:{" "}
+                    <h1 className="text-2xl font-semibold pb-3 text-gray-800 flex items-center pt-10">
+                        Recent Posts <History size={24} className="ms-2 mt-1" />
                     </h1>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

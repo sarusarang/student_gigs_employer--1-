@@ -4,6 +4,7 @@ import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
 
 
+
 const Landing = lazy(() => import("./pages/LandingPage"));
 const Navbar = lazy(() => import("./components/Common/Navbar"));
 const Footer = lazy(() => import("./components/Common/Footer"));
@@ -74,15 +75,15 @@ function App() {
 
         <Route path="/" element={<Landing />} />
 
-        <Route path="/postjob" element={<ProtectedRoute> <JobPost /> </ProtectedRoute>} />
+        <Route path="/postjob" element={<JobPost />} />
+
+        <Route path="/employerprofile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
 
         <Route path="/auth" element={<Auth />} />
 
         <Route path="/findtalent" element={<StudentFilter />} />
 
         <Route path="/studentprofile" element={<StudentProfile />} />
-
-        <Route path="/employerprofile" element={<UserProfile />} />
 
         <Route path="*" element={<NotFound />} />
 

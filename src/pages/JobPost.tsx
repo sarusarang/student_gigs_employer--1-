@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import OnlineTalentPost from "../components/JobPost/OnlineTalentPost";
 import OffilneTalentPost from "../components/JobPost/OffilneTalentPost";
+import { BookText } from 'lucide-react';
 
 
 
+// Types
 interface Tab {
     id: 'online' | 'offline';
     label: string;
@@ -30,6 +32,7 @@ const tabs: Tab[] = [
 const JobPost: React.FC = () => {
 
 
+    // Tab State
     const [activeTab, setActiveTab] = useState<Tab['id']>('online');
 
 
@@ -40,8 +43,8 @@ const JobPost: React.FC = () => {
             
 
             <div className="bg-gradient-to-l from-green-500 to-green-700 mb-5">
-                <h1 className="text-3xl font-bold mb-4 text-center text-white p-4">
-                    Job Post Application
+                <h1 className="text-3xl font-bold mb-4 text-center text-white flex items-center justify-center p-4">
+                    Job Post Application  <BookText size={28} className='ms-2 mt-1' />
                 </h1>
             </div>
 

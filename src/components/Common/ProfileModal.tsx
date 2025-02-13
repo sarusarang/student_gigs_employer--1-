@@ -283,8 +283,27 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
 
                             // Loader
                             <div className="p-8 max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl">
+
                                 {/* Header */}
-                                <div className="h-8 w-2/3 bg-gray-200 animate-pulse rounded-md mb-6"></div>
+
+                                <div className='flex justify-between items-center'>
+
+                                    <div className="h-8 w-2/3 bg-gray-200 animate-pulse rounded-md mb-6"></div>
+
+                                    <motion.button
+                                        type="button"
+                                        whileHover={{ rotate: 90 }}
+                                        transition={{ duration: 0.2 }}
+                                        onClick={onClose}
+                                        className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
+                                    >
+                                        <X size={26} />
+                                    </motion.button>
+
+
+                                </div>
+
+
 
                                 {/* Form Fields */}
                                 <div className="space-y-6">
@@ -678,7 +697,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                 ) : (
                                                     <>
                                                         <span className='flex items-center justify-between gap-1'>Save <CheckCircle size={16} className='mt-1' /> </span>
-                                                         
+
                                                     </>
                                                 )}
                                             </motion.button>

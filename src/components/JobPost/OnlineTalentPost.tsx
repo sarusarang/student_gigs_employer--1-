@@ -65,7 +65,7 @@ export default function OnlineTalentPost() {
 
 
     // React Hook Form state
-    const { register, handleSubmit, formState: { errors }, reset, control } = useForm<Inputs>()
+    const { register, handleSubmit,  control } = useForm<Inputs>()
 
 
     console.log(data);

@@ -2,15 +2,15 @@ import { useState } from "react";
 import CompanyOpenCard from "../components/Common/CompanyOpenings"
 import ModernProfileModal from "../components/Common/ProfileModal";
 import { GetProfile } from "../Hooks/UserProfile";
+import { AlertCircle, IdCard, SquarePen } from "lucide-react";
 
 export default function UserProfile() {
 
 
 
-    const { data } = GetProfile()
+    // Get User Profile data
+    const { data, isFetching, isLoading, isError } = GetProfile()
 
-    console.log(data)
-    
 
     // Profile Modal
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -57,110 +57,147 @@ export default function UserProfile() {
 
                     </div>
 
-
-                    {/* Profile card */}
-                    <div>
-
-                        <div className="-mt-14 flex flex-col sm:flex-row  md:p-8 p-5 justify-between w-[95%] md:w-3/4 m-auto border border-gray-200 shadow-sm bg-white rounded-lg relative top-[-40px] gap-5 sm:gap-0">
-
-                            <div className="flex">
-
-                                <div>
-                                    <img
-                                        src="https://jobstack-shreethemes.vercel.app/static/media/google-logo.28878765ba39f327cf3e.png"
-                                        alt="logo"
-                                        loading="lazy"
-                                        className=" md:w-[80px] w-[60px] shadow-lg rounded-lg p-2"
-                                    />
-                                </div>
+                    {
 
 
-                                <div className="content-center pl-3">
-                                    <h2 className="font-bold text-md">Google</h2>
-                                    <div className="flex gap-1">
-                                        <i className="fas fa-map-marker-alt pt-1 text-gray-400"></i>
-                                        <p className="text-gray-400">USA</p>
+                        isLoading || isFetching || isError ?
+
+                            <div className="pb-10">
+
+                                {/* Profile Card Skeleton */}
+                                <div className="-mt-14 flex flex-col sm:flex-row md:p-8 p-5 justify-between w-[98%] md:w-3/4 m-auto border border-gray-200 shadow-sm bg-white rounded-lg relative top-[-40px] gap-5 sm:gap-0">
+                                    <div className="animate-pulse flex flex-col sm:flex-row justify-between w-full">
+                                        <div className="flex">
+                                            <div className="w-[60px] md:w-[90px] h-[60px] md:h-[90px] bg-gray-200 rounded-full"></div>
+                                            <div className="content-center pl-3 gap-y-0.5 flex flex-col">
+                                                <div className="w-40 h-6 bg-gray-200 rounded"></div>
+                                                <div className="w-64 h-5 bg-gray-200 rounded mt-2"></div>
+                                                <div className="w-52 h-5 bg-gray-200 rounded mt-2"></div>
+                                                <div className="w-40 h-5 bg-gray-200 rounded mt-2"></div>
+                                            </div>
+                                        </div>
+                                        <div className="flex md:gap-4 gap-3 items-center">
+                                            <div>
+                                                <div className="w-24 h-10 bg-gray-200 rounded-md"></div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
 
-
-                            </div>
-
-
-                            <div className="flex md:gap-4 gap-3 items-center">
-                                <div>
-                                    <a>
-                                        <button onClick={() => setIsModalOpen(true)} className="hover:cursor-pointer rounded-md shadow-md md:px-4 px-2 py-1 bg-gray-200 text-[#059669] font-bold hover:scale-110 duration-300">
-                                            Edit Deatils
-                                        </button>
-                                    </a>
+                                {/* Company Story Skeleton */}
+                                <div className="w-full px-3 sm:px-48 mt-8 animate-pulse">
+                                    <div className="w-32 h-6 bg-gray-200 rounded mb-6"></div>
+                                    <div className="space-y-4">
+                                        <div className="w-full h-5 bg-gray-200 rounded"></div>
+                                        <div className="w-full h-5 bg-gray-200 rounded"></div>
+                                        <div className="w-3/4 h-5 bg-gray-200 rounded"></div>
+                                    </div>
                                 </div>
                             </div>
 
 
-                        </div>
+                            :
 
-
-                    </div>
-
-
-
-                    <div className="w-full px-2 sm:px-0 sm:w-3/4 m-auto ">
-
-                        <div className="">
-                            <h1 className="text-2xl font-semibold text-gray-800 pb-5">
-                                Company Story
-                            </h1>
-                            <p className="text-[1rem] text-gray-500 pb-2 text-justify text-pretty">
-                                It is a long established fact that a reader will be distracted by the
-                                readable content of a page when looking at its layout. The point of
-                                using Lorem Ipsum is that it has a more-or-less normal distribution of
-                                letters, as opposed.
-                            </p>
-                            <p className="text-[1rem] text-gray-500 text-justify text-pretty">
-                                Contrary to popular belief, Lorem Ipsum is not simply random text. It
-                                has roots in a piece of classical Latin literature from 45 BC, making
-                                it over 2000 years old. Richard McClintock, a Latin professor at
-                                Hampden-Sydney College in Virginia, looked up one of the more obscure
-                                Latin words, consectetur, from a Lorem Ipsum passage.
-                            </p>
-                        </div>
-
-
-                        <div className="pt-5">
                             <div>
-                                <img
-                                    src="https://img.freepik.com/premium-photo/computers-data-center-facility-used-managing-rackmounts-energy_482257-93392.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_tags_boosted"
-                                    alt=""
-                                    loading="lazy"
-                                    className="w-full rounded-lg"
-                                />
+
+                                {/* Profile card */}
+                                <div>
+
+                                    <div className="-mt-14 flex flex-col sm:flex-row  md:p-8 p-5 justify-between w-[98%] md:w-3/4 m-auto border border-gray-200 shadow-sm bg-white rounded-lg relative top-[-40px] gap-5 sm:gap-0">
+
+                                        <div className="flex items-center">
+
+                                            {/* Logo */}
+                                            <div className="w-[70px] md:w-[90px] h-[70px] md:h-[90px] overflow-hidden rounded-full shadow-md">
+                                                <img
+                                                    src={data?.employer?.logo || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOy82yDB7J2umGoJgo03iwxwDmpXTPfjzDyQ9BiiP7puTOh548G20OhHw6dfGc-LaQmrc&usqp=CAU"}
+                                                    alt="logo"
+                                                    loading="lazy"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+
+
+                                            {/* Details */}
+                                            <div className="content-center pl-3 gap-y-0.5 flex flex-col">
+
+                                                <h2 className="font-bold text-xl">{data?.employer?.company_name}</h2>
+
+                                                <div className="flex gap-1">
+                                                    <i className="fas fa-map-marker-alt pt-1 text-gray-500"></i>
+                                                    <p className="text-gray-500">
+                                                        {data?.employer?.country?.label ||
+                                                            data?.employer?.state ||
+                                                            data?.employer?.city ||
+                                                            data?.employer?.postal_code
+                                                            ? `${data?.employer?.country?.label ?? ""} ${data?.employer?.state ?? ""} ${data?.employer?.city ?? ""} ${data?.employer?.postal_code ?? ""}`.trim()
+                                                            : "Not Available"}
+                                                    </p>
+                                                </div>
+
+                                                <div className="flex gap-1">
+                                                    <i className="fas fa-envelope pt-1 text-gray-500"></i>
+                                                    <a target="_blank" href={`mailto:${data?.employer?.email}`} className="text-gray-500 hover:text-indigo-500 hover:cursor-pointer">{data?.employer?.email ? data?.employer?.email : "Not Available"}</a>
+                                                </div>
+
+                                                <div className="flex gap-1">
+                                                    <i className="fas pt-1 fa-phone text-gray-500"></i>
+                                                    <a target="_blank" href={`tel:${data?.employer?.phone_number}`} className="text-gray-500 hover:text-indigo-500 hover:cursor-pointer">{data?.employer?.phone_number ? data?.employer?.phone_number : "Not Available"}</a>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div className="flex md:gap-4 gap-3 items-center">
+                                            <div>
+                                                <a>
+                                                    <button onClick={() => setIsModalOpen(true)} className="hover:cursor-pointer flex items-center rounded-md shadow-md md:px-4 px-2 py-1 bg-gray-200 text-[#059669] font-bold hover:scale-110 duration-300">
+                                                        Edit Deatils <SquarePen size={18} className="ms-2" />
+                                                    </button>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {/*Company Story */}
+                                <div className="w-full px-3 sm:px-48">
+                                    <h1 className="text-2xl font-medium text-gray-900 flex items-center mb-6">
+                                        About Us <IdCard size={28} className="ms-2 mt-1" />
+                                    </h1>
+
+                                    <div className="space-y-6">
+                                        <div className="text-gray-600 leading-relaxed text-justify">
+                                            {data?.employer?.company_info ? (
+                                                <p>{data.employer.company_info}</p>
+                                            ) : (
+                                                <div className="flex flex-col items-center justify-center p-4 bg-gray-50/5 rounded-lg">
+                                                    <AlertCircle className="w-10 h-10 text-gray-500" />
+                                                    <p className="mt-2 text-gray-500 font-medium">About Us not Found.</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                {/* Company openings */}
+                                <div>
+
+                                    <CompanyOpenCard />
+
+                                </div>
+
+
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-5 ">
-                                <img
-                                    className="w-full rounded-lg"
-                                    loading="lazy"
-                                    src="https://img.freepik.com/premium-photo/computers-class-studying-it-technology_249974-15262.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_tags_boosted"
-                                    alt=""
-                                />
-                                <img
-                                    className="w-full rounded-lg"
-                                    loading="lazy"
-                                    src="https://img.freepik.com/premium-photo/computers-class-studying-it-technology_249974-15262.jpg?ga=GA1.1.1208105082.1712396076&semt=ais_tags_boosted"
-                                    alt=""
-                                />
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    {/* Company openings */}
-                    <div>
-
-                        <CompanyOpenCard />
-
-                    </div>
+                    }
 
 
                 </div>

@@ -19,8 +19,6 @@ const UserProfile = lazy(() => import("./pages/UserProfile"));
 function App() {
 
 
-
-
   // To get the current path
   const location = useLocation()
 
@@ -33,7 +31,7 @@ function App() {
   // To hide the header and footer
   const [Hide, SetHide] = useState(false)
 
-
+  
 
 
   // To hide the header and footer

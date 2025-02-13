@@ -16,6 +16,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import toast from "react-hot-toast";
 import { useAuth } from "../../Context/AuthContext";
+import ProtectedPostJobButton from "./ProtectedPostJobButton";
 
 
 export default function Header() {
@@ -134,7 +135,7 @@ export default function Header() {
                     alt="nav-icon"
                     src="/Nav-Icon.png"
                     loading="lazy"
-                    className="sm:h-24 sm:w-56 h-16 w-36"
+                    className="sm:h-20 sm:w-44 h-16 w-36"
                   />
                 </Link>
               </div>
@@ -193,14 +194,8 @@ export default function Header() {
               </Link>
 
 
-              {/* Post Job for mobile view */}
-              <Link to={'/postjob'}>
-
-                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-blue-500 ms-2 text-white font-semibold text-xs px-5 py-2  sm:hidden`}>
-                  Post Job <BriefcaseBusiness size={18} />
-                </button>
-
-              </Link>
+              {/* Job post */}
+              <ProtectedPostJobButton />
 
 
             </div>
@@ -212,14 +207,9 @@ export default function Header() {
             <PopoverGroup className="hidden lg:flex lg:gap-x-5 items-center">
 
 
-              {/* Post Job */}
-              <Link to={'/postjob'}>
 
-                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-blue-500 ms-2 text-white font-semibold text-md px-20 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
-                  Post Job <BriefcaseBusiness size={20} />
-                </button>
-
-              </Link>
+              {/* Job post */}
+              <ProtectedPostJobButton />
 
 
               {/* Find Student Talents */}

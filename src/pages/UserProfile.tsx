@@ -1,10 +1,23 @@
+import { useState } from "react";
 import CompanyOpenCard from "../components/Common/CompanyOpenings"
+import ModernProfileModal from "../components/Common/ProfileModal";
+import { GetProfile } from "../Hooks/UserProfile";
 
 export default function UserProfile() {
 
 
+
+    const { data } = GetProfile()
+
+    console.log(data)
+    
+
+    // Profile Modal
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+
     // Scroll to top when page is loaded
-    window.scrollTo({ top: 0, behavior: 'smooth', });
+    window.scrollTo({ top: 0, behavior: 'smooth', })
 
 
     return (
@@ -77,7 +90,7 @@ export default function UserProfile() {
                             <div className="flex md:gap-4 gap-3 items-center">
                                 <div>
                                     <a>
-                                        <button className="rounded-md shadow-md md:px-4 px-2 py-1 bg-gray-200 text-[#059669] font-bold hover:scale-110 duration-300">
+                                        <button onClick={() => setIsModalOpen(true)} className="hover:cursor-pointer rounded-md shadow-md md:px-4 px-2 py-1 bg-gray-200 text-[#059669] font-bold hover:scale-110 duration-300">
                                             Edit Deatils
                                         </button>
                                     </a>
@@ -151,6 +164,9 @@ export default function UserProfile() {
 
 
                 </div>
+
+
+                <ModernProfileModal title="Your Profile" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
 
             </main>

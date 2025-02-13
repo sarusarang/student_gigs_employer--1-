@@ -6,10 +6,17 @@ import { useAuth } from "../Context/AuthContext";
 import { GoogleAuth } from "../Hooks/UserLogin";
 import toast from "react-hot-toast";
 import { useEffect, useState } from 'react';
+import ProfileModal from "../components/Common/ProfileModal";
+import { GetProfile } from "../Hooks/UserProfile";
 
 
 
 const LandingPage = () => {
+
+
+
+  // User Profile status
+  const { data, isLoading } = GetProfile()
 
 
   // Google AUTH
@@ -18,6 +25,28 @@ const LandingPage = () => {
 
   // Context auth
   const { login, isAuthenticated } = useAuth();
+
+
+  // Profile Modal
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+
+
+  // Check if the user is authenticated and user profile is completed for modal open
+  useEffect(() => {
+
+    if (!isAuthenticated || isLoading) return; 
+
+
+    const timer = setTimeout(() => {
+      setIsModalOpen(!data?.is_exist);
+    }, 3000); 
+
+
+    return () => clearTimeout(timer); 
+
+  }, [data, isAuthenticated, isLoading]);
+
 
 
 
@@ -158,6 +187,12 @@ const LandingPage = () => {
 
       {/* Container for Google One Tap */}
       <div id="oneTap" className="absolute top-5 right-3" />
+
+      <ProfileModal
+        isOpen={isModalOpen}
+        title="Complete Your Profile"
+        onClose={() => setIsModalOpen(false)}
+      />
 
 
     </main>

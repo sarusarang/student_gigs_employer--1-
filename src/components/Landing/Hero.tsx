@@ -16,12 +16,17 @@ const Hero = () => {
   // Slides
   const slides = [
     {
-      image: "https://img.freepik.com/free-photo/boss-approving-congratulating-young-successful-employee_155003-32602.jpg?uid=R148571391&ga=GA1.1.193612807.1732337220&semt=ais_hybrid",
+      image: "./Banner3.jpg",
       title: "Hire Student Talent",
       description: "Connect with skilled students ready to contribute",
     },
     {
-      image: "https://img.freepik.com/free-photo/smiling-young-businessman_1098-778.jpg?uid=R148571391&ga=GA1.1.193612807.1732337220&semt=ais_hybrid",
+      image: "./Banner2.jpg",
+      title: "Hire Student Talent",
+      description: "Connect with skilled students ready to contribute",
+    },
+    {
+      image: "./Banner3.jpg",
       title: "Hire Student Talent",
       description: "Connect with skilled students ready to contribute",
     }

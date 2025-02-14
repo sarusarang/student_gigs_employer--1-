@@ -581,7 +581,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                                         onChange={(option) => handleCountryChange(option, onChange)}
                                                                         placeholder="Select a country..."
                                                                         isSearchable={true}
-                                                                        className={`w-full bg-gray-50 border ${errors.phone_number ? 'border-red-500' : 'border-gray-200'
+                                                                        className={`w-full bg-gray-50 border ${errors.country ? 'border-red-500' : 'border-gray-200'
                                                                             } rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all`}
                                                                         classNamePrefix="select"
                                                                         formatOptionLabel={(option: CountryOption) => (
@@ -624,7 +624,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                                         placeholder={selectedCountry && Object.keys(selectedCountry).length > 0 ? "Select a State..." : "First select a country"}
                                                                         isSearchable={true}
                                                                         isDisabled={!selectedCountry || Object.keys(selectedCountry).length === 0}
-                                                                        className={`w-full bg-gray-50 border ${errors.phone_number ? 'border-red-500' : 'border-gray-200'
+                                                                        className={`w-full bg-gray-50 border ${errors.state ? 'border-red-500' : 'border-gray-200'
                                                                             } rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all`}
                                                                         classNamePrefix="select"
                                                                     />

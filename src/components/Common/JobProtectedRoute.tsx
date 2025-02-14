@@ -70,7 +70,7 @@ export const withProtectedRoute = <P extends WrappedComponentProps>(
                 return;
             }
 
-            if (!isAuthenticated || isLoading || isFetching) return;
+            if ( isLoading || isFetching) return;
 
 
             if (data && !data.is_exist) {

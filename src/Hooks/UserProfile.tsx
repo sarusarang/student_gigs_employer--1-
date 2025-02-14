@@ -91,6 +91,7 @@ export const AddProfile = () => {
         onSuccess: () => {
 
             queryclient.invalidateQueries({ queryKey: ["UserProfile"] });
+            queryclient.invalidateQueries({ queryKey: ["GetPostedJob"] });
 
         },
         onError: (error) => {

@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import MainLoader from "./components/Common/MainLoader";
 
 
 
@@ -14,6 +15,7 @@ const Auth = lazy(() => import("./pages/Auth"));
 const StudentFilter = lazy(() => import("./pages/StudentFilter"));
 const StudentProfile = lazy(() => import("./pages/StudentProfile"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
+
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
   // To hide the header and footer
   const [Hide, SetHide] = useState(false)
 
-  
+
 
 
   // To hide the header and footer
@@ -63,7 +65,7 @@ function App() {
   return (
 
 
-    <Suspense fallback={<>Loading..</>}>
+    <Suspense fallback={<MainLoader />}>
 
 
       {!Hide && <Navbar />}

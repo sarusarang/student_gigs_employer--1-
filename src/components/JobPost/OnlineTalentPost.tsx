@@ -3,8 +3,10 @@ import { FileText } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import { OnlineTalentCategory } from '../../Hooks/Utlis';
-
-
+import { OnlineJobPost } from '../../Hooks/Jobform';
+import Jobdata from '../../Data/JobData.json';
+import Academic from '../../Data/Academic.json';
+import toast from 'react-hot-toast';
 
 
 // types
@@ -23,28 +25,13 @@ interface Inputs {
     age_requirement_min: string;
     age_requirement_max: string;
     preferred_academic_courses: string;
-    job_location: string;
     pay_structure: string;
     salary_type: string;
 }
 
 
 
-const qualificationOptions: Option[] = [
-    { value: 'Bachelor', label: 'Bachelor' },
-    { value: 'Master', label: 'Master' },
-    { value: 'PhD', label: 'PhD' }
-];
-
-
-const jobTypeOptions: Option[] = [
-    { value: 'Full Time', label: 'Full Time' },
-    { value: 'Part Time', label: 'Part Time' },
-    { value: 'Contract', label: 'Contract' }
-];
-
-
-
+// Salary types
 const compensationTypes: Option[] = [
     { label: "Hourly Rate", value: "hourly" },
     { label: "Daily Rate", value: "daily" },
@@ -61,17 +48,22 @@ export default function OnlineTalentPost() {
 
 
     // Get Online Talent
-    const {data} = OnlineTalentCategory()
+    const { data } = OnlineTalentCategory()
+
+
+
+    // Post Online Job
+    const { mutate: PostJob } = OnlineJobPost()
+
 
 
     // React Hook Form state
-    const { register, handleSubmit,  control } = useForm<Inputs>()
+    const { register, handleSubmit, reset, formState: { errors }, control } = useForm<Inputs>({ defaultValues: { job_description: "" } })
 
 
-    console.log(data);
-    
 
 
+    // Select Styles
     const customSelectStyles = {
         control: (base: any) => ({
             ...base,
@@ -95,26 +87,51 @@ export default function OnlineTalentPost() {
 
 
 
+    // From submission
     const handleFormSubmit = (data: Inputs) => {
 
+        const formdata = new FormData()
 
-        console.log(data);
+        formdata.append("job_title", data.job_title)
+        formdata.append("job_description", data.job_description)
+        formdata.append("category", data.category)
+        formdata.append("age_requirement_min", data.age_requirement_min)
+        formdata.append("age_requirement_max", data.age_requirement_max)
+        formdata.append("preferred_academic_courses", data.preferred_academic_courses)
+        formdata.append("pay_structure", data.pay_structure)
+        formdata.append("salary_type", data.salary_type)
 
+        PostJob({ formData: formdata }, {
+
+            onSuccess: (res) => {
+
+                if (res.status >= 200 && res.status <= 300) {
+
+                    toast.success("Job Posted successfully")
+                    reset()
+
+                } else {
+
+                    toast.error("Something went wrong. Please try again.")
+
+                    console.log(res);
+
+                }
+            }
+        })
 
     }
 
 
+    // Scroll to top when page is loaded
+    window.scrollTo({ top: 0, behavior: 'smooth', })
 
     return (
 
 
         <>
 
-
-
-
             <div className="container">
-
 
 
                 <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6 shadow-sm p-2 sm:p-8  rounded-lg bg-orange-600/5">
@@ -125,6 +142,9 @@ export default function OnlineTalentPost() {
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                             Job Title *
+                            {errors.job_title && (
+                                <span className="text-red-500 ml-2 text-xs">Required</span>
+                            )}
                         </label>
 
                         <Controller
@@ -134,9 +154,9 @@ export default function OnlineTalentPost() {
                             render={({ field: { onChange, value, ref } }) => (
                                 <CreatableSelect
                                     ref={ref}
-                                    options={jobTypeOptions}
-                                    value={value ? jobTypeOptions.find((option) => option.value === value) : null}
-                                    onChange={(selectedOption) => onChange(selectedOption?.value)}
+                                    options={Jobdata}
+                                    value={value ? Jobdata.find((option) => option.value === value) : null}
+                                    onChange={(selectedOption) => onChange(selectedOption?.label)}
                                     styles={customSelectStyles}
                                     placeholder="Select Job Title"
                                     className="mt-1"
@@ -153,67 +173,76 @@ export default function OnlineTalentPost() {
                     </div>
 
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Job Type */}
+                        <div>
 
-                    {/* Job Type */}
-                    <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Category *
+                                {errors.category && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
+                            </label>
 
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Category *
-                        </label>
+                            <Controller
+                                name="category"
+                                control={control}
+                                rules={{ required: "Job Category is required" }}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <CreatableSelect
+                                        ref={ref}
+                                        options={data?.online}
+                                        value={value ? data?.online.find((option: any) => option.value === value) : null}
+                                        onChange={(selectedOption) => onChange(selectedOption?.value)}
+                                        styles={customSelectStyles}
+                                        placeholder="Select Job Category"
+                                        className="mt-1"
+                                        isClearable={true}
+                                        classNamePrefix="select"
+                                        isSearchable={true}
+                                        noOptionsMessage={() => 'No options found'}
 
-                        <Controller
-                            name="category"
-                            control={control}
-                            rules={{ required: "Job Category is required" }}
-                            render={({ field: { onChange, value, ref } }) => (
-                                <CreatableSelect
-                                    ref={ref}
-                                    options={jobTypeOptions}
-                                    value={value ? jobTypeOptions.find((option) => option.value === value) : null}
-                                    onChange={(selectedOption) => onChange(selectedOption?.value)}
-                                    styles={customSelectStyles}
-                                    placeholder="Select Job Category"
-                                    className="mt-1"
-                                    isClearable={true}
-                                    classNamePrefix="select"
-                                    isSearchable={true}
-                                    noOptionsMessage={() => 'No options found'}
+                                    />
 
-                                />
+                                )}
+                            />
 
-                            )}
-                        />
-
-                    </div>
+                        </div>
 
 
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Preferred Academic Course *
-                        </label>
-                        <Controller
-                            name="preferred_academic_courses"
-                            control={control}
-                            rules={{ required: "Academic Course is required" }}
-                            render={({ field: { onChange, value, ref } }) => (
-                                <CreatableSelect
-                                    ref={ref}
-                                    options={qualificationOptions}
-                                    value={value ? qualificationOptions.find((option) => option.value === value) : null}
-                                    onChange={(selectedOption) => onChange(selectedOption?.value)}
-                                    styles={customSelectStyles}
-                                    placeholder="Select Academic Course"
-                                    className="mt-1"
-                                    isClearable={true}
-                                    classNamePrefix="select"
-                                    isSearchable={true}
-                                    noOptionsMessage={() => 'No options found'}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Preferred Academic Course *
+                                {errors.preferred_academic_courses && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
+                            </label>
+                            <Controller
+                                name="preferred_academic_courses"
+                                control={control}
+                                rules={{ required: "Academic Course is required" }}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <CreatableSelect
+                                        ref={ref}
+                                        options={Academic}
+                                        value={value ? Academic.find((option) => option.label === value) : null}
+                                        onChange={(selectedOption) => onChange(selectedOption?.label)}
+                                        styles={customSelectStyles}
+                                        placeholder="Select Academic Course"
+                                        className="mt-1"
+                                        isClearable={true}
+                                        classNamePrefix="select"
+                                        isSearchable={true}
+                                        noOptionsMessage={() => 'No options found'}
 
-                                />
+                                    />
 
-                            )}
-                        />
+                                )}
+                            />
+                        </div>
+
+
                     </div>
 
 
@@ -223,6 +252,9 @@ export default function OnlineTalentPost() {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Age Preference*
+                                {errors.age_requirement_min && errors.age_requirement_max && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
                             </label>
                             <div className="flex gap-4">
                                 <input
@@ -254,6 +286,9 @@ export default function OnlineTalentPost() {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Compensation/Pay Structure *
+                                {errors.salary_type && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
                             </label>
                             <Controller
                                 name="salary_type"
@@ -264,7 +299,7 @@ export default function OnlineTalentPost() {
                                         ref={ref}
                                         options={compensationTypes}
                                         value={value ? compensationTypes.find((option) => option.value === value) : null}
-                                        onChange={(selectedOption) => onChange(selectedOption?.value)}
+                                        onChange={(selectedOption) => onChange(selectedOption?.label)}
                                         styles={customSelectStyles}
                                         placeholder="Select a compensation type"
                                         className="mt-1"
@@ -283,15 +318,27 @@ export default function OnlineTalentPost() {
 
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Amount *
+                                {errors.pay_structure && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
                             </label>
 
                             <input
-                                type="number"
+                                type="text"
                                 placeholder="Amount"
                                 {...register('pay_structure', { required: "Amount is required" })}
-                                className=" block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
+                                onChange={(e) => {
+                                    let value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+                                    if (value) {
+                                        e.target.value = Number(value).toLocaleString(); // Format with commas
+                                    } else {
+                                        e.target.value = ""; // Keep input empty if cleared
+                                    }
+                                }}
+                                className="block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
                                 required
                             />
+
 
                         </div>
 
@@ -303,25 +350,29 @@ export default function OnlineTalentPost() {
 
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                             Job Description*
+                            {errors.job_description && (
+                                <span className="text-red-500 ml-2 text-xs">Required</span>
+                            )}
                         </label>
 
                         <Controller
                             name="job_description"
                             control={control}
                             rules={{ required: "Job Description is required" }}
-                            render={({ field: { onChange } }) => (
+                            render={({ field: { onChange, value } }) => (
 
                                 <RichTextEditor
                                     onChange={(content) => onChange(content)}
-                                    minCharacters={1000}
+                                    minCharacters={4000}
+                                    value={value}
                                     placeholder="Enter job description..."
                                     className="mt-2"
                                 />
                             )}
                         />
 
-
                     </div>
+
 
                     <div>
                         <button
@@ -331,6 +382,8 @@ export default function OnlineTalentPost() {
                             Post Job <FileText size={18} className='ms-2' />
                         </button>
                     </div>
+
+
 
                 </form>
 

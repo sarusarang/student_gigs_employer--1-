@@ -17,6 +17,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import toast from "react-hot-toast";
 import { useAuth } from "../../Context/AuthContext";
 import ProtectedPostJobButton from "./ProtectedPostJobButton";
+import { GetProfile } from "../../Hooks/UserProfile";
 
 
 export default function Header() {
@@ -50,6 +51,12 @@ export default function Header() {
 
   // To use auth context logout
   const { logout } = useAuth()
+
+
+
+  // Get User Profile data
+  const { data } = GetProfile()
+
 
 
 
@@ -237,7 +244,7 @@ export default function Header() {
                   className={`flex items-center gap-x-1 text-sm/6 font-semibold text-gray-400 ${color ? "text-white" : ""}`}
                 >
                   <img
-                    src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ="
+                    src={data?.employer?.logo || "./DeaflutProfile.jpeg"}
                     loading="lazy"
                     alt="User profile"
                     className="w-[30px] h-[30px] rounded-full object-cover"

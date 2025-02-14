@@ -43,7 +43,7 @@ const JobPost: React.FC = () => {
             
 
             <div className="bg-gradient-to-l from-green-500 to-green-700 mb-5">
-                <h1 className="text-3xl font-bold mb-4 text-center text-white flex items-center justify-center p-4">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-4 text-center text-white flex items-center justify-center p-4">
                     Job Post Application  <BookText size={28} className='ms-2 mt-1' />
                 </h1>
             </div>

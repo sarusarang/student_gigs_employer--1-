@@ -1,0 +1,232 @@
+[
+    {
+        "label": "Engineering",
+        "options": [
+            {
+                "label": "B.Tech - Computer Science",
+                "value": "btech_computer_science"
+            },
+            {
+                "label": "B.Tech - Mechanical Engineering",
+                "value": "btech_mechanical"
+            },
+            {
+                "label": "B.Tech - Civil Engineering",
+                "value": "btech_civil"
+            },
+            {
+                "label": "B.Tech - Electrical Engineering",
+                "value": "btech_electrical"
+            },
+            {
+                "label": "B.Tech - Electronics and Communication",
+                "value": "btech_ece"
+            },
+            {
+                "label": "M.Tech - Computer Science",
+                "value": "mtech_computer_science"
+            },
+            {
+                "label": "M.Tech - Mechanical Engineering",
+                "value": "mtech_mechanical"
+            }
+        ]
+    },
+    {
+        "label": "Medical & Health Sciences",
+        "options": [
+            {
+                "label": "MBBS - Bachelor of Medicine, Bachelor of Surgery",
+                "value": "mbbs"
+            },
+            {
+                "label": "BDS - Bachelor of Dental Surgery",
+                "value": "bds"
+            },
+            {
+                "label": "B.Pharm - Bachelor of Pharmacy",
+                "value": "bpharm"
+            },
+            {
+                "label": "M.Pharm - Master of Pharmacy",
+                "value": "mpharm"
+            },
+            {
+                "label": "Nursing - B.Sc",
+                "value": "bsc_nursing"
+            },
+            {
+                "label": "M.Sc in Nursing",
+                "value": "msc_nursing"
+            },
+            {
+                "label": "DNB - Diplomate of National Board",
+                "value": "dnb"
+            }
+        ]
+    },
+    {
+        "label": "Law",
+        "options": [
+            {
+                "label": "LLB - Bachelor of Laws",
+                "value": "llb"
+            },
+            {
+                "label": "LLM - Master of Laws",
+                "value": "llm"
+            }
+        ]
+    },
+    {
+        "label": "Business & Management",
+        "options": [
+            {
+                "label": "BBA - Bachelor of Business Administration",
+                "value": "bba"
+            },
+            {
+                "label": "MBA - Master of Business Administration",
+                "value": "mba"
+            },
+            {
+                "label": "B.Com - Bachelor of Commerce",
+                "value": "bcom"
+            },
+            {
+                "label": "M.Com - Master of Commerce",
+                "value": "mcom"
+            }
+        ]
+    },
+    {
+        "label": "Arts & Humanities",
+        "options": [
+            {
+                "label": "BA - Bachelor of Arts",
+                "value": "ba"
+            },
+            {
+                "label": "MA - Master of Arts",
+                "value": "ma"
+            },
+            {
+                "label": "History",
+                "value": "history"
+            },
+            {
+                "label": "Philosophy",
+                "value": "philosophy"
+            },
+            {
+                "label": "Linguistics",
+                "value": "linguistics"
+            }
+        ]
+    },
+    {
+        "label": "Science",
+        "options": [
+            {
+                "label": "B.Sc - Physics",
+                "value": "bsc_physics"
+            },
+            {
+                "label": "B.Sc - Chemistry",
+                "value": "bsc_chemistry"
+            },
+            {
+                "label": "B.Sc - Mathematics",
+                "value": "bsc_mathematics"
+            },
+            {
+                "label": "M.Sc - Physics",
+                "value": "msc_physics"
+            },
+            {
+                "label": "M.Sc - Chemistry",
+                "value": "msc_chemistry"
+            }
+        ]
+    },
+    {
+        "label": "Computer Science & IT",
+        "options": [
+            {
+                "label": "BCA - Bachelor of Computer Applications",
+                "value": "bca"
+            },
+            {
+                "label": "MCA - Master of Computer Applications",
+                "value": "mca"
+            },
+            {
+                "label": "Diploma in Computer Science",
+                "value": "diploma_cs"
+            },
+            {
+                "label": "Cybersecurity Certification",
+                "value": "cybersecurity_cert"
+            }
+        ]
+    },
+    {
+        "label": "Design & Media",
+        "options": [
+            {
+                "label": "B.Des - Bachelor of Design",
+                "value": "bdes"
+            },
+            {
+                "label": "M.Des - Master of Design",
+                "value": "mdes"
+            },
+            {
+                "label": "BFA - Bachelor of Fine Arts",
+                "value": "bfa"
+            },
+            {
+                "label": "MFA - Master of Fine Arts",
+                "value": "mfa"
+            },
+            {
+                "label": "Animation & VFX",
+                "value": "animation_vfx"
+            }
+        ]
+    },
+    {
+        "label": "Hospitality & Tourism",
+        "options": [
+            {
+                "label": "BHM - Bachelor of Hotel Management",
+                "value": "bhm"
+            },
+            {
+                "label": "Diploma in Hospitality Management",
+                "value": "diploma_hospitality"
+            }
+        ]
+    },
+    {
+        "label": "PhD & Research",
+        "options": [
+            {
+                "label": "PhD in Computer Science",
+                "value": "phd_cs"
+            },
+            {
+                "label": "PhD in Mechanical Engineering",
+                "value": "phd_mechanical"
+            },
+            {
+                "label": "PhD in Physics",
+                "value": "phd_physics"
+            },
+            {
+                "label": "PhD in Mathematics",
+                "value": "phd_mathematics"
+            }
+        ]
+    }
+]

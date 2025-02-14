@@ -2,10 +2,10 @@ import { useState } from "react";
 import CompanyOpenCard from "../components/Common/CompanyOpenings"
 import ModernProfileModal from "../components/Common/ProfileModal";
 import { GetProfile } from "../Hooks/UserProfile";
-import { AlertCircle, IdCard, SquarePen } from "lucide-react";
+import { AlertCircle, History, IdCard, SquarePen } from "lucide-react";
+import { GetPostedJob } from "../Hooks/Jobform";
 
 export default function UserProfile() {
-
 
 
     // Get User Profile data
@@ -18,6 +18,12 @@ export default function UserProfile() {
 
     // Scroll to top when page is loaded
     window.scrollTo({ top: 0, behavior: 'smooth', })
+
+
+    // Get Posted Job
+    const { data: PostedJob, isError: PostedJobError, isLoading: PostedJobLoading, isFetching: PostedJobFetching } = GetPostedJob()
+
+
 
 
     return (
@@ -111,7 +117,7 @@ export default function UserProfile() {
                                             {/* Logo */}
                                             <div className="w-[70px] md:w-[90px] h-[70px] md:h-[90px] overflow-hidden rounded-full shadow-md">
                                                 <img
-                                                    src={data?.employer?.logo || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOy82yDB7J2umGoJgo03iwxwDmpXTPfjzDyQ9BiiP7puTOh548G20OhHw6dfGc-LaQmrc&usqp=CAU"}
+                                                    src={data?.employer?.logo || "./DeaflutProfile.jpeg"}
                                                     alt="logo"
                                                     loading="lazy"
                                                     className="w-full h-full object-cover"
@@ -189,9 +195,92 @@ export default function UserProfile() {
 
 
                                 {/* Company openings */}
-                                <div>
+                                <div className="px-3 sm:px-48">
 
-                                    <CompanyOpenCard />
+                                    <div className="m-auto w-full ">
+
+                                        <h1 className="text-2xl font-semibold pb-3 text-gray-800 flex items-center pt-10 text-center">
+                                            Recent Posts <History size={24} className="ms-2 mt-1" />
+                                        </h1>
+
+                                    </div>
+
+
+                                    {PostedJobError || PostedJobLoading || PostedJobFetching ?
+
+                                        <div className="py-5">
+                                            <div className="w-full sm:w-3/4 m-auto">
+                                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                                                    {Array.from({ length: 3 }).map((_, index) => (
+                                                        <div key={index} className="border border-gray-200 p-6 rounded-lg shadow-sm animate-pulse">
+                                                            {/* Job Title & Button */}
+                                                            <div className="flex gap-10 items-center justify-center">
+                                                                <div className="h-6 w-40 bg-gray-200 rounded"></div>
+                                                                <div className="h-8 w-20 bg-gray-200 rounded"></div>
+                                                            </div>
+
+                                                            {/* Posted Date */}
+                                                            <div className="flex gap-2 items-center mt-3">
+                                                                <div className="h-4 w-4 bg-gray-200 rounded-full"></div>
+                                                                <div className="h-4 w-32 bg-gray-200 rounded"></div>
+                                                            </div>
+
+                                                            {/* Job Type & Salary */}
+                                                            <div className="flex justify-between py-5">
+                                                                <div className="h-6 w-24 bg-gray-200 rounded"></div>
+                                                                <div className="h-6 w-32 bg-gray-200 rounded"></div>
+                                                            </div>
+
+                                                            <hr className="border-gray-200" />
+
+                                                            {/* Company Details */}
+                                                            <div className="flex pt-5">
+                                                                <div className="w-[50px] h-[50px] bg-gray-200 rounded-lg"></div>
+                                                                <div className="pl-3">
+                                                                    <div className="h-5 w-32 bg-gray-200 rounded"></div>
+                                                                    <div className="h-4 w-24 bg-gray-200 rounded mt-1"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        :
+
+                                        PostedJob?.jobs?.length > 0 ?
+
+                                            <div className="grid grid-cols-1 md:grid-cols-3 m-auto w-full gap-x-5">
+
+                                                {PostedJob?.jobs?.map((item: any, index: number) => (
+
+                                                    <div key={index}>
+
+                                                        <CompanyOpenCard
+                                                            company_name={item?.company?.company_name}
+                                                            logo={item?.company?.logo}
+                                                            pay_structure={item?.pay_structure}
+                                                            job_title={item?.job_title}
+                                                            posted_date={item?.posted_date}
+                                                            country={item?.company?.country}
+                                                            job_location={item?.job_location}
+                                                            salary_type={item?.salary_type}
+                                                            key={index}
+                                                        />
+
+                                                    </div>
+                                                ))}
+
+                                            </div>
+
+                                            :
+
+                                            <div className="flex flex-col items-center justify-center bg-gray-50/5 rounded-lg p-5">
+                                                <AlertCircle className="w-10 h-10 text-gray-500" />
+                                                <p className="mt-2 text-gray-500 font-medium">No Recent Posts</p>
+                                            </div>
+                                    }
 
                                 </div>
 

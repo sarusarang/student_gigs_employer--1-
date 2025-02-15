@@ -194,7 +194,7 @@ export default function Header() {
               {/* Find Student Talents for mobile view */}
               <Link to={'/findtalent'}>
 
-                <button className={`bg-orange-500 hover:cursor-pointer text-white font-semibold text-xs px-5 py-2 flex items-center sm:hidden`}>
+                <button className={`bg-[#eb8125] hover:cursor-pointer text-white font-semibold text-xs px-5 py-2 flex items-center sm:hidden`}>
                   <GraduationCap size={16} className="me-2" /> Find Student Talents
                 </button>
 
@@ -222,7 +222,7 @@ export default function Header() {
               {/* Find Student Talents */}
               <Link to={'/findtalent'}>
 
-                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-orange-500 text-white font-semibold text-md px-16 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
+                <button className={`hover:cursor-pointer flex items-center gap-x-2 bg-[#eb8125] text-white font-semibold text-md px-16 py-2  hover:shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out `}>
                   Find Student Talents <GraduationCap size={24} />
                 </button>
 
@@ -465,7 +465,7 @@ export default function Header() {
                                   />
                                 </Disclosure.Button>
 
-                                <Disclosure.Panel className="mt-2 space-y-1">
+                                <Disclosure.Panel className="mt-2 space-y-3">
 
 
                                   {/* Profile */}
@@ -525,7 +525,7 @@ export default function Header() {
 
                           {/* Search Gigs */}
                           <Link
-                            to="/jobfilter"
+                            to="/postjob"
                             onClick={() => setMobileMenuOpen(false)}
                             className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                           >
@@ -537,7 +537,7 @@ export default function Header() {
 
                           {/* Find Student Talents */}
                           <Link
-                            to="/jobfilter"
+                            to="/findtalent"
                             onClick={() => setMobileMenuOpen(false)}
                             className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                           >
@@ -548,16 +548,13 @@ export default function Header() {
 
                           {/* Contact */}
                           <Link
-                            to="/"
+                            to="/contact"
                             onClick={() => setMobileMenuOpen(false)}
                             className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                           >
                             <Contact className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
                             <span>Contact</span>
                           </Link>
-
-
-
 
                         </div>
                       </div>

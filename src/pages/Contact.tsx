@@ -13,7 +13,7 @@ export default function Contact() {
 
         <>
 
-            <main className="pt-20 px-2 md:px-32 py-16 bg-slate-50/15">
+            <main className="pt-20 px-2 md:px-32 lg:px-16 py-16 bg-slate-50/15">
 
 
                 <section className="min-h-screen">

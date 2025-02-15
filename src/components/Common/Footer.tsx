@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,24 +18,19 @@ const Footer = () => {
           <h3 className="text-lg font-bold mb-4">Quick Links</h3>
           <ul className="space-y-2">
             <li>
-              <a href="/explore-gigs" className="hover:text-gray-400">
-                Explore Gigs
-              </a>
-            </li>
-            <li>
-              <a href="/hire-talent" className="hover:text-gray-400">
+              <Link to={'/findtalent'} className="hover:text-gray-400">
                 Hire Talent
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about-us" className="hover:text-gray-400">
-                About Us
-              </a>
+              <Link to={'/'} className="hover:text-gray-400">
+                Explore Gigs
+              </Link>
             </li>
             <li>
-              <a href="/contact-us" className="hover:text-gray-400">
+              <Link to={'/contact'} className="hover:text-gray-400">
                 Contact Us
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -89,7 +85,7 @@ const Footer = () => {
               />
               <button
                 type="submit"
-                className="bg-blue-500 px-4 py-2 rounded-r-md hover:bg-blue-600"
+                className="bg-blue-500 px-2 sm:px-4 sm:py-2 rounded-r-md hover:bg-blue-600"
               >
                 Subscribe
               </button>

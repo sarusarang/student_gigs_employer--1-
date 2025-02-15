@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../Context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 
@@ -65,6 +66,8 @@ export default function Auth() {
 
 
 
+    const queryclient = useQueryClient();
+
 
     // Submit Register
     const SubmitRegister = (data: any) => {
@@ -89,6 +92,8 @@ export default function Auth() {
                     SetStatus(!Status)
 
                     reset()
+
+                    queryclient.invalidateQueries({ queryKey: ["UserProfile"] });
 
                 }
                 else {
@@ -141,7 +146,7 @@ export default function Auth() {
         formdata.append("username", data.username)
         formdata.append("password", data.password)
 
-
+        
         // Mutate
         mutateLogin(formdata, {
 
@@ -154,6 +159,7 @@ export default function Auth() {
                     // Get previous route or default to home
                     const from = location.state?.from?.pathname || "/";
 
+                    queryclient.invalidateQueries({ queryKey: ["UserProfile"] });
 
                     reset()
 
@@ -178,7 +184,7 @@ export default function Auth() {
 
         })
 
-        
+
         // Function to handle and display errors
         const handleErrors = (errors: any) => {
 
@@ -211,13 +217,14 @@ export default function Auth() {
     // Google Login
     const GoogleLogin = useGoogleLogin({
 
+
+
         onSuccess: async (tokenResponse) => {
 
 
             try {
 
                 const AccessToken = tokenResponse.access_token
-
 
                 // Getting User Info Form Google
                 const userInfoResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
@@ -251,6 +258,8 @@ export default function Auth() {
                         onSuccess: (response) => {
 
                             if (response.status >= 200 && response.status <= 300) {
+
+                                queryclient.invalidateQueries({ queryKey: ["UserProfile"] });
 
                                 // Get previous route or default to home
                                 const from = location.state?.from?.pathname || "/";

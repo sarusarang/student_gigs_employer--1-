@@ -39,7 +39,7 @@ const JobPost: React.FC = () => {
     return (
 
 
-        <main className="w-full h-full pt-32 sm:pt-24 px-2 md:px-24 pb-10 bg-white">
+        <main className="w-full h-full pt-32 sm:pt-24 px-2 sm:px-4 md:px-10 lg:px-24 pb-10 bg-white">
             
 
             <div className="bg-gradient-to-l from-green-500 to-green-700 mb-5">

@@ -5,6 +5,56 @@ import { GetProfile } from "../Hooks/UserProfile";
 import { AlertCircle, History, IdCard, SquarePen } from "lucide-react";
 import { GetPostedJob } from "../Hooks/Jobform";
 
+
+
+
+
+
+interface Country {
+    value: string;
+    label: string;
+    flag: string;
+}
+
+interface Company {
+    id: number;
+    company_name: string;
+    company_info: string;
+    logo: string;
+    email: string;
+    phone_number: string;
+    street_address: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: Country;
+    user: number;
+}
+
+interface Job {
+    id: number;
+    company: Company;
+    job_title: string;
+    job_description: string;
+    category: string;
+    age_requirement_min: number;
+    age_requirement_max: number;
+    preferred_academic_courses: string;
+    pay_structure: string;
+    salary_type: string;
+    job_location: string | null;
+    posted_date: string;
+    job_type: string;
+    street_address: string;
+    city: string;
+    state: string;
+    postal_code: string;
+    country: string;
+}
+
+
+
+
 export default function UserProfile() {
 
 
@@ -110,7 +160,7 @@ export default function UserProfile() {
                                 {/* Profile card */}
                                 <div>
 
-                                    <div className="-mt-14 flex flex-col sm:flex-row  md:p-8 p-5 justify-between w-[98%] md:w-3/4 m-auto border border-gray-200 shadow-sm bg-white rounded-lg relative top-[-40px] gap-5 sm:gap-0">
+                                    <div className="-mt-14 flex flex-col sm:flex-row  md:p-8 p-5 justify-between w-[98%] md:w-[93%] lg:w-[80%] m-auto border border-gray-200 shadow-sm bg-white rounded-lg relative top-[-40px] gap-5 sm:gap-0">
 
                                         <div className="flex items-center">
 
@@ -173,7 +223,8 @@ export default function UserProfile() {
 
 
                                 {/*Company Story */}
-                                <div className="w-full px-3 sm:px-48">
+                                <div className="w-full px-3 sm:px-5 md:px-10 lg:px-40">
+
                                     <h1 className="text-2xl font-medium text-gray-900 flex items-center mb-6">
                                         About Us <IdCard size={28} className="ms-2 mt-1" />
                                     </h1>
@@ -195,7 +246,7 @@ export default function UserProfile() {
 
 
                                 {/* Company openings */}
-                                <div className="px-3 sm:px-48">
+                                <div className="px-3 sm:px-5 md:px-10 lg:px-40">
 
                                     <div className="m-auto w-full ">
 
@@ -253,7 +304,7 @@ export default function UserProfile() {
 
                                             <div className="grid grid-cols-1 md:grid-cols-3 m-auto w-full gap-x-5">
 
-                                                {PostedJob?.jobs?.map((item: any, index: number) => (
+                                                {PostedJob?.jobs?.map((item: Job, index: number) => (
 
                                                     <div key={index}>
 
@@ -264,8 +315,10 @@ export default function UserProfile() {
                                                             job_title={item?.job_title}
                                                             posted_date={item?.posted_date}
                                                             country={item?.company?.country}
-                                                            job_location={item?.job_location}
+                                                            job_location={item?.country ? item?.country : item?.company?.country.label}
                                                             salary_type={item?.salary_type}
+                                                            id={item?.id}
+                                                            job_type={item?.job_type}
                                                             key={index}
                                                         />
 
@@ -276,7 +329,7 @@ export default function UserProfile() {
 
                                             :
 
-                                            <div className="flex flex-col items-center justify-center bg-gray-50/5 rounded-lg p-5">
+                                            <div className="flex flex-col items-center justify-center bg-gray-50/5 rounded-lg py-16">
                                                 <AlertCircle className="w-10 h-10 text-gray-500" />
                                                 <p className="mt-2 text-gray-500 font-medium">No Recent Posts</p>
                                             </div>

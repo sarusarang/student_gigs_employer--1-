@@ -15,6 +15,7 @@ const Auth = lazy(() => import("./pages/Auth"));
 const StudentFilter = lazy(() => import("./pages/StudentFilter"));
 const StudentProfile = lazy(() => import("./pages/StudentProfile"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
+const Contact = lazy(() => import("./pages/Contact"));
 
 
 
@@ -84,6 +85,8 @@ function App() {
         <Route path="/findtalent" element={<StudentFilter />} />
 
         <Route path="/studentprofile" element={<StudentProfile />} />
+
+        <Route path="/contact" element={<Contact />} />
 
         <Route path="*" element={<NotFound />} />
 

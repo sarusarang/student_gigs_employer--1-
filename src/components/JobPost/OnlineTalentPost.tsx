@@ -131,7 +131,7 @@ export default function OnlineTalentPost() {
 
         <>
 
-            <div className="container">
+            <div className="w-full">
 
 
                 <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6 shadow-sm p-2 sm:p-8  rounded-lg bg-orange-600/5">

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetOnlineTalent } from "../Services/AllApi";
+import { GetOnlineTalent , GetHomeSlider } from "../Services/AllApi";
 
 
 
@@ -34,6 +34,37 @@ export const OnlineTalentCategory = () => {
 
         },
         staleTime: 1000 * 60 * 10,
+
+    })
+
+}
+
+
+
+
+
+// Get Home Slider
+export const HomeSlider = () => {
+
+    return useQuery({
+
+        queryKey: ["HomeSlider"],
+
+        queryFn: async () => {
+
+            try {
+
+                const Response = await GetHomeSlider()
+
+                return Response.data
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
 
     })
 

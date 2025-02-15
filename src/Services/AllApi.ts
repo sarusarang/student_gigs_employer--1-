@@ -2,7 +2,7 @@ import { CommonApi } from "./CommonApi";
 
 
 
-const Base_Url = "http://localhost:8000/api/employer"
+const Base_Url = "https://server.studentsgigs.com/api/employer"
 
 
 
@@ -84,5 +84,24 @@ export const PostOfflineJob = async (data: any, header: any) => {
 export const GetJobs = async (header: object) => {
 
     return await CommonApi("GET", `${Base_Url}/employer-jobs/`, "", header)
+
+}
+
+
+// Delete User Education Information
+export const DeleteJobs = async (id: string, header: object, type: string) => {
+
+    const params = new URLSearchParams({ pk: id, type: type })
+
+    return await CommonApi("DELETE", `${Base_Url}/employer-jobs/?${params.toString()}`, "", header)
+
+}
+
+
+
+// Get Home Slider
+export const GetHomeSlider = async () => {
+
+    return await CommonApi("GET", `${Base_Url}/home-slider-employer/`, "", "")
 
 }

@@ -2,7 +2,7 @@ import { CommonApi } from "./CommonApi";
 
 
 
-const Base_Url = "https://server.studentsgigs.com/api/employer"
+const Base_Url = "http://localhost:8000/api/employer"
 
 
 
@@ -103,5 +103,16 @@ export const DeleteJobs = async (id: string, header: object, type: string) => {
 export const GetHomeSlider = async () => {
 
     return await CommonApi("GET", `${Base_Url}/home-slider-employer/`, "", "")
+
+}
+
+
+
+//GET Locations
+export const GetLocations = async (search: string) => {
+
+    const params = new URLSearchParams({ query: search })
+
+    return await CommonApi("GET", `${Base_Url}/locations-employer/?${params.toString()}`, "", "")
 
 }

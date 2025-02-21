@@ -11,7 +11,7 @@ import { AddProfile, GetProfile } from '../../Hooks/UserProfile';
 import toast from 'react-hot-toast';
 
 
-
+// modal props
 interface ProfileModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -75,6 +75,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
 
 
 
+    // Edit id state
     const [ID, SetId] = useState('')
 
 

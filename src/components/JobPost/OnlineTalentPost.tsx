@@ -2,11 +2,13 @@ import RichTextEditor from '../Common/JobDis'
 import { FileText } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
-import { OnlineTalentCategory } from '../../Hooks/Utlis';
+import Select from 'react-select';
+import { AllLocations, OnlineTalentCategory } from '../../Hooks/Utlis';
 import { OnlineJobPost } from '../../Hooks/Jobform';
 import Jobdata from '../../Data/JobData.json';
 import Academic from '../../Data/Academic.json';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 
 // types
@@ -27,6 +29,8 @@ interface Inputs {
     preferred_academic_courses: string;
     pay_structure: string;
     salary_type: string;
+    job_location: string;
+
 }
 
 
@@ -46,10 +50,16 @@ const compensationTypes: Option[] = [
 export default function OnlineTalentPost() {
 
 
+    // Search keyword
+    const [Search, setSearch] = useState<string>("")
+
 
     // Get Online Talent
     const { data } = OnlineTalentCategory()
 
+
+    // Get All Locations
+    const { data: Location, isLoading: LocationLoading } = AllLocations(Search)
 
 
     // Post Online Job
@@ -100,6 +110,7 @@ export default function OnlineTalentPost() {
         formdata.append("preferred_academic_courses", data.preferred_academic_courses)
         formdata.append("pay_structure", data.pay_structure)
         formdata.append("salary_type", data.salary_type)
+        formdata.append("job_location", data.job_location)
 
         PostJob({ formData: formdata }, {
 
@@ -109,6 +120,7 @@ export default function OnlineTalentPost() {
 
                     toast.success("Job Posted successfully")
                     reset()
+                    window.scrollTo({ top: 0, behavior: 'smooth', })
 
                 } else {
 
@@ -123,8 +135,7 @@ export default function OnlineTalentPost() {
     }
 
 
-    // Scroll to top when page is loaded
-    window.scrollTo({ top: 0, behavior: 'smooth', })
+
 
     return (
 
@@ -171,6 +182,46 @@ export default function OnlineTalentPost() {
                         />
 
                     </div>
+
+
+
+                    {/* Location*/}
+                    <div>
+
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Job Location *
+                            {errors.job_title && (
+                                <span className="text-red-500 ml-2 text-xs">Required</span>
+                            )}
+                        </label>
+
+                        <div className="mt-2">
+                            <Controller
+                                name="job_location"
+                                rules={{ required: "Job Location is required" }}
+                                control={control}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <Select
+                                        ref={ref}
+                                        options={Location}
+                                        onInputChange={(value) => setSearch(value)}
+                                        styles={customSelectStyles}
+                                        value={value ? Location?.find((option: Option) => option?.label === value) : null}
+                                        isSearchable={true}
+                                        className="basic-single"
+                                        onChange={(option: any) => { onChange(option?.label) }}
+                                        placeholder="Search a City...."
+                                        classNamePrefix="select"
+                                        noOptionsMessage={() => "No Locations Found..."}
+                                        isLoading={LocationLoading}
+
+                                    />
+                                )}
+                            />
+                        </div>
+
+                    </div>
+
 
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

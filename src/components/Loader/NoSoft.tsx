@@ -31,25 +31,6 @@ const NoSoftSkills = () => {
   );
 };
 
-const orbit = {
-  '@keyframes orbit': {
-    '0%': { transform: 'rotate(0deg) translateX(50px) rotate(0deg)' },
-    '100%': { transform: 'rotate(360deg) translateX(50px) rotate(-360deg)' }
-  },
-  '.animate-orbit': {
-    animation: 'orbit 8s linear infinite'
-  },
-  '.animate-orbit-delayed': {
-    animation: 'orbit 8s linear infinite',
-    animationDelay: '-4s'
-  },
-  '.animate-float': {
-    animation: 'float 3s ease-in-out infinite'
-  },
-  '@keyframes float': {
-    '0%, 100%': { transform: 'translateY(0)' },
-    '50%': { transform: 'translateY(-10px)' }
-  }
-};
+
 
 export default NoSoftSkills;

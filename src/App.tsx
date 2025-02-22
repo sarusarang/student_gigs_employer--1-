@@ -84,7 +84,7 @@ function App() {
 
         <Route path="/findtalent" element={<StudentFilter />} />
 
-        <Route path="/studentprofile" element={<StudentProfile />} />
+        <Route path="/studentprofile/:id" element={<StudentProfile />} />
 
         <Route path="/contact" element={<Contact />} />
 

@@ -1,22 +1,41 @@
-import { Link } from "react-router-dom";
-
+import { MapPin } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Context/AuthContext";
 
 
 
 interface Designer {
     name: string;
     jobtitle: string;
-    salary: string;
-    experience: string;
-    skills: string[];
     imageUrl: string;
+    location: string
+    id: number
 }
 
 
+export default function SutudentCard({ name, jobtitle, imageUrl, location, id }: Designer) {
 
 
-export default function SutudentCard({ name, jobtitle, salary, experience, skills, imageUrl }: Designer) {
+    // To check if the user is authenticated
+    const { isAuthenticated } = useAuth();
 
+
+    // To get the current path
+    const Location = useLocation();
+
+
+    // To navigate
+    const navigate = useNavigate();
+
+
+    // To handle navigation
+    const handleNavigation = () => {
+        if (isAuthenticated) {
+            navigate(`/studentprofile/${id}`);
+        } else {
+            navigate("/auth", { state: { from: Location } });
+        }
+    };
 
 
     return (
@@ -27,7 +46,7 @@ export default function SutudentCard({ name, jobtitle, salary, experience, skill
             <section className="flex flex-col items-center justify-center">
 
 
-                <div className="relative border border-gray-200 bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 max-w-xs w-full">
+                <div className="relative border border-gray-200 bg-white rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 w-full">
 
                     {/* Featured Star */}
                     <div className="absolute top-0 left-0">
@@ -61,38 +80,17 @@ export default function SutudentCard({ name, jobtitle, salary, experience, skill
 
 
                         {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mb-6 justify-center">
-                            {skills.map((tag, index) => (
-                                <span
-                                    key={index}
-                                    className="px-3 py-1 text-sm bg-emerald-50 text-emerald-600 rounded-full"
-                                >
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-
-
-                        {/* Details */}
-                        <div className="w-full flex justify-center gap-10 mb-6">
-                            <div className="flex flex-col items-center justify-center">
-                                <p className="text-gray-500 text-sm mb-1">Salary:</p>
-                                <p className="font-semibold">{salary}</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center">
-                                <p className="text-gray-500 text-sm mb-1">Experience:</p>
-                                <p className="font-semibold">{experience}</p>
-                            </div>
+                        <div className="flex flex-wrap gap-1 mb-6 justify-center items-center">
+                            <MapPin size={16} className="text-gray-500" />
+                            <p className="text-gray-500">{location}</p>
                         </div>
 
 
                         {/* Buttons */}
                         <div className="flex gap-2 w-full">
-                            <Link to={'/studentprofile'} className="w-full">
-                                <button className="flex-1 w-full hover:cursor-pointer bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors duration-300">
-                                    Profile
-                                </button>
-                            </Link>
+                            <button onClick={handleNavigation} className="flex-1 w-full hover:cursor-pointer bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors duration-300">
+                                View Profile
+                            </button>
                         </div>
 
 

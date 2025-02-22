@@ -33,9 +33,9 @@ export const GoogleLogin = async (data: any) => {
 
 
 //Get Job Categories
-export const GetOnlineTalent = async (header: any) => {
+export const GetOnlineTalent = async () => {
 
-    return await CommonApi("GET", `${Base_Url}/talent-categories/`, "", header)
+    return await CommonApi("GET", `${Base_Url}/talent-categories/`, "", "")
 
 }
 
@@ -114,5 +114,33 @@ export const GetLocations = async (search: string) => {
     const params = new URLSearchParams({ query: search })
 
     return await CommonApi("GET", `${Base_Url}/locations-employer/?${params.toString()}`, "", "")
+
+}
+
+
+//Search Students
+export const GetSearchedStudents = async (category: string, location: string, salary_type: string, header: object, isAuthenticated: boolean, page: number) => {
+
+
+    const params = new URLSearchParams({ category: category, location: location, availability: salary_type, page: page.toString() })
+
+    if (isAuthenticated) {
+
+        return await CommonApi("GET", `${Base_Url}/search-employee/?${params.toString()}`, "", header)
+
+    }
+
+    return await CommonApi("GET", `${Base_Url}/search-employee/?${params.toString()}`, "", "")
+
+}
+
+
+
+//GET Single Talent
+export const GetSingleTalent = async (id: string , header: object) => {
+
+    const params = new URLSearchParams({ id: id })
+
+    return await CommonApi("GET", `${Base_Url}/employee-data/?${params.toString()}`, "", header)
 
 }

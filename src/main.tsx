@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './Context/AuthContext.tsx'
+import { StudentSearchProvider } from './Context/StudentFilterContext.tsx'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -22,7 +23,11 @@ createRoot(document.getElementById('root')!).render(
 
           <AuthProvider>
 
-            <App />
+            <StudentSearchProvider>
+
+              <App />
+
+            </StudentSearchProvider>
 
           </AuthProvider>
 

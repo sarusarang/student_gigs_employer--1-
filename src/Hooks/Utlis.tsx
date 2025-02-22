@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { GetOnlineTalent , GetHomeSlider, GetLocations } from "../Services/AllApi";
+import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent } from "../Services/AllApi";
 
 
 
@@ -16,13 +16,7 @@ export const OnlineTalentCategory = () => {
 
             try {
 
-                if (!localStorage.getItem("token")) { throw new Error("Authentication token not found"); }
-
-                const token = localStorage.getItem("token")
-
-                const headers = { Authorization: `Bearer ${token}` }
-
-                const Response = await GetOnlineTalent(headers)
+                const Response = await GetOnlineTalent()
 
                 return Response.data
 
@@ -111,3 +105,38 @@ export const AllLocations = (search: string) => {
 };
 
 
+// Get Single Talent
+export const SingleTalent = (id: string) => {
+
+    return useQuery({
+
+        queryKey: ["SingleTalent", id],
+        initialData: [],
+
+        queryFn: async () => {
+
+            try {
+
+                const token = localStorage.getItem("token")
+
+
+                if (!token) {
+                    throw new Error("Authentication token not found");
+                }
+
+                const headers = { Authorization: `Bearer ${token}` }
+
+                const Response = await GetSingleTalent(id , headers)
+
+                return Response.data
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+        },
+
+    })
+
+}

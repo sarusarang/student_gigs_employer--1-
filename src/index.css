@@ -63,3 +63,11 @@ html {
     border-left: 1px solid #d1d5db;
 
 }
+
+
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}

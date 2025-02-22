@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { useAuth } from "../../Context/AuthContext";
 import ProtectedPostJobButton from "./ProtectedPostJobButton";
 import { GetProfile } from "../../Hooks/UserProfile";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 export default function Header() {
@@ -104,11 +105,15 @@ export default function Header() {
   }, [location]);
 
 
+  // To use query client
+  const queryClient = useQueryClient()
 
   // Logout
   const HandleLogOut = () => {
 
     logout()
+
+    queryClient.invalidateQueries({ queryKey: ["UserProfile"] });
 
     toast.success("Logout Successful...!")
 

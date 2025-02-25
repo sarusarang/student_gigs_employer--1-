@@ -16,6 +16,7 @@ const StudentFilter = lazy(() => import("./pages/StudentFilter"));
 const StudentProfile = lazy(() => import("./pages/StudentProfile"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Contact = lazy(() => import("./pages/Contact"));
+const DashBoard = lazy(() => import("./pages/DashBoard"));
 
 
 
@@ -40,7 +41,7 @@ function App() {
   // To hide the header and footer
   useEffect(() => {
 
-    if (location.pathname === "/auth") {
+    if (location.pathname === "/auth" || location.pathname === "/dashboard") {
       SetHide(true)
     }
     else {
@@ -87,6 +88,8 @@ function App() {
         <Route path="/studentprofile/:id" element={<StudentProfile />} />
 
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/dashboard" element={<ProtectedRoute> <DashBoard /> </ProtectedRoute>} />
 
         <Route path="*" element={<NotFound />} />
 

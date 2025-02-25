@@ -17,7 +17,7 @@ html {
 
 /* For WebKit browsers */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 0px;
     /* width of the scrollbar */
 }
 
@@ -70,4 +70,36 @@ html {
     100% {
         left: 100%;
     }
+}
+
+
+
+
+.job-card,
+.applicant-card {
+    opacity: 1;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out, border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.job-card.visible,
+.applicant-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.loading-pulse {
+    animation: pulse 1.5s infinite;
 }

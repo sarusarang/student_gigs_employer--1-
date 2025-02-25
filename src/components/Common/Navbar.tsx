@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Binoculars, BriefcaseBusiness, Contact, GraduationCap, House, KeyRound, LogOut, Search, Text, User } from 'lucide-react';
+import { Binoculars, BriefcaseBusiness, Contact, GraduationCap, House, KeyRound, LayoutDashboard, LogOut, Search, Text, User } from 'lucide-react';
 import {
   Dialog,
   Disclosure,
@@ -284,15 +284,15 @@ export default function Header() {
 
 
 
-                    {/* Settings */}
+                    {/* Dashboard */}
                     <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
 
                       <div className="flex-auto">
 
-                        <Link to={'/'} className="font-semibold text-gray-900 flex items-center">
+                        <Link to={'/dashboard'} className="font-semibold text-gray-900 flex items-center">
 
-                          <Binoculars size={20} className="me-2" />
-                          Your Posts
+                          <LayoutDashboard size={20} className="me-2" />
+                          DashBoard
 
                         </Link>
 

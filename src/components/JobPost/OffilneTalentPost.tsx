@@ -6,9 +6,9 @@ import toast from 'react-hot-toast';
 import { AllLocations, OnlineTalentCategory } from '../../Hooks/Utlis';
 import { OfflineJobPost } from '../../Hooks/Jobform';
 import { Controller, useForm } from 'react-hook-form';
-import Jobdata from '../../Data/JobData.json';
 import Academic from '../../Data/Academic.json';
 import { useState } from 'react';
+import { PostJobTittle, JObTittles } from '../../Hooks/Utlis';
 
 
 
@@ -39,11 +39,15 @@ interface Inputs {
 
 // Salary types
 const compensationTypes: Option[] = [
+
     { label: "Hourly Rate", value: "hourly" },
     { label: "Daily Rate", value: "daily" },
     { label: "Monthly Salary", value: "monthly" },
     { label: "Annual Salary", value: "annual" },
-    { label: "Project Based", value: "project" }
+    { label: "Project Based", value: "project" },
+    { label: "All-Day Gigs", value: "All-Day Gigs" },
+    { label: "Weekend Gigs", value: "Weekend Gigs" },
+    { label: "Vacation Gigs", value: "Vacation Gigs" }
 ];
 
 
@@ -52,6 +56,14 @@ export default function OffilneTalentPost() {
 
     // Search keyword
     const [Search, setSearch] = useState<string>("")
+
+
+    // Post Job Tittle
+    const { mutate: PostJobTittleMutate } = PostJobTittle();
+
+
+    // Get Job Title
+    const { data: JobTitle, isLoading: JobTitleLoading } = JObTittles()
 
 
     // Get All Locations
@@ -134,6 +146,30 @@ export default function OffilneTalentPost() {
 
     }
 
+
+
+    // Function to handle new job title creation
+    const handleCreate = async (inputValue: string) => {
+
+        PostJobTittleMutate(inputValue, {
+
+            onSuccess: (response) => {
+
+                if (response.status >= 200 && response.status < 300) {
+
+                    toast.success("New Job Tittle Added Successfully");
+
+                } else {
+
+                    toast.error("Something went wrong. Please try again.");
+
+                }
+            },
+
+        })
+
+    };
+
     return (
 
 
@@ -165,13 +201,18 @@ export default function OffilneTalentPost() {
                             render={({ field: { onChange, value, ref } }) => (
                                 <CreatableSelect
                                     ref={ref}
-                                    options={Jobdata}
-                                    value={value ? Jobdata.find((option) => option.value === value) : null}
+                                    options={JobTitle}
+                                    value={value ? JobTitle?.find((option: any) => option.label === value) : null}
                                     onChange={(selectedOption) => onChange(selectedOption?.label)}
                                     styles={customSelectStyles}
                                     placeholder="Select Job Title"
+                                    onCreateOption={(inputValue) => {
+                                        handleCreate(inputValue);
+                                        onChange(inputValue); // Set the value immediately
+                                    }}
                                     className="mt-1"
                                     isClearable={true}
+                                    isLoading={JobTitleLoading}
                                     classNamePrefix="select"
                                     isSearchable={true}
                                     noOptionsMessage={() => 'No options found'}
@@ -411,11 +452,7 @@ export default function OffilneTalentPost() {
                             autoComplete="location-on-map"
                             type="url"
                             {...register("job_location_map", {
-                                // Validate if the URL is valid
-                                pattern: {
-                                    value: /^(https?:\/\/)(www\.)?([a-zA-Z0-9-]+)\.(com|org|net|io|co\.in|co\.uk|edu|gov)\/?([a-zA-Z0-9\-\/]+)?$/, // Regex for valid URLs
-                                    message: "Please enter a valid URL"
-                                },
+                                required: "Location on Map is required",
                             })}
                             className="block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
                             placeholder="Map Location"

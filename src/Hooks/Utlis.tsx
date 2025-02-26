@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent } from "../Services/AllApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent, PostNewJobTitle, GetJobTitle } from "../Services/AllApi";
 
 
 
@@ -126,7 +126,7 @@ export const SingleTalent = (id: string) => {
 
                 const headers = { Authorization: `Bearer ${token}` }
 
-                const Response = await GetSingleTalent(id , headers)
+                const Response = await GetSingleTalent(id, headers)
 
                 return Response.data
 
@@ -136,6 +136,81 @@ export const SingleTalent = (id: string) => {
 
             }
         },
+
+    })
+
+}
+
+
+
+
+
+
+// Get job tittles
+export const JObTittles = () => {
+
+    return useQuery({
+
+        queryKey: ["jobtittles"],
+
+        queryFn: async () => {
+
+            try {
+
+                const Response = await GetJobTitle()
+
+                return Response.data
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+        staleTime: 1000 * 60 * 10,
+
+    })
+
+}
+
+
+
+
+// Post new JobTittle
+export const PostJobTittle = () => {
+
+    const queryclient = useQueryClient();
+
+    return useMutation({
+
+        mutationFn: async (job_title: string) => {
+
+            try {
+
+                const Response = await PostNewJobTitle(job_title)
+
+                return Response
+
+            }
+            catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+
+        onSuccess: () => {
+
+            queryclient.invalidateQueries({ queryKey: ["jobtittles"] });
+
+        },
+        onError: (error) => {
+            console.error("Failed to Resister User:", error);
+            queryclient.invalidateQueries({ queryKey: ["jobtittles"] });
+        },
+
 
     })
 

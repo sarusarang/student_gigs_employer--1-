@@ -158,8 +158,26 @@ export const GetDashboardStats = async (header: object) => {
 //GET Job Applicants
 export const GetJobApplicants = async (id: string, job_type: string, header: object) => {
 
-    const params = new URLSearchParams({ id: id , job_type: job_type })
+    const params = new URLSearchParams({ id: id, job_type: job_type })
 
     return await CommonApi("GET", `${Base_Url}/dashboard-applications/?${params.toString()}`, "", header)
+
+}
+
+
+//GET Job Title
+export const GetJobTitle = async () => {
+
+    return await CommonApi("GET", `${Base_Url}/job-title/`, "", "")
+
+}
+
+
+//Post New Job Title
+export const PostNewJobTitle = async (job_title: string) => {
+
+    const params = new URLSearchParams({ job_title: job_title })
+
+    return await CommonApi("POST", `${Base_Url}/job-title/?${params.toString()}`, "", "")
 
 }

@@ -318,7 +318,7 @@ export default function Auth() {
                     <div className="flex w-full flex-col md:w-1/2">
 
                         <div className="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
-                            <Link to="/" className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900 sm:mb-28 mb-3"> StudentsGig </Link>
+                            <Link to="/" className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900 sm:mb-28 mb-3"> StudentsGigs </Link>
                         </div>
 
 
@@ -476,9 +476,9 @@ export default function Auth() {
                         <div className="absolute bottom-0 z-10 px-8 text-white opacity-100">
                             <p className="mb-5 text-3xl font-semibold leading-10"> Our mission is to make students independent, responsible, and equipped
                                 with practical exposure while learning.</p>
-                            <p className="mb-4 text-3xl font-semibold">Students Gig</p>
-                            <p className="">Founder, CEO John Doe</p>
-                            <p className="mb-7 text-sm opacity-70">Job Portal</p>
+                            <p className="mb-4 text-3xl font-semibold">Students Gigs</p>
+                            <p className="">Founder, CEO Dr Vimal K R</p>
+                            <p className="mb-7 text-sm opacity-70">Medresearch India Pvt Ltd</p>
                         </div>
                         <img className=" absolute top-0 h-full w-full object-cover opacity-90" loading="lazy" src="https://www.shutterstock.com/image-photo/university-graduation-ceremonies-on-commencement-600nw-298297430.jpg" />
                     </div>

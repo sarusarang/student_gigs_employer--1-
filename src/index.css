@@ -17,7 +17,7 @@ html {
 
 /* For WebKit browsers */
 ::-webkit-scrollbar {
-    width: 0px;
+    width: 8px;
     /* width of the scrollbar */
 }
 

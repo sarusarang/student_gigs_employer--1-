@@ -3,9 +3,8 @@ import { FileText } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
-import { AllLocations, OnlineTalentCategory } from '../../Hooks/Utlis';
+import { AllLocations, JObTittles, OnlineTalentCategory, PostJobTittle } from '../../Hooks/Utlis';
 import { OnlineJobPost } from '../../Hooks/Jobform';
-import Jobdata from '../../Data/JobData.json';
 import Academic from '../../Data/Academic.json';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
@@ -37,11 +36,15 @@ interface Inputs {
 
 // Salary types
 const compensationTypes: Option[] = [
+
     { label: "Hourly Rate", value: "hourly" },
     { label: "Daily Rate", value: "daily" },
     { label: "Monthly Salary", value: "monthly" },
     { label: "Annual Salary", value: "annual" },
-    { label: "Project Based", value: "project" }
+    { label: "Project Based", value: "project" },
+    { label: "All-Day Gigs", value: "All-Day Gigs" },
+    { label: "Weekend Gigs", value: "Weekend Gigs" },
+    { label: "Vacation Gigs", value: "Vacation Gigs" }
 ];
 
 
@@ -52,6 +55,14 @@ export default function OnlineTalentPost() {
 
     // Search keyword
     const [Search, setSearch] = useState<string>("")
+
+
+    // Post Job Tittle
+    const { mutate: PostJobTittleMutate } = PostJobTittle();
+
+
+    // Get Job Title
+    const { data: JobTitle, isLoading: JobTitleLoading } = JObTittles()
 
 
     // Get Online Talent
@@ -136,6 +147,28 @@ export default function OnlineTalentPost() {
 
 
 
+    // Function to handle new job title creation
+    const handleCreate = async (inputValue: string) => {
+
+        PostJobTittleMutate(inputValue, {
+
+            onSuccess: (response) => {
+
+                if (response.status >= 200 && response.status < 300) {
+
+                    toast.success("New Job Tittle Added Successfully");
+
+                } else {
+
+                    toast.error("Something went wrong. Please try again.");
+
+                }
+            },
+
+        })
+
+    };
+
 
     return (
 
@@ -165,14 +198,19 @@ export default function OnlineTalentPost() {
                             render={({ field: { onChange, value, ref } }) => (
                                 <CreatableSelect
                                     ref={ref}
-                                    options={Jobdata}
-                                    value={value ? Jobdata.find((option) => option.value === value) : null}
+                                    options={JobTitle}
+                                    value={value ? JobTitle?.find((option: any) => option.label === value) : null}
                                     onChange={(selectedOption) => onChange(selectedOption?.label)}
                                     styles={customSelectStyles}
                                     placeholder="Select Job Title"
                                     className="mt-1"
+                                    onCreateOption={(inputValue) => {
+                                        handleCreate(inputValue);
+                                        onChange(inputValue); // Set the value immediately
+                                    }}
                                     isClearable={true}
                                     classNamePrefix="select"
+                                    isLoading={JobTitleLoading}
                                     isSearchable={true}
                                     noOptionsMessage={() => 'No options found'}
 

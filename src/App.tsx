@@ -17,6 +17,10 @@ const StudentProfile = lazy(() => import("./pages/StudentProfile"));
 const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Contact = lazy(() => import("./pages/Contact"));
 const DashBoard = lazy(() => import("./pages/DashBoard"));
+const Plans = lazy(() => import("./pages/Plans"));
+const Terms = lazy(() => import("./pages/Terms"));
+const Refund = lazy(() => import("./pages/Refund"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 
 
 
@@ -81,6 +85,8 @@ function App() {
 
         <Route path="/employerprofile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
 
+        <Route path="/dashboard" element={<ProtectedRoute> <DashBoard /> </ProtectedRoute>} />
+
         <Route path="/auth" element={<Auth />} />
 
         <Route path="/findtalent" element={<StudentFilter />} />
@@ -89,7 +95,13 @@ function App() {
 
         <Route path="/contact" element={<Contact />} />
 
-        <Route path="/dashboard" element={<ProtectedRoute> <DashBoard /> </ProtectedRoute>} />
+        <Route path="/plans" element={<Plans />} />
+
+        <Route path="/termscondition" element={<Terms />} />
+
+        <Route path="/privacypolicy" element={<Privacy />} />
+
+        <Route path="/refundpolicy" element={<Refund />} />
 
         <Route path="*" element={<NotFound />} />
 

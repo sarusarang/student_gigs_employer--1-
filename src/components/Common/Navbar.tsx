@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Binoculars, BriefcaseBusiness, Contact, GraduationCap, House, KeyRound, LayoutDashboard, LogOut, Search, Text, User } from 'lucide-react';
+import { BriefcaseBusiness, Contact, Crown, GraduationCap, House, KeyRound, LayoutDashboard, LogOut, Search, Text, User } from 'lucide-react';
 import {
   Dialog,
   Disclosure,
@@ -277,7 +277,6 @@ export default function Header() {
 
                         </Link>
 
-
                       </div>
 
                     </div>
@@ -300,6 +299,24 @@ export default function Header() {
 
                     </div>
 
+
+
+                    {/* Premium */}
+                    <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
+
+                      <div className="flex-auto">
+
+                        <Link to={'/plans'} className="font-semibold text-gray-900 flex items-center">
+
+                          <Crown size={20} className="me-2" />
+
+                          Premium
+
+                        </Link>
+
+                      </div>
+
+                    </div>
 
 
 
@@ -487,17 +504,32 @@ export default function Header() {
 
 
 
-                                  {/* Settings */}
+                                  {/* dashboard */}
                                   <Link
-                                    to="/settings"
+                                    to="/dashboard"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
                                   >
                                     <div className="flex items-center space-x-2">
-                                      <Binoculars className="h-5 w-5" />
-                                      <span>Your Posts</span>
+                                      <LayoutDashboard size={20} className="me-2" />
+                                      <span>Dashboard</span>
                                     </div>
                                   </Link>
+
+
+
+                                  {/* Premium */}
+                                  <Link
+                                    to="/plans"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"
+                                  >
+                                    <div className="flex items-center space-x-2">
+                                      <Crown className="h-5 w-5" />
+                                      <span>Premium</span>
+                                    </div>
+                                  </Link>
+
 
                                   {/* Login/Logout */}
                                   {LoginStatus ? (

@@ -1,5 +1,5 @@
 import RichTextEditor from '../Common/JobDis'
-import { FileText } from 'lucide-react';
+import { FileText, X } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
@@ -8,7 +8,7 @@ import { OnlineJobPost } from '../../Hooks/Jobform';
 import Academic from '../../Data/Academic.json';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
-
+import { AnimatePresence, motion } from "framer-motion";
 
 // types
 interface Option {
@@ -52,6 +52,7 @@ const compensationTypes: Option[] = [
 
 export default function OnlineTalentPost() {
 
+    const [isVisible, setIsVisible] = useState(true);
 
     // Search keyword
     const [Search, setSearch] = useState<string>("")
@@ -181,6 +182,45 @@ export default function OnlineTalentPost() {
                 <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6 shadow-sm p-2 sm:p-8  rounded-lg bg-orange-600/5">
 
                     <h1 className="text-2xl font-semibold py-3 text-gray-800 ">ONLINE/TALENT*</h1>
+
+                    {/* Note */}
+                    <AnimatePresence>
+                        {isVisible && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="bg-yellow-50 border-l-4 border-yellow-500 text-yellow-900 p-4 rounded-xl shadow-md flex items-start gap-3 relative"
+                            >
+                                <svg
+                                    className="w-6 h-6 text-yellow-600"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M13 16h-1v-4h-1m1-4h.01M12 22a10 10 0 100-20 10 10 0 000 20z"
+                                    />
+                                </svg>
+                                <p className="text-sm font-medium flex-1">
+                                    <span className="font-semibold">Note:</span> Once you post a job, you won’t be able to edit it. Please review all details before submitting.
+                                </p>
+                                <button
+                                    type='button'
+                                    onClick={() => setIsVisible(false)}
+                                    className="text-yellow-900 hover:bg-yellow-200 p-1 rounded-full transition-all"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
 
 
                     <div>

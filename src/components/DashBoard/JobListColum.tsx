@@ -80,7 +80,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
         <div className="lg:col-span-1">
 
 
-            <div className="bg-white rounded-xl shadow-sm p-5 h-fit">
+            <div className="bg-white rounded-xl shadow-sm p-5 h-full">
 
 
                 <h2 className="text-lg font-semibold mb-4 flex items-center">
@@ -92,7 +92,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
 
                     {data?.jobs?.length === 0 ? (
 
-                        <p className="text-gray-500 text-center py-8">No jobs found matching your search.</p>
+                        <p className="text-gray-500 text-center py-8">No jobs found.</p>
 
                     ) : (
 

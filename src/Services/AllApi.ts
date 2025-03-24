@@ -2,7 +2,8 @@ import { CommonApi } from "./CommonApi";
 
 
 
-const Base_Url = "https://server.studentsgigs.com/api/employer"
+// Base Url
+const Base_Url = "http://localhost:8000/api/employer"
 
 
 
@@ -179,5 +180,38 @@ export const PostNewJobTitle = async (job_title: string) => {
     const params = new URLSearchParams({ job_title: job_title })
 
     return await CommonApi("POST", `${Base_Url}/job-title/?${params.toString()}`, "", "")
+
+}
+
+
+//GET User Plans
+export const GetUserPlans = async (header: object) => {
+
+    return await CommonApi("GET", `${Base_Url}/employer-plan/`, "", header)
+
+}
+
+
+//GET All Plans
+export const GetAllPlans = async (header: object) => {
+
+    return await CommonApi("GET", `${Base_Url}/employer-all-plans/`, "", header)
+
+}
+
+
+// Create Payment Order
+export const PostCreateOrder = async (data: FormData, header: object) => {
+
+    return await CommonApi("POST", `${Base_Url}/create-order-employer/`, data, header)
+
+}
+
+
+
+// Verify payment
+export const PostVerifyPayment = async (data: any, header: object) => {
+
+    return await CommonApi("POST", `${Base_Url}/verify-payment-employer/`, data, header)
 
 }

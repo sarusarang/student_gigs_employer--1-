@@ -9,8 +9,6 @@ import { useQueryClient } from "@tanstack/react-query";
 
 
 
-
-
 type Inputs = {
     email: string
     password: string
@@ -34,6 +32,10 @@ export default function Auth() {
     // Login and register status
     const [Status, SetStatus] = useState(true)
 
+
+
+    // Terms acceptance state
+    const [termsAccepted, setTermsAccepted] = useState(false)
 
 
     // React Hook Form state
@@ -71,6 +73,13 @@ export default function Auth() {
 
     // Submit Register
     const SubmitRegister = (data: any) => {
+
+
+        if (!termsAccepted) {
+            toast.error("Please accept the Terms and Conditions to continue.");
+            return;
+        }
+
 
         const formdata = new FormData()
 
@@ -141,12 +150,19 @@ export default function Auth() {
     // Submit Login
     const SubmitLogin = (data: any) => {
 
+
+        if (!termsAccepted) {
+            toast.error("Please accept the Terms and Conditions to continue.");
+            return;
+        }
+
+
         const formdata = new FormData()
 
         formdata.append("username", data.username)
         formdata.append("password", data.password)
 
-        
+
         // Mutate
         mutateLogin(formdata, {
 
@@ -220,6 +236,11 @@ export default function Auth() {
 
 
         onSuccess: async (tokenResponse) => {
+
+            if (!termsAccepted) {
+                toast.error("Please accept the Terms and Conditions to continue.");
+                return;
+            }
 
 
             try {
@@ -362,7 +383,40 @@ export default function Auth() {
                                         </div>
 
 
-                                        <button type="submit" className="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2">Log in</button>
+                                        {/* Terms and Conditions Checkbox */}
+                                        <div className="flex items-center mb-6">
+                                            <input
+                                                type="checkbox"
+                                                id="terms"
+                                                className={`peer hidden`}
+                                                checked={termsAccepted}
+                                                onChange={(e) => setTermsAccepted(e.target.checked)}
+                                            />
+                                            <label
+                                                htmlFor="terms"
+                                                className={`h-4 w-4 border-2 border-gray-300 rounded flex items-center justify-center hover:cursor-pointer transition-all
+      ${termsAccepted ? "bg-black border-black" : "bg-white border-gray-300"}`}
+                                            >
+                                                {termsAccepted && (
+                                                    <svg
+                                                        className="w-3 h-3 text-white"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                )}
+                                            </label>
+                                            <label htmlFor="terms" className="ml-2 block text-sm text-gray-600">
+                                                I accept the <Link to={'/terms'} className="text-gray-900 underline">Terms and Conditions</Link>
+                                            </label>
+                                        </div>
+
+
+                                        <button type="submit" disabled={!termsAccepted} className={`w-full cursor-pointer rounded-lg ${!termsAccepted ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2`}>Log in</button>
 
                                     </form>
 
@@ -372,7 +426,13 @@ export default function Auth() {
                                     </div>
 
 
-                                    <button onClick={() => GoogleLogin()} className="-2 shadow-md  mt-8 flex items-center justify-center rounded-md border px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white"><img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google</button>
+
+                                    {/* Google Login */}
+                                    <button onClick={() => GoogleLogin()} className={`cursor-pointer shadow-lg mt-8 flex items-center justify-center rounded-md  px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white ${!termsAccepted ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                        disabled={!termsAccepted}>
+                                        <img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google
+                                    </button>
+
 
 
                                     <div className="py-12 text-center">
@@ -381,6 +441,8 @@ export default function Auth() {
                                             <a onClick={() => SetStatus(!Status)} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
                                         </p>
                                     </div>
+
+
 
                                 </div>
 
@@ -393,7 +455,9 @@ export default function Auth() {
                                     <p className="mt-2 text-left text-gray-500">please enter your details.</p>
 
 
+
                                     <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit(SubmitRegister)}>
+
 
                                         {/* Username */}
                                         <div className="flex flex-col pt-4">
@@ -406,6 +470,8 @@ export default function Auth() {
                                                 {errors.username && <p role="alert" className="text-red-500 text-sm">{errors.username.message}</p>}
                                             </div>
                                         </div>
+
+
 
                                         {/* Email */}
                                         <div className="flex flex-col pt-4">
@@ -428,6 +494,7 @@ export default function Auth() {
 
 
 
+
                                         {/* Password */}
                                         <div className=" flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
@@ -439,6 +506,7 @@ export default function Auth() {
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
                                             </div>
                                         </div>
+
 
 
                                         {/* Re-enter Password */}
@@ -453,9 +521,48 @@ export default function Auth() {
                                             </div>
                                         </div>
 
-                                        <button type="submit" className="w-full rounded-lg bg-gray-900 px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2">Sign Up</button>
+
+
+                                        {/* Terms and Conditions Checkbox */}
+                                        <div className="flex items-center mb-6">
+                                            <input
+                                                type="checkbox"
+                                                id="terms"
+                                                className={`peer hidden`}
+                                                checked={termsAccepted}
+                                                onChange={(e) => setTermsAccepted(e.target.checked)}
+                                            />
+                                            <label
+                                                htmlFor="terms"
+                                                className={`h-4 w-4 border-2 border-gray-300 rounded flex items-center justify-center hover:cursor-pointer transition-all
+      ${termsAccepted ? "bg-black border-black" : "bg-white border-gray-300"}`}
+                                            >
+                                                {termsAccepted && (
+                                                    <svg
+                                                        className="w-3 h-3 text-white"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        strokeWidth="2"
+                                                        viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
+                                                    </svg>
+                                                )}
+                                            </label>
+                                            <label htmlFor="terms" className="ml-2 block text-sm text-gray-600">
+                                                I accept the <Link to={'/terms'} className="text-gray-900 underline">Terms and Conditions</Link>
+                                            </label>
+                                        </div>
+
+
+
+                                        <button type="submit" disabled={!termsAccepted} className={`w-full cursor-pointer rounded-lg ${!termsAccepted ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2`}>Sign Up</button>
+
 
                                     </form>
+
+
 
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">

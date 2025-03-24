@@ -4,10 +4,7 @@ import { BriefcaseBusiness, Contact, Crown, GraduationCap, House, KeyRound, Layo
 import {
   Dialog,
   Disclosure,
-  Popover,
-  PopoverButton,
   PopoverGroup,
-  PopoverPanel,
   Transition
 } from '@headlessui/react'
 import {
@@ -19,16 +16,13 @@ import { useAuth } from "../../Context/AuthContext";
 import ProtectedPostJobButton from "./ProtectedPostJobButton";
 import { GetProfile } from "../../Hooks/UserProfile";
 import { useQueryClient } from "@tanstack/react-query";
+import ProfileMenu from "./ProfileMenu";
 
 
 export default function Header() {
 
 
   const Navigate = useNavigate()
-
-
-  // Set Login and logout status
-  const [LoginStatus, SetLoginStatus] = useState(false)
 
 
   // To check if the user is scrolled
@@ -51,13 +45,12 @@ export default function Header() {
 
 
   // To use auth context logout
-  const { logout } = useAuth()
+  const { logout , isAuthenticated } = useAuth()
 
 
 
   // Get User Profile data
   const { data } = GetProfile()
-
 
 
 
@@ -77,23 +70,8 @@ export default function Header() {
         setcolor(location.pathname === "/" || location.pathname === "/findtalent" || location.pathname === "/employerprofile" ? true : false)
       }
 
-    };
-
-    const handleCheck = () => {
-
-      if (!localStorage.getItem("token")) {
-
-        SetLoginStatus(true)
-
-      } else {
-
-        SetLoginStatus(false)
-
-      }
-
     }
 
-    handleCheck()
 
     window.addEventListener("scroll", handleScroll);
 
@@ -105,8 +83,12 @@ export default function Header() {
   }, [location]);
 
 
+
+
   // To use query client
   const queryClient = useQueryClient()
+
+
 
   // Logout
   const HandleLogOut = () => {
@@ -119,7 +101,6 @@ export default function Header() {
 
     Navigate("/")
 
-    SetLoginStatus(true)
 
   }
 
@@ -193,8 +174,11 @@ export default function Header() {
 
 
 
+
             {/* Buttons */}
             <div className='flex justify-center items-center gap-x-2 mb-2 sm:hidden'>
+
+
 
               {/* Find Student Talents for mobile view */}
               <Link to={'/findtalent'}>
@@ -209,8 +193,8 @@ export default function Header() {
               {/* Job post */}
               <ProtectedPostJobButton />
 
-
             </div>
+
 
 
 
@@ -224,6 +208,7 @@ export default function Header() {
               <ProtectedPostJobButton />
 
 
+
               {/* Find Student Talents */}
               <Link to={'/findtalent'}>
 
@@ -234,6 +219,7 @@ export default function Header() {
               </Link>
 
 
+
               {/* Home */}
               <Link to={'/'} className={`text-md font-semibold text-gray-400 hover:text-green-600 ${color ? "text-white" : ""}`}>
                 <House size={30} />
@@ -242,129 +228,7 @@ export default function Header() {
 
 
               {/* Profile items */}
-              <Popover className="relative">
-
-
-                <PopoverButton
-                  className={`flex items-center gap-x-1 text-sm/6 font-semibold text-gray-400 ${color ? "text-white" : ""}`}
-                >
-                  <img
-                    src={data?.employer?.logo || "./DeaflutProfile.jpeg"}
-                    loading="lazy"
-                    alt="User profile"
-                    className="w-[30px] h-[30px] rounded-full object-cover"
-                  />
-                </PopoverButton>
-
-                <PopoverPanel
-                  transition
-                  className="absolute -left-32 top-8 z-10 mt-3 w-52 dropdown  rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-                >
-
-                  <div className="p-4">
-
-
-                    {/* {/* Profile */}
-                    <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-100" >
-
-                      <div className="flex-auto">
-
-                        <Link to={'/employerprofile'} className="font-semibold text-gray-900 flex items-center text-center">
-
-                          <User size={20} className="me-2" />
-
-                          Profile
-
-                        </Link>
-
-                      </div>
-
-                    </div>
-
-
-
-                    {/* Dashboard */}
-                    <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
-
-                      <div className="flex-auto">
-
-                        <Link to={'/dashboard'} className="font-semibold text-gray-900 flex items-center">
-
-                          <LayoutDashboard size={20} className="me-2" />
-                          DashBoard
-
-                        </Link>
-
-                      </div>
-
-                    </div>
-
-
-
-                    {/* Premium */}
-                    <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
-
-                      <div className="flex-auto">
-
-                        <Link to={'/plans'} className="font-semibold text-gray-900 flex items-center">
-
-                          <Crown size={20} className="me-2" />
-
-                          Premium
-
-                        </Link>
-
-                      </div>
-
-                    </div>
-
-
-
-                    {/* Login Logout */}
-                    {
-
-                      LoginStatus ?
-
-
-
-                        <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
-
-                          <div className="flex-auto">
-
-                            <Link to={'/auth'} className="font-semibold text-gray-900 flex items-center">
-
-                              <KeyRound size={20} className="me-2" />
-                              Login
-
-                            </Link>
-
-                          </div>
-
-                        </div>
-
-                        :
-
-                        <div className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50" >
-
-                          <div className="flex-auto">
-
-                            <p className=" font-semibold text-gray-900 flex items-center cursor-pointer" onClick={HandleLogOut}>
-
-                              <LogOut size={20} className="me-2" />
-                              Logout
-                            </p>
-
-                          </div>
-
-                        </div>
-
-                    }
-
-                  </div>
-
-                </PopoverPanel>
-
-              </Popover>
+              <ProfileMenu LoginStatus={isAuthenticated} HandleLogOut={HandleLogOut} data={data} color={color} />
 
 
 
@@ -532,7 +396,7 @@ export default function Header() {
 
 
                                   {/* Login/Logout */}
-                                  {LoginStatus ? (
+                                  {!isAuthenticated ? (
                                     <Link
                                       to="/auth"
                                       className="block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200"

@@ -3,14 +3,6 @@ import { AddUserProfile, GetUserProfile } from "../Services/AllApi";
 
 
 
-
-
-
-
-
-
-
-
 // Get User Personal Information
 export const GetProfile = () => {
 
@@ -47,8 +39,6 @@ export const GetProfile = () => {
     })
 
 }
-
-
 
 
 

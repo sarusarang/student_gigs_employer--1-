@@ -61,7 +61,7 @@ export default function StudentProfile() {
                                         {/* Banner Image */}
                                         <div className="relative group h-[25vh] md:h-[25vh] lg:h-[45vh] rounded-lg  md:rounded-2xl lg:rounded-3xl ">
                                             <img
-                                                src={data?.profile?.cover_img ? data?.profile?.cover_img : "https://www.paxus.com.au/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbk1HIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0725fc0328bc750a0fcc18a18ffde9bcca5b8dff/img-placeholder.jpg"}
+                                                src={data?.profile?.cover_photo ? data?.profile?.cover_photo : "https://www.paxus.com.au/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBbk1HIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--0725fc0328bc750a0fcc18a18ffde9bcca5b8dff/img-placeholder.jpg"}
                                                 alt="banner"
                                                 loading="lazy"
                                                 className="w-full h-full object-cover rounded-lg md:rounded-2xl lg:rounded-3xl"
@@ -79,7 +79,7 @@ export default function StudentProfile() {
                                                     <div className="relative group">
                                                         <div className="relative w-24 h-24 md:w-32 md:h-32">
                                                             <img
-                                                                src={data?.profile?.profile_img ? data?.profile?.profile_img : "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="}
+                                                                src={data?.profile?.profile_pic ? data?.profile?.profile_pic : "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="}
                                                                 alt="profile"
                                                                 loading="lazy"
                                                                 className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"

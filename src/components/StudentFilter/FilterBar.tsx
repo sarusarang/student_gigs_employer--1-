@@ -1,4 +1,4 @@
-import { Briefcase, Calendar, MapPin, SearchIcon } from "lucide-react"
+import {  SearchIcon } from "lucide-react"
 import { useState } from "react";
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
@@ -37,6 +37,119 @@ const compensationTypes: Option[] = [
 ];
 
 
+
+
+const SelectedStyles = {
+
+    control: (provided: any, state: any) => ({
+        ...provided,
+        border: "none",
+        borderRadius: "8px",
+        backgroundColor: "white",
+        padding: "2px 4px",
+        boxShadow: state.isFocused ? "0 0 0 2px rgba(16, 185, 129, 0.2)" : "none",
+        transition: "all 0.2s ease",
+        width: "100%",
+        minWidth: "250px",
+        maxWidth: "600px",
+        "&:hover": {
+            backgroundColor: "white",
+            boxShadow: "0 0 0 1px rgba(16, 185, 129, 0.15)",
+        },
+    }),
+    valueContainer: (provided: any) => ({
+        ...provided,
+        padding: "6px 12px",
+    }),
+    placeholder: (provided: any) => ({
+        ...provided,
+        color: "#9ca3af",
+        fontSize: "0.95rem",
+    }),
+    input: (provided: any) => ({
+        ...provided,
+        margin: "0",
+        padding: "0",
+        color: "#374151",
+    }),
+    menu: (provided: any) => ({
+        ...provided,
+        borderRadius: "8px",
+        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        width: "100%",
+        minWidth: "330px",
+        maxWidth: "700px",
+        overflow: "hidden",
+        marginTop: "8px",
+        zIndex: 10,
+        backgroundColor: "white",
+    }),
+    menuList: (provided: any) => ({
+        ...provided,
+        padding: "6px",
+    }),
+    option: (provided: any, state: any) => ({
+        ...provided,
+        backgroundColor: state.isSelected
+            ? "#10b981"
+            : state.isFocused
+                ? "#ecfdf5"
+                : "transparent",
+        color: state.isSelected ? "white" : "#374151",
+        borderRadius: "6px",
+        padding: "10px 12px",
+        cursor: "pointer",
+        transition: "all 0.2s",
+        "&:active": {
+            backgroundColor: "#059669",
+        }
+    }),
+    dropdownIndicator: (provided: any, state: any) => ({
+        ...provided,
+        color: state.isFocused ? "#10b981" : "#9ca3af",
+        padding: "0 8px",
+        "&:hover": {
+            color: "#10b981",
+        }
+    }),
+    indicatorSeparator: () => ({
+        display: "none",
+    }),
+    clearIndicator: (provided: any) => ({
+        ...provided,
+        color: "#9ca3af",
+        padding: "0 8px",
+        "&:hover": {
+            color: "#ef4444",
+        }
+    }),
+    loadingIndicator: (provided: any) => ({
+        ...provided,
+        color: "#10b981",
+    }),
+    singleValue: (provided: any) => ({
+        ...provided,
+        color: "#374151",
+    }),
+    multiValue: (provided: any) => ({
+        ...provided,
+        backgroundColor: "#ecfdf5",
+        borderRadius: "4px",
+    }),
+    multiValueLabel: (provided: any) => ({
+        ...provided,
+        color: "#065f46",
+    }),
+    multiValueRemove: (provided: any) => ({
+        ...provided,
+        color: "#059669",
+        "&:hover": {
+            backgroundColor: "#d1fae5",
+            color: "#ef4444",
+        },
+    }),
+
+}
 
 
 export default function FilterBar() {
@@ -96,7 +209,7 @@ export default function FilterBar() {
                         {/* Keywords Input */}
                         <div className="flex-1 flex items-center gap-2 p-5 border-b md:border-b-0 md:border-r border-gray-200">
 
-                            <Briefcase className="text-emerald-500" size={26} />
+                            {/* <Briefcase className="text-emerald-500" size={26} /> */}
 
                             <div className="w-full">
                                 <Controller
@@ -108,28 +221,13 @@ export default function FilterBar() {
                                             options={data?.all_jobs}
                                             value={data?.all_jobs.find((option: Option) => option.value === value) || null}
                                             onChange={(option: any) => onChange(option ? option.value : null)}
-                                            placeholder="Select a Category...."
+                                            placeholder="Search a Category or Job Title..."
                                             isSearchable={true}
                                             isClearable={true}
                                             isLoading={isLoading || isFetching}
                                             noOptionsMessage={() => "No options Found..."}
                                             classNamePrefix="select"
-                                            styles={{
-                                                control: (provided) => ({
-                                                    ...provided,
-                                                    border: "none",
-                                                    boxShadow: "none",
-                                                    "&:hover": { border: "none" },
-                                                }),
-                                                dropdownIndicator: (provided) => ({
-                                                    ...provided,
-                                                    color: "#555",
-                                                }),
-                                                indicatorsContainer: (provided) => ({
-                                                    ...provided,
-                                                    padding: "2px",
-                                                }),
-                                            }}
+                                            styles={SelectedStyles}
                                         />
 
                                     )}
@@ -143,7 +241,7 @@ export default function FilterBar() {
                         {/* Location Dropdown */}
                         <div className="flex-1 flex items-center gap-2 p-5 border-b md:border-b-0 md:border-r border-gray-200">
 
-                            <MapPin className="text-emerald-500" size={26} />
+                            {/* <MapPin className="text-emerald-500" size={26} /> */}
 
                             <div className="w-full">
 
@@ -165,23 +263,7 @@ export default function FilterBar() {
                                                 classNamePrefix="select"
                                                 noOptionsMessage={() => "No Locations Found..."}
                                                 isLoading={LocationLoading}
-                                                styles={{
-                                                    control: (provided) => ({
-                                                        ...provided,
-                                                        border: "none",         // Remove border
-                                                        boxShadow: "none",      // Remove focus ring
-                                                        "&:hover": { border: "none" } // Ensure no border on hover
-                                                    }),
-                                                    dropdownIndicator: (provided) => ({
-                                                        ...provided,
-                                                        color: "#555",          // Optional: Adjust dropdown arrow color
-                                                    }),
-                                                    indicatorsContainer: (provided) => ({
-                                                        ...provided,
-                                                        padding: "2px",         // Optional: Adjust spacing for cleaner look
-                                                    }),
-
-                                                }}
+                                                styles={SelectedStyles}
                                             />
                                         )}
                                     />
@@ -195,7 +277,7 @@ export default function FilterBar() {
                         {/* Category Dropdown */}
                         <div className="flex-1 flex items-center gap-2 p-5 border-b md:border-b-0 md:border-r border-gray-200">
 
-                            <Calendar className="text-emerald-500" size={18} />
+                            {/* <Calendar className="text-emerald-500" size={18} /> */}
 
                             {/* Availability */}
                             <div className="w-full">
@@ -215,24 +297,7 @@ export default function FilterBar() {
                                                 className="basic-single"
                                                 isClearable={true}
                                                 classNamePrefix="select"
-                                                styles={{
-                                                    control: (provided) => ({
-                                                        ...provided,
-                                                        border: "none",         // Remove border
-                                                        boxShadow: "none",      // Remove focus ring
-                                                        "&:hover": { border: "none" } // Ensure no border on hover
-                                                    }),
-                                                    dropdownIndicator: (provided) => ({
-                                                        ...provided,
-                                                        color: "#555",          // Optional: Adjust dropdown arrow color
-                                                    }),
-                                                    indicatorsContainer: (provided) => ({
-                                                        ...provided,
-                                                        padding: "2px",         // Optional: Adjust spacing for cleaner look
-                                                    }),
-
-
-                                                }}
+                                                styles={SelectedStyles}
 
                                             />
                                         )}

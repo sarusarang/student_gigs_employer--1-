@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Filter, ChevronRight } from 'lucide-react';
+import { Users, Filter, ChevronRight, MapPin, Calendar } from 'lucide-react';
 import { JobApplicantsData } from '../../Hooks/DashboardHook';
 
 // Define TypeScript interfaces for Job
@@ -144,7 +144,7 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
 
                         <h2 className="text-lg font-semibold flex items-center">
-                            <Users className="h-5 w-5 mr-2 text-blue-600" />
+                            <Users className="h-5 w-5 mr-2 text-amber-600" />
                             Applicants for {selectedJob.job_title}
                         </h2>
 
@@ -214,12 +214,13 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
                                 <div
                                     key={applicant.id}
-                                    className={`applicant-card opacity-0 transform translate-y-4 transition-all duration-300 ease-out flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${selectedApplicant?.id === applicant.id ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
+                                    className={`applicant-card opacity-0 transform translate-y-4 transition-all duration-300 ease-out flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${selectedApplicant?.id === applicant.id ? 'border-amber-500 bg-amber-50' : 'border-gray-200'}`}
                                     onClick={() => handleApplicantSelect(applicant)}
                                 >
                                     <img
                                         src={applicant?.employee?.profile?.profile_pic ?? "./DeaflutProfile.jpeg"}
                                         alt={applicant?.employee?.name}
+                                        loading='lazy'
                                         className="w-12 h-12 rounded-full object-cover mr-3"
                                     />
 
@@ -227,11 +228,12 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
                                         <h3 className="font-medium">{applicant?.employee?.name}</h3>
 
-                                        <p className="text-sm text-gray-600">{applicant?.employee?.preferred_work_location ? applicant?.employee?.preferred_work_location : "N/A"}</p>
+                                        <p className="text-sm text-gray-600 flex items-center"><MapPin size={15} className='me-1'  />{applicant?.employee?.preferred_work_location ? applicant?.employee?.preferred_work_location : "N/A"}</p>
 
                                         <div className="flex items-center mt-1">
 
-                                            <span className="text-sm font-medium text-gray-500">
+                                            <span className="text-sm font-medium text-gray-500 flex items-center">
+                                                <Calendar size={15} className='me-1' />
                                                 Applied on{" "}
                                                 {applicant?.date_applied
                                                     ? new Date(applicant.date_applied).toLocaleDateString("en-GB", {
@@ -257,8 +259,8 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
             ) : (
                 <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col items-center justify-center h-full">
-                    <div className="bg-blue-100 p-4 rounded-full mb-4">
-                        <Users className="h-8 w-8 text-blue-600" />
+                    <div className="bg-amber-100 p-4 rounded-full mb-4">
+                        <Users className="h-8 w-8 text-amber-500" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Select a Job</h3>
                     <p className="text-center text-gray-500">Choose a job posting to view its applicants</p>

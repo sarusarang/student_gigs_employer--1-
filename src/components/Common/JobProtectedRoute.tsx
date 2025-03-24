@@ -24,7 +24,7 @@ export const withProtectedRoute = <P extends WrappedComponentProps>(
 
 
         // Get Profile data
-        const { data, isLoading, refetch , isFetching } = GetProfile();
+        const { data, isLoading, refetch , isFetching , isSuccess } = GetProfile();
 
 
         // check if authenticated
@@ -73,7 +73,7 @@ export const withProtectedRoute = <P extends WrappedComponentProps>(
             if ( isLoading || isFetching) return;
 
 
-            if (data && !data.is_exist) {
+            if (data && !data.is_exist && isSuccess) {
 
                 toast.error("Please Complete Your Profile");
 

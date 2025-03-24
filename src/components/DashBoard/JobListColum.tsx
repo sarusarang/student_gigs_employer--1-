@@ -84,7 +84,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
 
 
                 <h2 className="text-lg font-semibold mb-4 flex items-center">
-                    <Briefcase className="h-5 w-5 mr-2 text-blue-600" />
+                    <Briefcase className="h-5 w-5 mr-2 text-amber-600" />
                     Your Job Postings
                 </h2>
 
@@ -130,16 +130,16 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
 
                                 <div
                                     key={job.id}
-                                    className={`job-card opacity-0 transform translate-y-4 transition-all duration-300 ease-out cursor-pointer border border-gray-200 rounded-lg p-4 hover:shadow-md ${expandedJobId === job.id ? 'border-blue-500 bg-blue-50' : ''}`}
+                                    className={`job-card opacity-0 transform translate-y-4 transition-all duration-300 ease-out cursor-pointer border border-gray-200 rounded-lg p-4 hover:shadow-md ${expandedJobId === job.id ? 'border-amber-500 bg-amber-50' : ''}`}
                                     onClick={() => handleJobSelect(job)}
                                 >
                                     <div className="flex justify-between items-start">
 
                                         <div>
 
-                                            <h3 className="font-medium text-blue-600">{job?.job_title}</h3>
+                                            <h3 className="font-medium text-amber-500">{job?.job_title}</h3>
 
-                                            <p className="text-sm text-gray-600">{job?.company?.company_name} • {job?.job_location}</p>
+                                            <p className="text-sm text-gray-600">{job?.company?.company_name} • {job?.job_location}  • {job?.job_type}</p>
 
                                             <div className="flex items-center mt-2">
                                                 <span className="ml-2 text-xs text-gray-500 flex items-center">
@@ -151,7 +151,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
 
                                         <div className="flex flex-col items-end">
 
-                                            <div className="flex items-center text-sm font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">
+                                            <div className="flex items-center text-sm font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded-full">
                                                 <Users className="h-4 w-4 mr-1" />
                                                 {job?.total_applied}
                                             </div>
@@ -168,6 +168,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
                                             <p>₹{job?.pay_structure} - {job?.salary_type}</p>
                                         </div>
                                     )}
+
                                 </div>
                             )))
                     )}

@@ -114,8 +114,6 @@ const JobDashboard: React.FC = () => {
 
     const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
 
-    const [searchTerm, setSearchTerm] = useState<string>("");
-
     const [expandedJobId, setExpandedJobId] = useState<number | null>(null);
 
     const [filterStatus, setFilterStatus] = useState<string>("All");
@@ -134,6 +132,7 @@ const JobDashboard: React.FC = () => {
 
 
 
+    // Function to handle job selection
     const handleJobSelect = (job: Job) => {
 
         setSelectedJob(job);
@@ -156,6 +155,7 @@ const JobDashboard: React.FC = () => {
 
 
 
+    // Function to handle applicant selection
     const handleApplicantSelect = (applicant: Applicant) => {
 
         setSelectedApplicant(applicant);
@@ -193,7 +193,7 @@ const JobDashboard: React.FC = () => {
 
 
                 {/* Dashboard Header */}
-                <DashboardHeader searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                <DashboardHeader />
 
 
 

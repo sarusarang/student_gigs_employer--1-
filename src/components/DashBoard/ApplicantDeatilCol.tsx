@@ -89,7 +89,7 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
 
                     <div className="flex items-center justify-between mb-6">
                         <h2 className="text-lg font-semibold flex items-center">
-                            <File className="h-5 w-5 mr-2 text-blue-600" />
+                            <File className="h-5 w-5 mr-2 text-amber-600" />
                             Applicant Details
                         </h2>
                         <button
@@ -107,7 +107,7 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
                             src={selectedApplicant?.employee?.profile?.profile_pic ?? "./DeaflutProfile.jpeg"}
                             loading='lazy'
                             alt={selectedApplicant?.employee?.name}
-                            className="w-24 h-24 rounded-full object-cover mb-3 border-4 border-blue-100"
+                            className="w-24 h-24 rounded-full object-cover mb-3 border-4 border-amber-100"
                         />
 
                         <h2 className="text-xl font-semibold">{selectedApplicant?.employee?.name}</h2>
@@ -171,7 +171,7 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
                                 <p className="text-sm text-gray-500">Resume</p>
                                 <a
                                     onClick={() => setIsResumeOpen(true)}
-                                    className="text-blue-600 flex items-center hover:underline hover:cursor-pointer"
+                                    className="text-amber-600 flex items-center hover:underline hover:cursor-pointer"
                                     rel="noopener noreferrer"
                                 >
                                     View Resume <ExternalLink className="h-3 w-3 ml-1" />
@@ -185,7 +185,7 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
 
                     <div className="mt-6 grid grid-cols-2 gap-3">
 
-                        <button className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                        <button className="bg-amber-500 hover:bg-amber-700 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                             <Calendar className="h-4 w-4 mr-2" /> Schedule Interview
                         </button>
 
@@ -193,7 +193,7 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
                             <Mail className="h-4 w-4 mr-2" /> Send Message
                         </button>
 
-                        <Link to={`/studentprofile/${selectedApplicant?.employee?.user}`} className="col-span-2 border border-gray-300 hover:bg-blue-50 text-blue-600 py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                        <Link to={`/studentprofile/${selectedApplicant?.employee?.user}`} className="col-span-2 border border-gray-300 hover:bg-amber-50 text-amber-600 py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                             <User className="h-4 w-4 mr-2" /> View Profile
                         </Link>
 
@@ -204,8 +204,8 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
 
             ) : (
                 <div className="bg-white rounded-xl shadow-sm p-8 flex flex-col items-center justify-center h-full">
-                    <div className="bg-blue-100 p-4 rounded-full mb-4">
-                        <File className="h-8 w-8 text-blue-600" />
+                    <div className="bg-amber-100 p-4 rounded-full mb-4">
+                        <File className="h-8 w-8 text-amber-500" />
                     </div>
                     <h3 className="text-lg font-semibold mb-2">Select an Applicant</h3>
                     <p className="text-center text-gray-500">Select an applicant to view their details and resume</p>

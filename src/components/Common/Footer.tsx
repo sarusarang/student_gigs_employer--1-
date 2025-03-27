@@ -22,13 +22,13 @@ const Footer = () => {
           <ul className="space-y-2">
             <li>
               <Link to={'/findtalent'} className="hover:text-gray-400">
-                Hire Talent
+                Hire Students
               </Link>
             </li>
             <li>
-              <Link to={'/'} className="hover:text-gray-400">
-                Explore Gigs
-              </Link>
+              <a href="https://studentsgigs.com/jobfilter" target="_blank" className="hover:text-gray-400">
+                Explore Jobs
+              </a>
             </li>
             <li>
               <Link to={'/contact'} className="hover:text-gray-400">
@@ -78,33 +78,19 @@ const Footer = () => {
             </a>
           </div>
 
-          <form className="flex flex-col">
-            <label htmlFor="newsletter" className="mb-2">Subscribe to our Newsletter</label>
-            <div className="flex">
-              <input
-                type="email"
-                id="newsletter"
-                placeholder="Your email"
-                className="p-2 flex-1 rounded-l-md text-black bg-gray-100"
-              />
-              <button
-                type="submit"
-                className="bg-blue-500 px-4 py-2 rounded-r-md hover:bg-blue-600"
-              >
-                Subscribe
-              </button>
-            </div>
-          </form>
         </div>
+        
       </div>
 
 
 
       {/* Call-to-Action */}
       <div className="text-center mt-10">
-        <button className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600">
-          Get Started
-        </button>
+        <Link to={'/findtalent'}>
+          <button className="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600">
+            Get Started
+          </button>
+        </Link>
       </div>
 
 

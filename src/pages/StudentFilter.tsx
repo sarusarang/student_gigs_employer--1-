@@ -129,6 +129,7 @@ export default function StudentFilter() {
                                         <SutudentCard key={index}
                                             imageUrl={item?.profile.profile_pic ? item?.profile.profile_pic : '/DeaflutProfile.jpeg'}
                                             name={item?.name}
+                                            premium_badge={item?.premium_badge}
                                             id={item?.user}
                                             jobtitle={item?.job_title}
                                             location={item?.preferred_work_location}

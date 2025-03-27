@@ -51,13 +51,13 @@ const JobPost: React.FC = () => {
 
             <div className="rounded-lg border border-gray-100 bg-white py-2 px-3 shadow-md">
 
-                <nav className="flex flex-wrap justify-center gap-4">
+                <nav className="flex flex-wrap justify-center gap-4 ">
 
                     {tabs.map((tab) => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`whitespace-nowrap inline-flex rounded-lg py-2 px-3 text-sm font-bold transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 ${activeTab === tab.id
+                            className={`whitespace-nowrap inline-flex hover:cursor-pointer rounded-lg py-2 px-3 text-sm font-bold transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 ${activeTab === tab.id
                                 ? 'bg-gray-200 text-gray-900'
                                 : 'text-gray-600'
                                 }`}

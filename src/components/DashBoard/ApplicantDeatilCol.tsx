@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { File, X, Mail, Phone, MapPin, ExternalLink, Calendar, User, Unlink2 } from 'lucide-react';
+import { File, X, Mail, Phone, MapPin, ExternalLink, User, Unlink2 } from 'lucide-react';
 import ResumeViewer from '../Common/ResumeViewer';
 
 
@@ -169,13 +169,21 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
 
                             <div>
                                 <p className="text-sm text-gray-500">Resume</p>
-                                <a
-                                    onClick={() => setIsResumeOpen(true)}
-                                    className="text-amber-600 flex items-center hover:underline hover:cursor-pointer"
-                                    rel="noopener noreferrer"
-                                >
-                                    View Resume <ExternalLink className="h-3 w-3 ml-1" />
-                                </a>
+
+                                {selectedApplicant?.resume ?
+
+                                    <a
+                                        onClick={() => setIsResumeOpen(true)}
+                                        className="text-amber-600 flex items-center hover:underline hover:cursor-pointer"
+                                        rel="noopener noreferrer"
+                                    >
+                                        View Resume <ExternalLink className="h-3 w-3 ml-1" />
+                                    </a>
+
+                                    : "Not Available"
+
+                                }
+
                             </div>
 
                         </div>
@@ -185,15 +193,15 @@ const ApplicantDetailColumn: React.FC<ApplicantDetailColumnProps> = ({
 
                     <div className="mt-6 grid grid-cols-2 gap-3">
 
-                        <button className="bg-amber-500 hover:bg-amber-700 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                        {/* <button className="bg-amber-500 hover:bg-amber-700 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                             <Calendar className="h-4 w-4 mr-2" /> Schedule Interview
                         </button>
 
                         <button className="border border-gray-300 hover:bg-gray-50 text-gray-800 py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                             <Mail className="h-4 w-4 mr-2" /> Send Message
-                        </button>
+                        </button> */}
 
-                        <Link to={`/studentprofile/${selectedApplicant?.employee?.user}`} className="col-span-2 border border-gray-300 hover:bg-amber-50 text-amber-600 py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
+                        <Link to={`/studentprofile/${selectedApplicant?.employee?.user}`} className="col-span-2 border bg-amber-500 border-gray-300 hover:bg-amber-600 text-white py-2 px-4 rounded-lg transition-colors flex items-center justify-center">
                             <User className="h-4 w-4 mr-2" /> View Profile
                         </Link>
 

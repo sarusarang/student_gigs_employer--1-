@@ -10,7 +10,8 @@ import Academic from '../../Data/Academic.json';
 import { useState } from 'react';
 import { AnimatePresence, motion } from "framer-motion";
 import { PostJobTittle, JObTittles } from '../../Hooks/Utlis';
-
+import { useAuth } from '@/Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 // types
@@ -42,13 +43,11 @@ interface Inputs {
 const compensationTypes: Option[] = [
 
     { label: "Hourly Rate", value: "hourly" },
-    { label: "Daily Rate", value: "daily" },
-    { label: "Monthly Salary", value: "monthly" },
-    { label: "Annual Salary", value: "annual" },
-    { label: "Project Based", value: "project" },
     { label: "All-Day Gigs", value: "All-Day Gigs" },
     { label: "Weekend Gigs", value: "Weekend Gigs" },
-    { label: "Vacation Gigs", value: "Vacation Gigs" }
+    { label: "Vacation Gigs", value: "Vacation Gigs" },
+    { label: "Project Based", value: "project" },
+    
 ];
 
 
@@ -56,6 +55,14 @@ export default function OffilneTalentPost() {
 
 
     const [isVisible, setIsVisible] = useState(true);
+
+
+    const Navigate = useNavigate()
+
+
+    // Auth context
+    const { usage, isPlanExpired, isFetchingPlan } = useAuth()
+
 
     // Search keyword
     const [Search, setSearch] = useState<string>("")
@@ -114,38 +121,57 @@ export default function OffilneTalentPost() {
     // From submission
     const handleFormSubmit = (data: Inputs) => {
 
-        const formdata = new FormData()
 
-        formdata.append("job_title", data.job_title)
-        formdata.append("job_description", data.job_description)
-        formdata.append("category", data.category)
-        formdata.append("age_requirement_min", data.age_requirement_min)
-        formdata.append("age_requirement_max", data.age_requirement_max)
-        formdata.append("preferred_academic_courses", data.preferred_academic_courses)
-        formdata.append("pay_structure", data.pay_structure)
-        formdata.append("salary_type", data.salary_type)
-        formdata.append("job_location_map", data.job_location_map)
-        formdata.append("job_location", data.job_location)
+        if (!isPlanExpired && usage?.can_post_job && !isFetchingPlan) {
 
-        PostJob({ formData: formdata }, {
+            const formdata = new FormData()
 
-            onSuccess: (res) => {
+            formdata.append("job_title", data.job_title)
+            formdata.append("job_description", data.job_description)
+            formdata.append("category", data.category)
+            formdata.append("age_requirement_min", data.age_requirement_min)
+            formdata.append("age_requirement_max", data.age_requirement_max)
+            formdata.append("preferred_academic_courses", data.preferred_academic_courses)
+            formdata.append("pay_structure", data.pay_structure)
+            formdata.append("salary_type", data.salary_type)
+            formdata.append("job_location_map", data.job_location_map)
+            formdata.append("job_location", data.job_location)
 
-                if (res.status >= 200 && res.status <= 300) {
+            PostJob({ formData: formdata }, {
 
-                    toast.success("Job Posted successfully")
-                    reset()
-                    window.scrollTo({ top: 0, behavior: 'smooth', })
+                onSuccess: (res) => {
 
-                } else {
+                    if (res.status >= 200 && res.status <= 300) {
 
-                    toast.error("Something went wrong. Please try again.")
+                        toast.success("Job Posted successfully")
+                        reset()
+                        window.scrollTo({ top: 0, behavior: 'smooth', })
 
-                    console.log(res);
+                    } else {
 
+                        toast.error("Something went wrong. Please try again.")
+
+                        console.log(res);
+
+                    }
                 }
+            })
+
+        } else {
+
+
+            if (isPlanExpired || !usage?.can_post_job) {
+
+                toast.error(`${isPlanExpired ? "Your Plan Has Been Expired Renew or Upgrade to Post Jobs.." : "Your Job Posting Limit Has Been Exceeded Please Upgrade Your Plan"} `)
+                Navigate('/plans')
+
+            } else {
+
+                toast.error("Something went wrong. Please try again.")
+
             }
-        })
+
+        }
 
     }
 

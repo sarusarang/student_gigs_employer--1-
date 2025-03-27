@@ -1,11 +1,11 @@
-import {  SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 import { useState } from "react";
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import Selecet from 'react-select';
 import { AllLocations } from "../../Hooks/Utlis";
 import { useStudentSearch } from "../../Context/StudentFilterContext";
-import { OnlineTalentCategory } from "../../Hooks/Utlis";
+import { AllSearchCategory } from "../../Hooks/Utlis";
 
 
 
@@ -30,10 +30,10 @@ interface Option {
 const compensationTypes: Option[] = [
 
     { label: "Hourly Rate", value: "hourly" },
-    { label: "Daily Rate", value: "daily" },
-    { label: "Monthly Salary", value: "monthly" },
-    { label: "Annual Salary", value: "annual" },
-    { label: "Project Based", value: "project" }
+    { label: "All-Day Gigs", value: "All-Day Gigs" },
+    { label: "Weekend Gigs", value: "Weekend Gigs" },
+    { label: "Vacation Gigs", value: "Vacation Gigs" },
+    { label: "Project Based", value: "project" },
 ];
 
 
@@ -164,7 +164,7 @@ export default function FilterBar() {
 
 
     // Get Job Category
-    const { data, isLoading, isFetching } = OnlineTalentCategory()
+    const { data, isLoading, isFetching } = AllSearchCategory()
 
 
     // Form State
@@ -218,8 +218,8 @@ export default function FilterBar() {
                                     render={({ field: { onChange, value, ref } }) => (
                                         <Select
                                             ref={ref}
-                                            options={data?.all_jobs}
-                                            value={data?.all_jobs.find((option: Option) => option.value === value) || null}
+                                            options={data}
+                                            value={data?.find((option: Option) => option.value === value) || null}
                                             onChange={(option: any) => onChange(option ? option.value : null)}
                                             placeholder="Search a Category or Job Title..."
                                             isSearchable={true}

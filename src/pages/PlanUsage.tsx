@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     User,
@@ -11,7 +10,7 @@ import {
 
 const UltraModernPlanDetails = () => {
 
-    const [planData, setPlanData] = useState({
+    const planData = {
 
         name: 'Pro Accelerator',
         price: 49.99,
@@ -45,7 +44,8 @@ const UltraModernPlanDetails = () => {
         startDate: '2024-03-01',
         endDate: '2024-03-31',
         boostPoints: 75
-    });
+    };
+
 
 
     // Calculate progress and status

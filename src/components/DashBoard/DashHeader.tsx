@@ -25,17 +25,19 @@ const DashboardHeader: React.FC = () => {
                 {/* Logo and Title Section */}
                 <div className="flex items-center space-x-4">
 
-                    <div className="bg-white p-2 rounded-xl shadow-lg">
-                        <img
-                            src="/Nav-Icon.png"
-                            alt="logo"
-                            loading='lazy'
-                            className="h-12 w-auto object-contain"
-                        />
-                    </div>
+                    <Link to={'/'}>
+                        <div className="bg-white p-2 rounded-xl shadow-lg">
+                            <img
+                                src="/Nav-Icon.png"
+                                alt="logo"
+                                loading='lazy'
+                                className="h-12 w-auto object-contain"
+                            />
+                        </div>
+                    </Link>
 
                     <div className="text-white">
-                        <h1 className="text-3xl font-bold tracking-tight">Job Dashboard</h1>
+                        <h1 className="text-3xl font-bold tracking-tight">My Gigs Hub</h1>
                         <p className="text-amber-100 mt-1 font-medium">Manage your recruitment pipeline</p>
                     </div>
 

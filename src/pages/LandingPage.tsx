@@ -14,9 +14,8 @@ import { GetProfile } from "../Hooks/UserProfile";
 const LandingPage = () => {
 
 
-
   // User Profile status
-  const { data, isLoading } = GetProfile()
+  const { data, isLoading , isSuccess } = GetProfile()
 
 
   // Google AUTH
@@ -27,6 +26,7 @@ const LandingPage = () => {
   const { login, isAuthenticated } = useAuth();
 
 
+
   // Profile Modal
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -35,17 +35,18 @@ const LandingPage = () => {
   // Check if the user is authenticated and user profile is completed for modal open
   useEffect(() => {
 
-    if (!isAuthenticated || isLoading) return; 
+    if (isAuthenticated && isSuccess && !data?.is_exist) {
+
+      const timer = setTimeout(() => {
+        setIsModalOpen(!data?.is_exist);
+      }, 3000);
 
 
-    const timer = setTimeout(() => {
-      setIsModalOpen(!data?.is_exist);
-    }, 3000); 
+      return () => clearTimeout(timer);
 
+    }
 
-    return () => clearTimeout(timer); 
-
-  }, [data, isAuthenticated, isLoading]);
+  }, [data, isAuthenticated, isLoading , isSuccess]);
 
 
 

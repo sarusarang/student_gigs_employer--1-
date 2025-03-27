@@ -28,7 +28,7 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: black;
+    background: rgb(46, 46, 46);
     /* color of the scrollbar thumb */
     border-radius: 6px;
     /* rounded edges for the thumb */
@@ -306,13 +306,85 @@ html {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-
-    }
-  body {
-    @apply bg-background text-foreground;
+    * {
+        @apply border-border outline-ring/50;
 
     }
 
+    body {
+        @apply bg-background text-foreground;
+
+    }
+
+}
+
+
+
+/* Premium badge and border shimmer styles */
+.premium-badge-container {
+    position: relative;
+    display: inline-block;
+}
+
+.premium-badge-container .profile-image {
+    position: relative;
+    z-index: 10;
+}
+
+.border-shimmer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 8px);
+    height: calc(100% + 8px);
+    border-radius: 9999px;
+    background: conic-gradient(
+        from 0deg,
+        #f59e0b,
+        #f472b6,
+        #60a5fa,
+        #f59e0b
+    );
+    animation: rotate 4s linear infinite;
+    z-index: -1;
+}
+
+.premium-badge {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 2s infinite;
+    transform: skewX(-20deg);
+}
+
+@keyframes rotate {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) skewX(-20deg);
+    }
+    100% {
+        transform: translateX(300%) skewX(-20deg);
+    }
 }

@@ -1,4 +1,4 @@
-import { withProtectedRoute } from "./JobProtectedRoute";
+import { withProtectedRoute } from "../Protected/JobProtectedRoute";
 import { BriefcaseBusiness } from "lucide-react";
 
 const PostJobButton = () => {

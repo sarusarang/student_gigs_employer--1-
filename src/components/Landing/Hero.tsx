@@ -3,8 +3,6 @@ import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { Telescope } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { HomeSlider } from '../../Hooks/Utlis';
 
 
@@ -135,16 +133,7 @@ const Hero = () => {
                                   {slide.description}
                                 </motion.p>
 
-                                <motion.button
-                                  initial={{ opacity: 0, y: 20 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  exit={{ opacity: 0, y: -20 }}
-                                  transition={{ duration: 0.5, delay: 0.4 }}
-                                  className="mt-8 px-8 py-3 flex justify-center items-center bg-orange-500 text-white rounded-md font-semibold hover:bg-orange-600 transition-colors"
-                                >
-                                  <Link to="/findtalent" className='flex items-center'> Explore <Telescope size={20} className="ml-2" /></Link>
-                                </motion.button>
-
+                               
                               </div>
 
                             )}

@@ -114,7 +114,7 @@ export default function Howto() {
           <div className="text-center flex justify-center items-center">
             <Link to={'/findtalent'}>
               <button className="bg-pink-500 flex items-center hover:cursor-pointer text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-pink-600 transition-colors">
-                Hire Student Talents Now <GraduationCap className="inline-block ml-2" />
+                Hire Students Now <GraduationCap className="inline-block ml-2" />
               </button>
             </Link>
           </div>

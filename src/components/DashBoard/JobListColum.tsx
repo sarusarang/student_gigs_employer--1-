@@ -88,7 +88,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
                     Your Job Postings
                 </h2>
 
-                <div className="space-y-4 overflow-y-auto h-full">
+                <div className="space-y-4 overflow-y-auto h-[calc(100vh-100px)]">
 
                     {data?.jobs?.length === 0 ? (
 
@@ -137,7 +137,7 @@ const JobListingColumn: React.FC<JobListingColumnProps> = ({
 
                                         <div>
 
-                                            <h3 className="font-medium text-amber-500">{job?.job_title}</h3>
+                                            <h3 className="font-medium text-amber-500">{job?.job_title.toUpperCase()}</h3>
 
                                             <p className="text-sm text-gray-600">{job?.company?.company_name} • {job?.job_location}  • {job?.job_type}</p>
 

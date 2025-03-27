@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent, PostNewJobTitle, GetJobTitle } from "../Services/AllApi";
+import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent, PostNewJobTitle, GetJobTitle, PostProfileCount, GetAllSearchCategory , GetTrendingJobs } from "../Services/AllApi";
 
 
 
@@ -105,7 +105,8 @@ export const AllLocations = (search: string) => {
 };
 
 
-// Get Single Talent
+
+// Get Single Talent (Employee)
 export const SingleTalent = (id: string) => {
 
     return useQuery({
@@ -207,10 +208,107 @@ export const PostJobTittle = () => {
 
         },
         onError: (error) => {
-            console.error("Failed to Resister User:", error);
+            console.error("Failed to Post Job Tittle", error);
             queryclient.invalidateQueries({ queryKey: ["jobtittles"] });
         },
 
+
+    })
+
+}
+
+
+
+// Profile Count Adding
+export const ProfileCount = () => {
+
+    return useMutation({
+
+        mutationFn: async (formdata: FormData) => {
+
+            try {
+
+                if (!localStorage.getItem("token")) { throw new Error("Authentication token not found"); }
+
+                const token = localStorage.getItem("token")
+
+                const headers = { Authorization: `Bearer ${token}` }
+
+                const Response = await PostProfileCount(formdata, headers)
+
+                return Response
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+        onError: (error) => {
+            console.error("Failed to Resister User:", error);
+        },
+
+    })
+
+}
+
+
+
+
+
+// Get All Search Category
+export const AllSearchCategory = () => {
+
+    return useQuery({
+
+        queryKey: ["allsearchcategory"],
+
+        queryFn: async () => {
+
+            try {
+
+                const Response = await GetAllSearchCategory()
+
+                return Response.data
+
+            } catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+        staleTime: 1000 * 60 * 10,
+
+    })
+
+}
+
+
+// Get Trending Jobs
+export const TrendingJobsList = () => {
+
+    return useQuery({
+
+        queryKey: ["trendingjobs"],
+
+        queryFn: async () => {
+
+            try {
+
+                const Response = await GetTrendingJobs()
+
+                return Response.data
+
+            } catch (err) {
+
+                console.log(err);
+                return [];
+
+            }
+
+        },
 
     })
 

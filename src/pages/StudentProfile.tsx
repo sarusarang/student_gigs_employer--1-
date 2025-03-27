@@ -76,17 +76,45 @@ export default function StudentProfile() {
                                             <div className="flex justify-between space-x-2">
 
                                                 <div className="flex items-center gap-4">
-                                                    <div className="relative group">
+
+                                                    <div className="relative group z-100">
+
+                                                        {/* Shimmer border effect for premium users */}
+                                                        { data?.premium_badge && (
+                                                            <div className="absolute inset-0 rounded-full border-shimmer"></div>
+                                                        )}
+
                                                         <div className="relative w-24 h-24 md:w-32 md:h-32">
+
                                                             <img
                                                                 src={data?.profile?.profile_pic ? data?.profile?.profile_pic : "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="}
                                                                 alt="profile"
                                                                 loading="lazy"
-                                                                className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
+                                                                className="w-full h-full  rounded-full object-cover border-4 border-white shadow-lg"
                                                             />
 
+                                                            {/* Premium Badge */}
+                                                            { data?.premium_badge && (
+
+                                                                <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-1 overflow-hidden rounded-full shadow-lg border-2 border-white">
+                                                                    <div className="premium-badge bg-gradient-to-r from-amber-400 to-amber-500 text-white text-xs font-bold py-1 px-3 flex items-center gap-1 relative overflow-hidden">
+                                                                        {/* Shimmer effect overlay */}
+                                                                        <div className="shimmer-effect"></div>
+
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                                                                            <path fillRule="evenodd" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" clipRule="evenodd" />
+                                                                        </svg>
+                                                                        PREMIUM
+                                                                    </div>
+                                                                </div>
+
+                                                            )}
+
                                                         </div>
+
+
                                                     </div>
+
                                                 </div>
 
                                                 <div className="md:pt-12 pt-8">
@@ -225,7 +253,7 @@ export default function StudentProfile() {
 
                                                 </div>
 
-                                                
+
                                             </div>
                                         </div>
 
@@ -336,7 +364,7 @@ export default function StudentProfile() {
                                                             <div>
                                                                 <img
                                                                     className="w-14 h-14 object-cover rounded-full"
-                                                                    src="https://thumbs.dreamstime.com/b/office-building-icon-linear-logo-mark-set-collection-black-white-web-office-building-icon-linear-logo-mark-black-330207065.jpg"
+                                                                    src="/Exp-Deaf.png"
                                                                     alt="company-logo"
                                                                     loading="lazy"
                                                                 />

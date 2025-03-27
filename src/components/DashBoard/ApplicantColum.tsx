@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Filter, ChevronRight, MapPin, Calendar } from 'lucide-react';
+import { Users, ChevronRight, MapPin, Calendar } from 'lucide-react';
 import { JobApplicantsData } from '../../Hooks/DashboardHook';
 
 // Define TypeScript interfaces for Job
@@ -8,6 +8,7 @@ interface Country {
     label: string;
     flag: string;
 }
+
 
 interface Company {
     id: number;
@@ -117,7 +118,6 @@ interface ApplicantListColumnProps {
 const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
     selectedJob,
     selectedApplicant,
-    filterStatus,
     setFilterStatus,
     handleApplicantSelect
 }) => {
@@ -145,20 +145,11 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
                         <h2 className="text-lg font-semibold flex items-center">
                             <Users className="h-5 w-5 mr-2 text-amber-600" />
-                            Applicants for {selectedJob.job_title}
+                            Applicants for {selectedJob.job_title.toUpperCase()}
                         </h2>
 
 
                         <div className="relative">
-
-
-                            <button
-                                className="flex items-center text-sm text-gray-600 border border-gray-300 rounded-lg px-3 py-1.5 hover:bg-gray-50"
-                                onClick={() => setIsFiltering(!isFiltering)}
-                            >
-                                <Filter className="h-4 w-4 mr-2" />
-                                {filterStatus}
-                            </button>
 
 
                             {isFiltering && (
@@ -206,7 +197,7 @@ const ApplicantListColumn: React.FC<ApplicantListColumnProps> = ({
 
                         ) : data?.length === 0 ? (
 
-                            <p className="text-gray-500 text-center py-8">No applicants match the current filter.</p>
+                            <p className="text-gray-500 text-center py-8">No applicants for {selectedJob.job_title.toUpperCase()} </p>
 
                         ) : (
 

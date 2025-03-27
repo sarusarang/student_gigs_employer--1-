@@ -3,6 +3,7 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import MainLoader from "./components/Common/MainLoader";
+import ProtectedDashboard from "./components/Protected/ProtectedDashBoard";
 
 
 
@@ -18,6 +19,8 @@ const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Contact = lazy(() => import("./pages/Contact"));
 const DashBoard = lazy(() => import("./pages/DashBoard"));
 const Plans = lazy(() => import("./pages/Plans"));
+const PlanUsage = lazy(() => import("./pages/PlanUsage"));
+const LoginTerms = lazy(() => import("./pages/LoginTerms"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Refund = lazy(() => import("./pages/Refund"));
 const Privacy = lazy(() => import("./pages/Privacy"));
@@ -83,19 +86,11 @@ function App() {
 
         <Route path="/postjob" element={<JobPost />} />
 
-        <Route path="/employerprofile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
-
-        <Route path="/dashboard" element={<ProtectedRoute> <DashBoard /> </ProtectedRoute>} />
-
         <Route path="/auth" element={<Auth />} />
 
         <Route path="/findtalent" element={<StudentFilter />} />
 
-        <Route path="/studentprofile/:id" element={<StudentProfile />} />
-
         <Route path="/contact" element={<Contact />} />
-
-        <Route path="/plans" element={<Plans />} />
 
         <Route path="/termscondition" element={<Terms />} />
 
@@ -103,7 +98,19 @@ function App() {
 
         <Route path="/refundpolicy" element={<Refund />} />
 
+        <Route path="/loginterms" element={<LoginTerms />} />
+
         <Route path="*" element={<NotFound />} />
+
+        <Route path="/planusage" element={<ProtectedRoute><PlanUsage /></ProtectedRoute>} />
+
+        <Route path="/employerprofile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
+
+        <Route path="/dashboard" element={<ProtectedDashboard> <DashBoard /> </ProtectedDashboard>} />
+
+        <Route path="/studentprofile/:id" element={<ProtectedRoute><StudentProfile /></ProtectedRoute>} />
+
+        <Route path="/plans" element={<ProtectedRoute><Plans /></ProtectedRoute>} />
 
       </Routes>
 

@@ -516,6 +516,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                                     value: 13,
                                                                     message: "Phone number cannot exceed 10 digits"
                                                                 },
+                                                                required: true
                                                             }}
                                                             render={({ field: { onChange, value } }) => (
                                                                 <PhoneInput
@@ -537,11 +538,13 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                     <div className="space-y-2">
                                                         <label className="block text-sm font-medium text-gray-700">
                                                             Street
-
+                                                            {errors.street_address && (
+                                                                <span className="text-red-500 ml-2 text-xs">Valid street required</span>
+                                                            )}
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            {...register('street_address')}
+                                                            {...register('street_address', { required: true })}
                                                             className={`w-full px-4 py-3 bg-gray-50 border ${errors.street_address ? 'border-red-500' : 'border-gray-200'
                                                                 } rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all`}
                                                             placeholder="Enter street address"
@@ -566,6 +569,9 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                             className="block text-sm/6 font-medium text-gray-900"
                                                         >
                                                             Country
+                                                            {errors.country && (
+                                                                <span className="text-red-500 ml-2 text-xs">Valid country required</span>
+                                                            )}
 
                                                         </label>
 
@@ -574,6 +580,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                             <Controller
                                                                 name="country"
                                                                 control={control}
+                                                                rules={{ required: true }}
                                                                 render={({ field: { onChange, value, ref } }) => (
                                                                     <Select
                                                                         ref={ref}
@@ -609,12 +616,16 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                             className="block text-sm/6 font-medium text-gray-900"
                                                         >
                                                             State
+                                                            {errors.state && (
+                                                                <span className="text-red-500 ml-2 text-xs">Valid state required</span>
+                                                            )}
 
                                                         </label>
 
                                                         <div className="mt-2">
                                                             <Controller
                                                                 name="state"
+                                                                rules={{ required: true }}
                                                                 control={control}
                                                                 render={({ field: { onChange, value, ref } }) => (
                                                                     <Select
@@ -654,7 +665,7 @@ const ModernProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, titl
                                                             </label>
                                                             <input
                                                                 type="text"
-                                                                {...register(field.name as keyof FormInputs)}
+                                                                {...register(field.name as keyof FormInputs, { required: true })}
                                                                 className={`w-full px-4 py-3 bg-gray-50 border ${errors[field.name as keyof FormInputs] ? 'border-red-500' : 'border-gray-200'
                                                                     } rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all`}
                                                                 placeholder={field.label}

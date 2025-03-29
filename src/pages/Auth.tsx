@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../Context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { Eye, EyeOff } from "lucide-react";
 
 
 
@@ -20,6 +21,10 @@ type Inputs = {
 
 
 export default function Auth() {
+
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showRePassword, setShowRePassword] = useState(false);
 
 
     const Navigate = useNavigate()
@@ -357,6 +362,7 @@ export default function Auth() {
 
                                     <form className="flex flex-col pt-3 md:pt-8" onSubmit={handleSubmit(SubmitLogin)}>
 
+
                                         {/* Username */}
                                         <div className="flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
@@ -370,17 +376,28 @@ export default function Auth() {
                                         </div>
 
 
+
                                         {/*Password */}
                                         <div className="mb-12 flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
-                                                <input type="password" id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password"
+                                                <input type={showPassword ? "text" : "password"} id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password"
 
                                                     {...register("password", { required: "Password is required" })}
 
                                                 />
+
+                                                <button
+                                                    type="button"
+                                                    className="absolute right-4 cursor-pointer top-1/2 -translate-y-1/2 text-gray-500"
+                                                    onClick={() => setShowPassword(!showPassword)}
+                                                >
+                                                    {showPassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                </button>
+
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
                                             </div>
                                         </div>
+
 
 
                                         {/* Terms and Conditions Checkbox */}
@@ -438,7 +455,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Don't have an account?
-                                            <a onClick={() => SetStatus(!Status)} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
+                                            <a onClick={() => { SetStatus(!Status) , reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
                                         </p>
                                     </div>
 
@@ -498,11 +515,20 @@ export default function Auth() {
                                         {/* Password */}
                                         <div className=" flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
-                                                <input type="password" id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password"
+                                                <input type={showPassword ? "text" : "password"} id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password"
 
                                                     {...register("password", { required: "Password is required" })}
 
                                                 />
+
+                                                <button
+                                                    type="button"
+                                                    className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                                                    onClick={() => setShowPassword(!showPassword)}
+                                                >
+                                                    {showPassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                </button>
+
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
                                             </div>
                                         </div>
@@ -512,11 +538,20 @@ export default function Auth() {
                                         {/* Re-enter Password */}
                                         <div className="mb-12 flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
-                                                <input type="password" id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Re-enter Password"
+                                                <input type={showRePassword ? "text" : "password"} id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Re-enter Password"
 
                                                     {...register("repassword", { required: "Re-enter Password is required" })}
 
                                                 />
+
+                                                <button
+                                                    type="button"
+                                                    className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-gray-500"
+                                                    onClick={() => setShowRePassword(!showRePassword)}
+                                                >
+                                                    {showRePassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                </button>
+
                                                 {errors.repassword && <p role="alert" className="text-red-500 text-sm">{errors.repassword.message}</p>}
                                             </div>
                                         </div>
@@ -567,7 +602,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Alredy have an account?
-                                            <a onClick={() => SetStatus(!Status)} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In.</a>
+                                            <a onClick={() => { SetStatus(!Status) , reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In.</a>
                                         </p>
                                     </div>
 

@@ -402,36 +402,49 @@ export default function OnlineTalentPost() {
 
                     {/*Age */}
                     <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Age Preference*
-                                {errors.age_requirement_min && errors.age_requirement_max && (
-                                    <span className="text-red-500 ml-2 text-xs">Required</span>
-                                )}
                             </label>
                             <div className="flex gap-4">
-                                <input
-                                    type="number"
-                                    placeholder="Minimum Age"
-                                    min="18"
-                                    {...register('age_requirement_min', { required: "Minimum Age is required" })}
-                                    className="mt-1 block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
-                                    required
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Maximum Age"
-                                    min="18"
-                                    {...register('age_requirement_max', { required: "Maximum Age is required" })}
-                                    className="mt-1 block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
-                                    required
-                                />
+
+                                {/* Minimum Age Input */}
+                                <div className="w-full">
+                                    <input
+                                        type="number"
+                                        placeholder="Minimum Age"
+                                        {...register('age_requirement_min', {
+                                            required: "Minimum Age is required",
+                                            min: { value: 18, message: "Minimum age must be 18 or older" }
+                                        })}
+                                        className={`mt-1 block w-full p-4 rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px] 
+                                         ${errors.age_requirement_min ? 'border-red-500' : 'border-gray-300'}`}
+                                    />
+                                    {errors.age_requirement_min && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.age_requirement_min.message}</p>
+                                    )}
+                                </div>
+
+                                {/* Maximum Age Input */}
+                                <div className="w-full">
+                                    <input
+                                        type="number"
+                                        placeholder="Maximum Age"
+                                        {...register('age_requirement_max', {
+                                            required: "Maximum Age is required",
+                                            min: { value: 18, message: "Minimum age must be 18 or older" }
+                                        })}
+                                        className={`mt-1 block w-full p-4 rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px] 
+                                         ${errors.age_requirement_max ? 'border-red-500' : 'border-gray-300'}`}
+                                    />
+                                    {errors.age_requirement_max && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.age_requirement_max.message}</p>
+                                    )}
+                                </div>
+
                             </div>
                         </div>
-
                     </div>
-
 
 
                     {/* Compensation Type */}
@@ -490,7 +503,7 @@ export default function OnlineTalentPost() {
                                     }
                                 }}
                                 className="block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
-                                required
+                               
                             />
 
 
@@ -505,7 +518,7 @@ export default function OnlineTalentPost() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                             Job Description*
                             {errors.job_description && (
-                                <span className="text-red-500 ml-2 text-xs">Required</span>
+                                <span className="text-red-500 ml-2 text-xs">Required Edit or Add Description</span>
                             )}
                         </label>
 

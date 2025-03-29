@@ -45,7 +45,7 @@ export default function Header() {
 
 
   // To use auth context logout
-  const { logout , isAuthenticated } = useAuth()
+  const { logout, isAuthenticated } = useAuth()
 
 
 
@@ -116,7 +116,7 @@ export default function Header() {
 
         <header className="">
 
-          <nav aria-label="Global" className="mx-auto flex flex-col sm:flex-row max-w-7xl items-center justify-between sm:p-0 sm:py-0 px-2 py-1 lg:px-0 md:px-8">
+          <nav aria-label="Global" className="mx-auto flex flex-col sm:flex-row  max-w-7xl justify-between sm:p-0 sm:py-0 px-3 py-1 lg:px-0 md:px-8">
 
 
             <div className="flex items-center justify-between">
@@ -134,39 +134,50 @@ export default function Header() {
               </div>
 
 
-              {/* Home for mobile view */}
-              <Link to={'/'} className={`ms-1 text-md font-semibold text-gray-400 hover:text-green-600 sm:hidden block ${color ? "text-white" : ""}`}>
-                <House size={24} />
-              </Link>
+              <div className="flex items-center justify-between">
 
-              {/* Search  for mobile view */}
-              <div className="flex items-center border rounded-full px-1 overflow-hidden  sm:hidden mx-1 border-gray-200">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className={`w-full px-2 py-1 text-xs focus:outline-none  ${color ? 'bg-transparent text-white placeholder-white' : 'text-gray-900'}`}
-                />
+                {/* Home for mobile view */}
+                <Link to={'/'} className={`ms-1 text-md font-semibold text-gray-400 hover:text-green-600 sm:hidden block ${color ? "text-white" : ""}`}>
+                  <House size={24} />
+                </Link>
+
+
+                {/* Profile image */}
+                <Link to={'/employerprofile'} className="ms-2 sm:hidden">
+
+                  <img
+                    src={data[0]?.profile?.profile_pic ?? "/DeaflutProfile.jpeg"}
+                    loading="lazy"
+                    alt="User profile"
+                    className="w-[25px] h-[25px] rounded-full object-cover "
+                  />
+
+                </Link>
+
+
+                {/* Search  for mobile view */}
                 <Link
                   to={'/findtalent'}
-                  className={`p-2 flex items-center justify-center ${color ? 'bg-transparent hover:bg-gray-600' : ""} text-md font-semibold`}
+                  className={`p-2 flex sm:hidden items-center justify-center ${color ? 'bg-transparent hover:bg-gray-600' : ""} text-md font-semibold`}
                 >
                   <Search size={16} className={`${color ? 'text-white' : 'text-gray-900'}`} />
 
                 </Link>
-              </div>
 
 
-              <div className="flex lg:hidden">
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(true)}
-                  className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 ${color ? "text-white" : "text-black"}`}
-                >
-                  <span className="sr-only">Open main menu</span>
+                <div className="flex lg:hidden">
+                  <button
+                    type="button"
+                    onClick={() => setMobileMenuOpen(true)}
+                    className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 ${color ? "text-white" : "text-black"}`}
+                  >
+                    <span className="sr-only">Open main menu</span>
 
-                  <Text aria-hidden="true" className="size-6" />
+                    <Text aria-hidden="true" className="size-6" />
 
-                </button>
+                  </button>
+
+                </div>
 
               </div>
 
@@ -177,7 +188,6 @@ export default function Header() {
 
             {/* Buttons */}
             <div className='flex justify-center items-center gap-x-2 mb-2 sm:hidden'>
-
 
 
               {/* Find Student Talents for mobile view */}
@@ -196,17 +206,12 @@ export default function Header() {
             </div>
 
 
-
-
-
             {/* Navbar items */}
-            <PopoverGroup className="hidden lg:flex lg:gap-x-5 items-center">
-
+            <PopoverGroup className="hidden lg:flex lg:gap-x-5 items-center mx-auto">
 
 
               {/* Job post */}
               <ProtectedPostJobButton />
-
 
 
               {/* Find Student Talents */}
@@ -241,9 +246,9 @@ export default function Header() {
                 />
                 <Link
                   to={'/findtalent'}
-                  className={`p-2 flex items-center justify-center ${color ? 'bg-transparent hover:bg-gray-600' : ""} text-md font-semibold`}
+                  className={`p-2 flex items-center justify-center ${color ? 'bg-transparent' : ""} text-md font-semibold`}
                 >
-                  <Search className={`${color ? 'text-white' : 'text-gray-900'}`} />
+                  <Search className={`${color ? 'text-white' : 'text-gray-400'}`} />
                 </Link>
               </div>
 

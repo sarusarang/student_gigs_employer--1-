@@ -6,7 +6,9 @@ import Selecet from 'react-select';
 import { AllLocations } from "../../Hooks/Utlis";
 import { useStudentSearch } from "../../Context/StudentFilterContext";
 import { AllSearchCategory } from "../../Hooks/Utlis";
-
+import { useAuth } from "@/Context/AuthContext";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 // form inputs
@@ -154,6 +156,16 @@ const SelectedStyles = {
 
 export default function FilterBar() {
 
+    
+    const navigate = useNavigate();
+    
+
+    // Get the current path
+    const location = useLocation();
+
+    // Auth Context
+    const { isAuthenticated } = useAuth()
+
 
     // Search keyword
     const [Search, setSearch] = useState<string>("")
@@ -180,8 +192,15 @@ export default function FilterBar() {
     // On Submit
     const Onsubmit = (data: Inputs) => {
 
-        console.log(data);
+        if (!isAuthenticated) {
 
+            toast.error("Please Login to Search Students");
+
+            navigate("/auth", { state: { from: location } })
+
+            return
+
+        }
 
         updateSearchParams({
             category: data.category,

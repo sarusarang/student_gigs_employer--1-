@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useState } from "react";
+import { ReactNode, Suspense, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
@@ -7,9 +7,9 @@ import ProtectedDashboard from "./components/Protected/ProtectedDashBoard";
 
 
 
+// Lazy Loaded Components
+const Layout = lazy(() => import("./pages/Layout"));
 const Landing = lazy(() => import("./pages/LandingPage"));
-const Navbar = lazy(() => import("./components/Common/Navbar"));
-const Footer = lazy(() => import("./components/Common/Footer"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const JobPost = lazy(() => import("./pages/JobPost"));
 const Auth = lazy(() => import("./pages/Auth"));
@@ -27,48 +27,28 @@ const Privacy = lazy(() => import("./pages/Privacy"));
 
 
 
+
+// Protected Route Wrapper
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  return isAuthenticated ? children : <Navigate to="/auth" state={{ from: location }} />;
+};
+
+
+
+// Lazy Load Component Wrapper
+const LazyLoad = ({ Component }: { Component: React.ComponentType }) => (
+  <Suspense fallback={<MainLoader />}>
+    <Component />
+  </Suspense>
+);
+
+
+
+
+
 function App() {
-
-
-  // To get the current path
-  const location = useLocation()
-
-
-  // To check if the user is authenticated
-  const { isAuthenticated } = useAuth()
-
-
-
-  // To hide the header and footer
-  const [Hide, SetHide] = useState(false)
-
-
-
-
-  // To hide the header and footer
-  useEffect(() => {
-
-    if (location.pathname === "/auth" || location.pathname === "/dashboard") {
-      SetHide(true)
-    }
-    else {
-
-      SetHide(false)
-
-    }
-
-  }, [location])
-
-
-
-
-  // Protected Route Component
-  const ProtectedRoute = ({ children }: any) => {
-
-    return isAuthenticated ? children : <Navigate to="/auth" state={{ from: location }} />
-
-  };
-
 
 
   return (
@@ -77,52 +57,76 @@ function App() {
     <Suspense fallback={<MainLoader />}>
 
 
-      {!Hide && <Navbar />}
-
-
       <Routes>
 
-        <Route path="/" element={<Landing />} />
 
-        <Route path="/postjob" element={<JobPost />} />
+        {/* Auth Routes */}
+        <Route path="/auth" element={<LazyLoad Component={Auth} />} />
+        <Route path="*" element={<LazyLoad Component={NotFound} />} />
+        <Route path="/dashboard" element={<ProtectedDashboard> <LazyLoad Component={DashBoard} /> </ProtectedDashboard>} />
 
-        <Route path="/auth" element={<Auth />} />
 
-        <Route path="/findtalent" element={<StudentFilter />} />
+        {/* Main Layout Routes */}
+        <Route element={<LazyLoad Component={Layout} />}>
 
-        <Route path="/contact" element={<Contact />} />
+          <Route path="/" element={<LazyLoad Component={Landing} />} />
+          <Route path="/postjob" element={<LazyLoad Component={JobPost} />} />
+          <Route path="/findtalent" element={<LazyLoad Component={StudentFilter} />} />
+          <Route path="/contact" element={<LazyLoad Component={Contact} />} />
+          <Route path="/termscondition" element={<LazyLoad Component={Terms} />} />
+          <Route path="/privacypolicy" element={<LazyLoad Component={Privacy} />} />
+          <Route path="/refundpolicy" element={<LazyLoad Component={Refund} />} />
+          <Route path="/loginterms" element={<LazyLoad Component={LoginTerms} />} />
 
-        <Route path="/termscondition" element={<Terms />} />
 
-        <Route path="/privacypolicy" element={<Privacy />} />
+          {/* Protected Routes */}
+          <Route
+            path="/planusage"
+            element={
+              <ProtectedRoute>
+                <LazyLoad Component={PlanUsage} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="/refundpolicy" element={<Refund />} />
 
-        <Route path="/loginterms" element={<LoginTerms />} />
+          <Route
+            path="/employerprofile"
+            element={
+              <ProtectedRoute>
+                <LazyLoad Component={UserProfile} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="*" element={<NotFound />} />
 
-        <Route path="/planusage" element={<ProtectedRoute><PlanUsage /></ProtectedRoute>} />
+          <Route
+            path="/studentprofile/:id"
+            element={
+              <ProtectedRoute>
+                <LazyLoad Component={StudentProfile} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="/employerprofile" element={<ProtectedRoute> <UserProfile /> </ProtectedRoute>} />
 
-        <Route path="/dashboard" element={<ProtectedDashboard> <DashBoard /> </ProtectedDashboard>} />
+          <Route
+            path="/plans"
+            element={
+              <ProtectedRoute>
+                <LazyLoad Component={Plans} />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route path="/studentprofile/:id" element={<ProtectedRoute><StudentProfile /></ProtectedRoute>} />
-
-        <Route path="/plans" element={<ProtectedRoute><Plans /></ProtectedRoute>} />
+        </Route>
 
       </Routes>
 
-
-      {!Hide && <Footer />}
-
+      {/* Notifications */}
       <Toaster position="top-center" />
-
     </Suspense>
-
-
-  )
+  );
 }
 
 export default App;

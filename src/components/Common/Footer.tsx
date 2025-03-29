@@ -6,9 +6,10 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 sm:p-5 bg-gray-900 text-white">
 
+
         {/* Left Section */}
         <div>
-          <h3 className="text-lg font-bold mb-4">Student Gigs</h3>
+          <h3 className="text-lg font-bold mb-4">Students Gigs</h3>
           <p>
             Join us in creating a smarter, more independent generation by
             connecting students with real-world opportunities!

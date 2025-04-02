@@ -6,8 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../Context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
-import { Eye, EyeOff } from "lucide-react";
-
+import { Eye, EyeOff, Loader } from "lucide-react";
+import EmailOtp from "@/components/Common/EmailOtp";
 
 
 type Inputs = {
@@ -23,10 +23,20 @@ type Inputs = {
 export default function Auth() {
 
 
+    // Password and re-password visibility
     const [showPassword, setShowPassword] = useState(false);
     const [showRePassword, setShowRePassword] = useState(false);
 
 
+    // Register Data
+    const [RegisterData, setRegisterData] = useState({});
+
+
+    // Otp Modal
+    const [otpModal, setOtpModal] = useState(false);
+
+
+    // Navigate
     const Navigate = useNavigate()
 
 
@@ -36,7 +46,6 @@ export default function Auth() {
 
     // Login and register status
     const [Status, SetStatus] = useState(true)
-
 
 
     // Terms acceptance state
@@ -54,12 +63,12 @@ export default function Auth() {
 
 
     // Mutate for user Register
-    const { mutate } = UserRegister()
+    const { mutate, isPending: isRegisterPending } = UserRegister()
 
 
 
     // Mutate for user Login
-    const { mutate: mutateLogin } = UserLogin()
+    const { mutate: mutateLogin, isPending: isLoginPending } = UserLogin()
 
 
 
@@ -86,6 +95,9 @@ export default function Auth() {
         }
 
 
+        setRegisterData(data)
+
+
         const formdata = new FormData()
 
         formdata.append("email", data.email)
@@ -101,11 +113,7 @@ export default function Auth() {
 
                 if (response.status >= 200 && response.status <= 300) {
 
-                    toast.success("User Register Successfully")
-
-                    SetStatus(!Status)
-
-                    reset()
+                    setOtpModal(true)
 
                     queryclient.invalidateQueries({ queryKey: ["UserProfile"] });
 
@@ -329,6 +337,10 @@ export default function Auth() {
     })
 
 
+    // Change Status
+    const handleStatusChnage = () => { SetStatus(!Status) }
+
+
     return (
 
 
@@ -391,7 +403,7 @@ export default function Auth() {
                                                     className="absolute right-4 cursor-pointer top-1/2 -translate-y-1/2 text-gray-500"
                                                     onClick={() => setShowPassword(!showPassword)}
                                                 >
-                                                    {showPassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                    {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                                                 </button>
 
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
@@ -433,7 +445,9 @@ export default function Auth() {
                                         </div>
 
 
-                                        <button type="submit" disabled={!termsAccepted} className={`w-full cursor-pointer rounded-lg ${!termsAccepted ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2`}>Log in</button>
+                                        <button type="submit" disabled={!termsAccepted || isLoginPending} className={`w-full cursor-pointer rounded-lg ${!termsAccepted || isLoginPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
+                                            Log In {isLoginPending && <Loader className="animate-spin ms-3 duration-3000" />}
+                                        </button>
 
                                     </form>
 
@@ -455,7 +469,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Don't have an account?
-                                            <a onClick={() => { SetStatus(!Status) , reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
                                         </p>
                                     </div>
 
@@ -526,7 +540,7 @@ export default function Auth() {
                                                     className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-gray-500"
                                                     onClick={() => setShowPassword(!showPassword)}
                                                 >
-                                                    {showPassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                    {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
                                                 </button>
 
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
@@ -549,7 +563,7 @@ export default function Auth() {
                                                     className="absolute cursor-pointer right-4 top-1/2 -translate-y-1/2 text-gray-500"
                                                     onClick={() => setShowRePassword(!showRePassword)}
                                                 >
-                                                    {showRePassword ? <Eye size={20} /> :  <EyeOff size={20} />}
+                                                    {showRePassword ? <Eye size={20} /> : <EyeOff size={20} />}
                                                 </button>
 
                                                 {errors.repassword && <p role="alert" className="text-red-500 text-sm">{errors.repassword.message}</p>}
@@ -592,7 +606,11 @@ export default function Auth() {
 
 
 
-                                        <button type="submit" disabled={!termsAccepted} className={`w-full cursor-pointer rounded-lg ${!termsAccepted ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2`}>Sign Up</button>
+                                        <button type="submit" disabled={!termsAccepted || isRegisterPending} className={`w-full cursor-pointer rounded-lg ${!termsAccepted || isRegisterPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
+
+                                            Sign Up {isRegisterPending && <Loader className="animate-spin duration-3000 ms-3" />}
+
+                                        </button>
 
 
                                     </form>
@@ -602,7 +620,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Alredy have an account?
-                                            <a onClick={() => { SetStatus(!Status) , reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In.</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In.</a>
                                         </p>
                                     </div>
 
@@ -629,10 +647,10 @@ export default function Auth() {
                 </div>
 
 
-
+                {/* OTP Modal */}
+                <EmailOtp handleStatus={handleStatusChnage} isOpen={otpModal} setIsOpen={setOtpModal} RegisterData={RegisterData} reset={reset} />
 
             </main>
-
 
 
         </>

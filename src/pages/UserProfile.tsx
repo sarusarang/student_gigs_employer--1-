@@ -6,10 +6,6 @@ import { AlertCircle, History, IdCard, SquarePen } from "lucide-react";
 import { GetPostedJob } from "../Hooks/Jobform";
 
 
-
-
-
-
 interface Country {
     value: string;
     label: string;
@@ -178,7 +174,7 @@ export default function UserProfile() {
                                             {/* Details */}
                                             <div className="content-center pl-3 gap-y-0.5 flex flex-col">
 
-                                                <h2 className="font-bold text-xl">{data?.employer?.company_name}</h2>
+                                                <h2 className="font-bold text-xl">{data?.employer?.company_name} <span className="text-gray-400 text-sm">@{data?.employer?.username}</span> </h2>
 
                                                 <div className="flex gap-1">
                                                     <i className="fas fa-map-marker-alt pt-1 text-gray-500"></i>

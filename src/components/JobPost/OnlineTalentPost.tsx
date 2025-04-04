@@ -62,7 +62,7 @@ export default function OnlineTalentPost() {
     const { usage, isPlanExpired, isFetchingPlan, refetchPlan } = useAuth()
 
 
-    // Search keyword
+    // Search keyword for loaction
     const [Search, setSearch] = useState<string>("")
 
 
@@ -530,7 +530,7 @@ export default function OnlineTalentPost() {
 
                                 <RichTextEditor
                                     onChange={(content) => onChange(content)}
-                                    minCharacters={4000}
+                                    minCharacters={2000}
                                     value={value}
                                     placeholder="Enter job description..."
                                     className="mt-2"

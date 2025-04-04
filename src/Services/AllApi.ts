@@ -254,3 +254,12 @@ export const GetTrendingJobs = async () => {
     return await CommonApi("GET", `${Base_Url}/trending-job-slider/`, "", "")
 
 }
+
+
+
+// Get Plan Usage
+export const GetPlanUsage = async (header: object) => {
+
+    return await CommonApi("GET", `${Base_Url}/plan-usage/`, "", header)
+
+}

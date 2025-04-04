@@ -19,7 +19,7 @@ const UserProfile = lazy(() => import("./pages/UserProfile"));
 const Contact = lazy(() => import("./pages/Contact"));
 const DashBoard = lazy(() => import("./pages/DashBoard"));
 const Plans = lazy(() => import("./pages/Plans"));
-const PlanUsage = lazy(() => import("./pages/PlanUsage"));
+const PlanUsage = lazy(() => import("./pages/Usage"));
 const LoginTerms = lazy(() => import("./pages/LoginTerms"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Refund = lazy(() => import("./pages/Refund"));

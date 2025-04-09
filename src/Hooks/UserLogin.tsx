@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { RegisterUser, GoogleLogin, LoginUser , PostEmailVerification , PostResendOtp } from "../Services/AllApi"
+import { RegisterUser, GoogleLogin, LoginUser, PostEmailVerification, PostResendOtp , PostResetPassword } from "../Services/AllApi"
 
 
 
@@ -122,6 +122,7 @@ export const EmailVerification = () => {
 
 
 
+
 // Resend Otp
 export const ResendOtp = () => {
 
@@ -148,5 +149,40 @@ export const ResendOtp = () => {
         },
 
     })
+
+}
+
+
+
+
+
+// Reset Password
+export const ResetPassword = () => {
+
+    return useMutation({
+
+        mutationFn: async (data: any) => {
+
+            try {
+
+                const Response = await PostResetPassword(data)
+
+                return Response
+
+            }
+            catch (err) {
+
+                console.log(err);
+
+            }
+
+        },
+        onError: (error) => {
+
+            console.error("Failed to Reset Password", error);
+
+        },
+    })
+
 
 }

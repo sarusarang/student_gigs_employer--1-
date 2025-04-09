@@ -32,6 +32,16 @@ export const PostResendOtp = async (data: any) => {
 }
 
 
+
+// Reset Password
+export const PostResetPassword = async (data: any) => {
+
+    return await CommonApi("POST", `${Base_Url}/reset-password/`, data, "")
+
+}
+
+
+
 // User Login
 export const LoginUser = async (data: any) => {
 

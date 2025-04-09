@@ -128,7 +128,7 @@ export default function Header() {
                     alt="nav-icon"
                     src="/Nav-Icon.png"
                     loading="lazy"
-                    className="sm:h-20 sm:w-44 h-12 w-28"
+                    className="sm:h-20 sm:w-52 h-12 w-28"
                   />
                 </a>
               </div>

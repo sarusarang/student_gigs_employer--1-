@@ -1,6 +1,5 @@
 import Footer from "@/components/Common/Footer"
 import Header from "@/components/Common/Navbar"
-import WhatsAppButton from "@/components/Common/WhatsAppButton"
 import { Outlet } from "react-router-dom"
 
 export default function Layout() {
@@ -26,9 +25,6 @@ export default function Layout() {
                 <footer aria-label="Footer">
                     <Footer />
                 </footer>
-
-                {/*  WhatsApp Icon */}
-                <WhatsAppButton />
 
             </main>
 

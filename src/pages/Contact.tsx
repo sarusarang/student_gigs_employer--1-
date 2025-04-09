@@ -38,9 +38,12 @@ export default function Contact() {
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
 
-                                        <span className="mx-2 text-gray-700 truncate w-72 ">
-                                            Cecilia Chapman 711-2880 Nulla
-                                            St. Mankato Mississippi 96522
+                                        <span className="mx-2 text-gray-700 w-72 ">
+                                            Medresearch India Pvt. Ltd.
+
+                                            RKP/569H, Usha Building, Parammal Road
+
+                                            Ramanattukara, Kozhikode, Kerala, India, PIN 673633
                                         </span>
                                     </p>
 
@@ -52,7 +55,13 @@ export default function Contact() {
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
 
-                                        <span className="mx-2 text-gray-700 truncate w-72 ">(257) 563-7401</span>
+                                        <span className="mx-2 text-gray-700 truncate w-72 ">
+
+                                            <a href="https://wa.me/919072399100" target="_blank" rel="noopener noreferrer" className=" block hover:text-indigo-400">
+                                                +91 90723 99100
+                                            </a>
+
+                                        </span>
                                     </p>
 
 
@@ -62,7 +71,13 @@ export default function Contact() {
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                         </svg>
 
-                                        <span className="mx-2 text-gray-700 truncate w-72 ">acb@example.com</span>
+                                        <span className="mx-2 text-gray-700 truncate w-72 ">
+
+                                            <a href="mailto:studentsgigs@gmail.com" className="block hover:text-indigo-400">
+                                                studentsgigs@gmail.com
+                                            </a>
+
+                                        </span>
                                     </p>
 
 
@@ -77,22 +92,33 @@ export default function Contact() {
                                     <h3 className="text-gray-600 font-semibold text-md">Follow us</h3>
 
                                     <div className="flex mt-4 -mx-1.5 ">
-                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="#">
-                                            <i className="fa-brands fa-facebook fa-xl "></i>
+
+                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="https://www.facebook.com/studentsgigs.in" target="_blank" rel="noopener noreferrer">
+                                            <i className="fab fa-facebook fa-lg"></i>
                                         </a>
 
-                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="#">
-                                            <i className="fa-brands fa-x-twitter fa-xl "></i>
+                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="https://www.instagram.com/studentgigs.in" target="_blank" rel="noopener noreferrer">
+                                            <i className="fab fa-instagram fa-lg"></i>
                                         </a>
 
-                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="#">
-                                            <i className="fa-brands fa-instagram fa-xl "></i>
+                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="https://www.threads.net/@studentgigs.in" target="_blank" rel="noopener noreferrer">
+                                            <i className="fa-brands fa-threads fa-lg"></i>
                                         </a>
 
-                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="#">
-                                            <i className="fa-brands fa-linkedin fa-xl "></i>
+                                        <a href="https://x.com/studentgigsone" target="_blank" rel="noopener noreferrer">
+                                            <i className="fab fa-x-twitter fa-lg"></i>
                                         </a>
+
+                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="https://www.linkedin.com/company/studentsgigs/about/?viewAsMember=true" target="_blank" rel="noopener noreferrer">
+                                            <i className="fab fa-linkedin fa-lg"></i>
+                                        </a>
+
+                                        <a className="mx-1.5  text-gray-900 transition-colors duration-300 transform hover:text-blue-500" href="https://in.pinterest.com/studentgigsone/" target="_blank" rel="noopener noreferrer">
+                                            <i className="fa-brands fa-pinterest fa-lg"></i>
+                                        </a>
+
                                     </div>
+
                                 </div>
 
 
@@ -116,12 +142,12 @@ export default function Contact() {
 
                                         <div className="flex-1 px-2">
                                             <label className="block mb-2 text-sm text-gray-600 ">Full Name</label>
-                                            <input type="text" placeholder="John Doe" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                            <input type="text" placeholder="Enter your name" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                         </div>
 
                                         <div className="flex-1 px-2 mt-4 md:mt-0">
                                             <label className="block mb-2 text-sm text-gray-600 ">Email address</label>
-                                            <input type="email" placeholder="johndoe@example.com" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                            <input type="email" placeholder="Enter your email" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                         </div>
 
                                     </div>

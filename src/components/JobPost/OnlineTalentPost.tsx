@@ -12,6 +12,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from '@/Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
+
+
 // types
 interface Option {
     value: string;
@@ -51,6 +53,7 @@ const compensationTypes: Option[] = [
 
 
 export default function OnlineTalentPost() {
+
 
     const [isVisible, setIsVisible] = useState(true);
 
@@ -248,86 +251,10 @@ export default function OnlineTalentPost() {
 
 
 
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Job Title *
-                            {errors.job_title && (
-                                <span className="text-red-500 ml-2 text-xs">Required</span>
-                            )}
-                        </label>
 
-                        <Controller
-                            name="job_title"
-                            control={control}
-                            rules={{ required: "Job Title is required" }}
-                            render={({ field: { onChange, value, ref } }) => (
-                                <CreatableSelect
-                                    ref={ref}
-                                    options={JobTitle}
-                                    value={value ? JobTitle?.find((option: any) => option.label === value) : null}
-                                    onChange={(selectedOption) => onChange(selectedOption?.label)}
-                                    styles={customSelectStyles}
-                                    placeholder="Select Job Title"
-                                    className="mt-1"
-                                    onCreateOption={(inputValue) => {
-                                        handleCreate(inputValue);
-                                        onChange(inputValue); // Set the value immediately
-                                    }}
-                                    isClearable={true}
-                                    classNamePrefix="select"
-                                    isLoading={JobTitleLoading}
-                                    isSearchable={true}
-                                    noOptionsMessage={() => 'No options found'}
-
-                                />
-
-                            )}
-                        />
-
-                    </div>
-
-
-
-                    {/* Location*/}
-                    <div>
-
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Job Location *
-                            {errors.job_title && (
-                                <span className="text-red-500 ml-2 text-xs">Required</span>
-                            )}
-                        </label>
-
-                        <div className="mt-2">
-                            <Controller
-                                name="job_location"
-                                rules={{ required: "Job Location is required" }}
-                                control={control}
-                                render={({ field: { onChange, value, ref } }) => (
-                                    <Select
-                                        ref={ref}
-                                        options={Location}
-                                        onInputChange={(value) => setSearch(value)}
-                                        styles={customSelectStyles}
-                                        value={value ? Location?.find((option: Option) => option?.label === value) : null}
-                                        isSearchable={true}
-                                        className="basic-single"
-                                        onChange={(option: any) => { onChange(option?.label) }}
-                                        placeholder="Search a City...."
-                                        classNamePrefix="select"
-                                        noOptionsMessage={() => "No Locations Found..."}
-                                        isLoading={LocationLoading}
-
-                                    />
-                                )}
-                            />
-                        </div>
-
-                    </div>
-
-
-
+                    {/* 1st Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                         {/* Job Type */}
                         <div>
 
@@ -365,6 +292,93 @@ export default function OnlineTalentPost() {
 
 
 
+                        {/* Location*/}
+                        <div>
+
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Job Location *
+                                {errors.job_title && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
+                            </label>
+
+                            <div className="mt-2">
+                                <Controller
+                                    name="job_location"
+                                    rules={{ required: "Job Location is required" }}
+                                    control={control}
+                                    render={({ field: { onChange, value, ref } }) => (
+                                        <Select
+                                            ref={ref}
+                                            options={Location}
+                                            onInputChange={(value) => setSearch(value)}
+                                            styles={customSelectStyles}
+                                            value={value ? Location?.find((option: Option) => option?.label === value) : null}
+                                            isSearchable={true}
+                                            className="basic-single"
+                                            onChange={(option: any) => { onChange(option?.label) }}
+                                            placeholder="Search a City...."
+                                            classNamePrefix="select"
+                                            noOptionsMessage={() => "No Locations Found..."}
+                                            isLoading={LocationLoading}
+
+                                        />
+                                    )}
+                                />
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    {/* 2nd Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+                        {/* Job Title */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Job Title *
+                                {errors.job_title && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
+                            </label>
+
+                            <Controller
+                                name="job_title"
+                                control={control}
+                                rules={{ required: "Job Title is required" }}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <CreatableSelect
+                                        ref={ref}
+                                        options={JobTitle}
+                                        value={value ? JobTitle?.find((option: any) => option.label === value) : null}
+                                        onChange={(selectedOption) => onChange(selectedOption?.label)}
+                                        styles={customSelectStyles}
+                                        placeholder="Select Job Title"
+                                        className="mt-1"
+                                        onCreateOption={(inputValue) => {
+                                            handleCreate(inputValue);
+                                            onChange(inputValue); // Set the value immediately
+                                        }}
+                                        isClearable={true}
+                                        classNamePrefix="select"
+                                        isLoading={JobTitleLoading}
+                                        isSearchable={true}
+                                        noOptionsMessage={() => 'No options found'}
+
+                                    />
+
+                                )}
+                            />
+
+                        </div>
+
+
+                        {/* Academic Course */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Preferred Academic Course *
@@ -400,8 +414,15 @@ export default function OnlineTalentPost() {
                     </div>
 
 
-                    {/*Age */}
+
+
+
+
+                    {/* 3rd Row */}
                     <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
+
+
+                        {/*Age */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Age Preference*
@@ -412,10 +433,11 @@ export default function OnlineTalentPost() {
                                 <div className="w-full">
                                     <input
                                         type="number"
+                                        min={14}
                                         placeholder="Minimum Age"
                                         {...register('age_requirement_min', {
                                             required: "Minimum Age is required",
-                                            min: { value: 18, message: "Minimum age must be 18 or older" }
+                                            min: { value: 14, message: "Minimum age must be 14 or older" }
                                         })}
                                         className={`mt-1 block w-full p-4 rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px] 
                                          ${errors.age_requirement_min ? 'border-red-500' : 'border-gray-300'}`}
@@ -429,10 +451,11 @@ export default function OnlineTalentPost() {
                                 <div className="w-full">
                                     <input
                                         type="number"
+                                        min={14}
                                         placeholder="Maximum Age"
                                         {...register('age_requirement_max', {
                                             required: "Maximum Age is required",
-                                            min: { value: 18, message: "Minimum age must be 18 or older" }
+                                            min: { value: 14, message: "Minimum age must be 14 or older" }
                                         })}
                                         className={`mt-1 block w-full p-4 rounded-md border shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px] 
                                          ${errors.age_requirement_max ? 'border-red-500' : 'border-gray-300'}`}
@@ -444,12 +467,17 @@ export default function OnlineTalentPost() {
 
                             </div>
                         </div>
+
                     </div>
 
 
-                    {/* Compensation Type */}
+
+
+                    {/* 4th Row */}
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
 
+
+                        {/* Compensation Type */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Compensation/Pay Structure *
@@ -481,6 +509,8 @@ export default function OnlineTalentPost() {
                             />
                         </div>
 
+
+                        {/* Amount */}
                         <div>
 
                             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -503,13 +533,14 @@ export default function OnlineTalentPost() {
                                     }
                                 }}
                                 className="block w-full p-4 rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm h-[42px]"
-                               
+
                             />
 
 
                         </div>
 
                     </div>
+
 
 
                     {/* Job Description */}

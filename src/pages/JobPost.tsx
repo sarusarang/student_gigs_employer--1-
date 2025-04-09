@@ -57,9 +57,9 @@ const JobPost: React.FC = () => {
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`whitespace-nowrap inline-flex hover:cursor-pointer rounded-lg py-2 px-3 text-sm font-bold transition-all duration-200 ease-in-out hover:bg-gray-200 hover:text-gray-900 ${activeTab === tab.id
-                                ? 'bg-gray-200 text-gray-900'
-                                : 'text-gray-600'
+                            className={`whitespace-nowrap inline-flex hover:cursor-pointer shadow-7xl rounded-lg py-2 px-3 text-sm font-bold transition-all duration-200 ease-in-out  hover:text-gray-900 ${activeTab === tab.id
+                                ? 'bg-green-500 text-gray-900'
+                                : 'text-gray-600 bg-gray-300'
                                 }`}
                             type="button"
                         >

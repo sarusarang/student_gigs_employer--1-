@@ -126,13 +126,13 @@ export default function SutudentCard({ name, jobtitle, imageUrl, location, id, p
 
                         {/* Title */}
                         <h3 className="text-lg font-semibold text-gray-800">{name.toLocaleUpperCase()}</h3>
-                        <p className="text-gray-500 mb-4">{jobtitle}</p>
+                        <p className="text-gray-500 mb-4 truncate  max-w-[250px]">{jobtitle}</p>
 
 
                         {/* Tags */}
                         <div className="flex flex-wrap gap-1 mb-6 justify-center items-center">
                             <MapPin size={16} className="text-gray-500" />
-                            <p className="text-gray-500">{location}</p>
+                            <p className="text-gray-500 truncate max-w-[200px]">{location}</p>
                         </div>
 
 
@@ -148,7 +148,6 @@ export default function SutudentCard({ name, jobtitle, imageUrl, location, id, p
 
 
                 </div>
-
 
 
             </section>

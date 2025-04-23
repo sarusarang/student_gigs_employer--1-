@@ -165,7 +165,7 @@ const defaultJobTemplate = `
 const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
     content = defaultJobTemplate,
-    minCharacters = 200,
+    // minCharacters = 200,
     placeholder = "Please describe job details...",
     onChange,
     className = "",
@@ -259,7 +259,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
 
 
-    const characterCount = editor.storage.characterCount.characters();
+    // const characterCount = editor.storage.characterCount.characters();
 
 
     return (
@@ -345,14 +345,14 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
             <EditorContent editor={editor} />
 
             {/* Character Counter */}
-            <div className="flex justify-end px-4 py-2 text-sm text-gray-500 border-t border-gray-200">
+            {/* <div className="flex justify-end px-4 py-2 text-sm text-gray-500 border-t border-gray-200">
                 {characterCount} / {minCharacters} characters minimum
                 {characterCount < minCharacters && (
                     <span className="text-red-500 ml-1">
                         (Need {minCharacters - characterCount} more characters)
                     </span>
                 )}
-            </div>
+            </div> */}
 
         </div>
     );

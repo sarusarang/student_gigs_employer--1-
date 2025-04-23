@@ -64,7 +64,7 @@ export default function Auth() {
 
 
     // React Hook Form state
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>({mode: "onChange"})
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>({ mode: "onChange" })
 
 
 
@@ -385,7 +385,7 @@ export default function Auth() {
                                 // Login 
                                 <div className="lg:w-[28rem] w-[19rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
 
-                                    <p className="text-left text-3xl font-bold">Welcome Back</p>
+                                    <p className="text-left text-3xl font-bold">Login as Employer</p>
                                     <p className="mt-2 text-left text-gray-500">please enter your details.</p>
 
 
@@ -486,14 +486,20 @@ export default function Auth() {
                                     <div className="pt-5 pb-4 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Don't have an account?
-                                            <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up.</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up</a>
                                         </p>
                                     </div>
 
-                                    <div className=" text-center">
+                                    <div className=" text-center flex justify-center">
+
                                         <p className="whitespace-nowrap text-gray-600">
                                             <a onClick={() => { setForgotModal(!forgotModal) }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Forget Password ?</a>
                                         </p>
+
+                                        <p className="whitespace-nowrap text-gray-600">
+                                            <a href="https://studentsgigs.com/auth" className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Login as Employee</a>
+                                        </p>
+
                                     </div>
 
                                 </div>
@@ -518,7 +524,7 @@ export default function Auth() {
 
                                                     {...register("username", {
                                                         required: "Username is required", pattern: {
-                                                            value: /^[a-zA-Z0-9]+$/, 
+                                                            value: /^[a-zA-Z0-9]+$/,
                                                             message: "Only letters and numbers are allowed",
                                                         },
                                                     })}
@@ -646,7 +652,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Alredy have an account?
-                                            <a onClick={() => { SetStatus(!Status), reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In.</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In</a>
                                         </p>
                                     </div>
 

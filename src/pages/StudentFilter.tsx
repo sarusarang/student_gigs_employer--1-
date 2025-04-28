@@ -145,7 +145,7 @@ export default function StudentFilter() {
                                     <div className='flex justify-center mt-8 '>
                                         <Link to={'/auth'} state={{ from: location }}>
                                             <button className='hover:cursor-pointer group relative px-8 py-3 text-white bg-gradient-to-br from-green-500 to-green-600 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(22,163,74,0.3)] flex items-center gap-3 overflow-hidden'>
-                                                <span className="relative z-10">Load More Jobs</span>
+                                                <span className="relative z-10">Load More</span>
                                                 <svg
                                                     className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
                                                     fill="none"

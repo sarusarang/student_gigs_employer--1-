@@ -294,7 +294,7 @@ export default function OffilneTalentPost() {
 
 
                         {/* Location*/}
-                        <div >
+                        <div className='hidden sm:block'>
 
                             <label className="block text-sm font-medium text-gray-700 mb-2">
                                 Job Location *
@@ -375,6 +375,48 @@ export default function OffilneTalentPost() {
                             />
 
                         </div>
+
+
+
+
+                        {/* Location Mobile */}
+                        <div className='block sm:hidden'>
+
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Job Location *
+                                {errors.job_title && (
+                                    <span className="text-red-500 ml-2 text-xs">Required</span>
+                                )}
+                            </label>
+
+                            <div className="mt-2">
+                                <Controller
+                                    name="job_location"
+                                    rules={{ required: "Job Location is required" }}
+                                    control={control}
+                                    render={({ field: { onChange, value, ref } }) => (
+                                        <Select
+                                            ref={ref}
+                                            options={Location}
+                                            onInputChange={(value) => setSearch(value)}
+                                            styles={customSelectStyles}
+                                            value={value ? Location?.find((option: Option) => option?.label === value) : null}
+                                            isSearchable={true}
+                                            className="basic-single"
+                                            onChange={(option: any) => { onChange(option?.label) }}
+                                            placeholder="Search a City...."
+                                            classNamePrefix="select"
+                                            noOptionsMessage={() => "No Locations Found..."}
+                                            isLoading={LocationLoading}
+
+                                        />
+                                    )}
+                                />
+                            </div>
+
+                        </div>
+
+
 
 
                         {/* Preferred Academic Course */}

@@ -194,7 +194,7 @@ export default function FilterBar() {
 
         if (!isAuthenticated) {
 
-            toast.error("Please Login to Search Students");
+            toast.error("Please Login to Search");
 
             navigate("/auth", { state: { from: location } })
 

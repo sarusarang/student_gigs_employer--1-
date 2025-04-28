@@ -1,39 +1,63 @@
 import { Link } from "react-router-dom";
 import { Popover } from "@headlessui/react";
 import { User, Crown, KeyRound, LogOut, LayoutDashboard, Gauge } from "lucide-react";
+import LoginModal from "../LoginModal/Loginmodal";
+import { useState } from "react";
+
+
 
 interface ProfileMenuProps {
     LoginStatus: boolean;
     HandleLogOut: () => void;
-    data : { employer?: { logo?: string } };
+    data: { employer?: { logo?: string } };
     color?: boolean;
 }
 
+
+
 const ProfileMenu: React.FC<ProfileMenuProps> = ({ LoginStatus, HandleLogOut, data, color }) => {
 
-    return (
-        <Popover className="relative">
-            {({ }) => (
-                <>
-                    <Popover.Button
-                        className={`cursor-pointer flex items-center gap-x-1 text-sm font-semibold text-gray-400 ${color ? "text-white" : ""}`}
-                    >
-                        <img
-                            src={data?.employer?.logo ?? "/DeaflutProfile.jpeg"}
-                            loading="lazy"
-                            alt="User profile"
-                            className="w-[30px] h-[30px] rounded-full object-cover"
-                        />
-                    </Popover.Button>
 
-                    <Popover.Panel
-                        className="absolute -left-32 top-9 z-10 mt-3 w-52 dropdown rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
-                    >
-                        <PopoverContent LoginStatus={LoginStatus} HandleLogOut={HandleLogOut} />
-                    </Popover.Panel>
-                </>
-            )}
-        </Popover>
+    // Login modal
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleLoginClick = () => {
+        setIsOpen(true);
+    };
+
+
+    return (
+
+        <>
+            <Popover className="relative">
+                {({ }) => (
+                    <>
+                        <Popover.Button
+                            className={`cursor-pointer flex items-center gap-x-1 text-sm font-semibold text-gray-400 ${color ? "text-white" : ""}`}
+                        >
+                            <img
+                                src={data?.employer?.logo ?? "/DeaflutProfile.jpeg"}
+                                loading="lazy"
+                                alt="User profile"
+                                className="w-[30px] h-[30px] rounded-full object-cover"
+                            />
+                        </Popover.Button>
+
+                        <Popover.Panel
+                            className="absolute -left-32 top-9 z-10 mt-3 w-52 dropdown rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5"
+                        >
+                            <PopoverContent LoginStatus={LoginStatus} HandleLogOut={HandleLogOut} handleLoginClick={handleLoginClick} />
+                        </Popover.Panel>
+                    </>
+                )}
+            </Popover>
+
+
+            {/* Login Modal */}
+            <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
+
+
+        </>
     );
 
 };
@@ -42,19 +66,20 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ LoginStatus, HandleLogOut, da
 interface PopoverContentProps {
     LoginStatus: boolean;
     HandleLogOut: () => void;
+    handleLoginClick: () => void;
 }
 
 
-const PopoverContent: React.FC<PopoverContentProps> = ({ LoginStatus, HandleLogOut }) => (
+const PopoverContent: React.FC<PopoverContentProps> = ({ LoginStatus, HandleLogOut, handleLoginClick }) => (
 
     <div className="p-4">
         <MenuItem link="/employerprofile" icon={<User size={20} />} text="Profile" />
         <MenuItem link="/plans" icon={<Crown size={20} />} text="Premium" />
-        <MenuItem link="/dashboard" icon={<LayoutDashboard  size={20} />} text="Dashboard" />
+        <MenuItem link="/dashboard" icon={<LayoutDashboard size={20} />} text="Dashboard" />
         <MenuItem link="/planusage" icon={<Gauge size={20} />} text="Plan Usage" />
 
         {!LoginStatus ? (
-            <MenuItem link="/auth" icon={<KeyRound size={20} />} text="Login" />
+            <button className="w-full hover:cursor-pointer text-left flex font-semibold items-center gap-2 text-sm text-gray-900 hover:bg-gray-50 p-4 rounded-lg" onClick={handleLoginClick}><KeyRound size={20} /> Login </button>
         ) : (
             <MenuItemLogout icon={<LogOut size={20} />} text="Logout" HandleLogOut={HandleLogOut} />
         )}

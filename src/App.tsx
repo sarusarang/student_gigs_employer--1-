@@ -1,9 +1,10 @@
-import { ReactNode, Suspense, lazy } from "react";
+import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import MainLoader from "./components/Common/MainLoader";
 import ProtectedDashboard from "./components/Protected/ProtectedDashBoard";
+import LoginModal from "./components/LoginModal/Loginmodal";
 
 
 
@@ -37,95 +38,129 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 
 
 
-// Lazy Load Component Wrapper
-const LazyLoad = ({ Component }: { Component: React.ComponentType }) => (
-  <Suspense fallback={<MainLoader />}>
-    <Component />
-  </Suspense>
-);
-
-
-
 
 
 function App() {
 
 
+
+  // Authentication
+  const { isAuthenticated } = useAuth();
+
+
+  // Login Modal
+  const [isOpen, setIsOpen] = useState(false);
+
+
+
+  // Login Modal Open 
+  useEffect(() => {
+
+    if (!isAuthenticated && !sessionStorage.getItem("loginModalShown")) {
+
+      const timer = setTimeout(() => {
+        setIsOpen(true);
+        sessionStorage.setItem("loginModalShown", "true");
+      }, 10000);
+
+      return () => clearTimeout(timer);
+
+    }
+
+  }, [isAuthenticated]);
+
+
+
+
   return (
 
+    <>
 
-    <Suspense fallback={<MainLoader />}>
-
-
-      <Routes>
+      <Suspense fallback={<MainLoader />}>
 
 
-        {/* Auth Routes */}
-        <Route path="/auth" element={<LazyLoad Component={Auth} />} />
-        <Route path="*" element={<LazyLoad Component={NotFound} />} />
-        <Route path="/dashboard" element={<ProtectedDashboard> <LazyLoad Component={DashBoard} /> </ProtectedDashboard>} />
+        <Routes>
 
 
-        {/* Main Layout Routes */}
-        <Route element={<LazyLoad Component={Layout} />}>
-
-          <Route path="/" element={<LazyLoad Component={Landing} />} />
-          <Route path="/postjob" element={<LazyLoad Component={JobPost} />} />
-          <Route path="/findtalent" element={<LazyLoad Component={StudentFilter} />} />
-          <Route path="/contact" element={<LazyLoad Component={Contact} />} />
-          <Route path="/termscondition" element={<LazyLoad Component={Terms} />} />
-          <Route path="/privacypolicy" element={<LazyLoad Component={Privacy} />} />
-          <Route path="/refundpolicy" element={<LazyLoad Component={Refund} />} />
-          <Route path="/loginterms" element={<LazyLoad Component={LoginTerms} />} />
+          {/* Auth Routes */}
+          <Route path="/auth" element={<Auth />} />
+          <Route path="*" element={<NotFound />} />
 
 
-          {/* Protected Routes */}
-          <Route
-            path="/planusage"
-            element={
-              <ProtectedRoute>
-                <LazyLoad Component={PlanUsage} />
-              </ProtectedRoute>
-            }
-          />
+          {/* Protected Dashboard */}
+          <Route path="/dashboard" element={<ProtectedDashboard> <DashBoard /> </ProtectedDashboard>} />
 
 
-          <Route
-            path="/employerprofile"
-            element={
-              <ProtectedRoute>
-                <LazyLoad Component={UserProfile} />
-              </ProtectedRoute>
-            }
-          />
+
+          {/* Main Layout Routes */}
+          <Route element={<Layout />}>
+
+            <Route path="/" element={<Landing />} />
+            <Route path="/postjob" element={<JobPost />} />
+            <Route path="/findtalent" element={<StudentFilter />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/termscondition" element={<Terms />} />
+            <Route path="/privacypolicy" element={<Privacy />} />
+            <Route path="/refundpolicy" element={<Refund />} />
+            <Route path="/loginterms" element={<LoginTerms />} />
 
 
-          <Route
-            path="/studentprofile/:id"
-            element={
-              <ProtectedRoute>
-                <LazyLoad Component={StudentProfile} />
-              </ProtectedRoute>
-            }
-          />
+            {/* Protected Routes */}
+            <Route
+              path="/planusage"
+              element={
+                <ProtectedRoute>
+                  <PlanUsage />
+                </ProtectedRoute>
+              }
+            />
 
 
-          <Route
-            path="/plans"
-            element={
-              <ProtectedRoute>
-                <LazyLoad Component={Plans} />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/employerprofile"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
+                </ProtectedRoute>
+              }
+            />
 
-        </Route>
 
-      </Routes>
+            <Route
+              path="/studentprofile/:id"
+              element={
+                <ProtectedRoute>
+                  <StudentProfile />
+                </ProtectedRoute>
+              }
+            />
+
+
+            <Route
+              path="/plans"
+              element={
+                <ProtectedRoute>
+                  <Plans />
+                </ProtectedRoute>
+              }
+            />
+
+          </Route>
+
+        </Routes>
+
+      </Suspense>
 
       {/* Notifications */}
       <Toaster position="top-center" />
-    </Suspense>
+
+
+      {/* Login Modal */}
+      <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
+
+
+    </>
+
   );
 }
 

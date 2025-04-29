@@ -497,7 +497,7 @@ export default function Auth() {
                                         </p>
 
                                         <p className="whitespace-nowrap text-gray-600">
-                                            <a href="https://studentsgigs.com/auth" className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Login as Employee</a>
+                                            <a href="https://studentsgigs.com/auth" className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Login as Student</a>
                                         </p>
 
                                     </div>

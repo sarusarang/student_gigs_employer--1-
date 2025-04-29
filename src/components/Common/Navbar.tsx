@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Crown, GraduationCap, House, KeyRound, LayoutDashboard, LogOut, Search, Text, User } from 'lucide-react';
+import { Crown, Gauge, GraduationCap, House, KeyRound, LayoutDashboard, LogOut, Search, Text, User } from 'lucide-react';
 import {
   Dialog,
   PopoverGroup,
@@ -15,12 +15,19 @@ import ProtectedPostJobButton from "./ProtectedPostJobButton";
 import { GetProfile } from "../../Hooks/UserProfile";
 import { useQueryClient } from "@tanstack/react-query";
 import ProfileMenu from "./ProfileMenu";
+import LoginModal from "../LoginModal/Loginmodal";
+
+
 
 
 export default function Header() {
 
 
   const Navigate = useNavigate()
+
+
+  // Login Modal
+  const [isOpen, setIsOpen] = useState(false);
 
 
   // To check if the user is scrolled
@@ -140,8 +147,9 @@ export default function Header() {
                 </Link>
 
 
+
                 {/* Profile image */}
-                <Link to={'/employerprofile'} className="ms-2 sm:hidden">
+                <div onClick={() => setIsOpen(true)} className="ms-2 sm:hidden">
 
                   <img
                     src={data[0]?.profile?.profile_pic ?? "/DeaflutProfile.jpeg"}
@@ -150,7 +158,8 @@ export default function Header() {
                     className="w-[25px] h-[25px] rounded-full object-cover "
                   />
 
-                </Link>
+                </div>
+
 
 
                 {/* Search  for mobile view */}
@@ -161,6 +170,7 @@ export default function Header() {
                   <Search size={16} className={`${color ? 'text-white' : 'text-gray-900'}`} />
 
                 </Link>
+
 
 
                 <div className="flex lg:hidden">
@@ -177,9 +187,13 @@ export default function Header() {
 
                 </div>
 
+
+
               </div>
 
             </div>
+
+
 
 
 
@@ -204,7 +218,9 @@ export default function Header() {
             </div>
 
 
-            {/* Navbar items */}
+
+
+            {/* Desktop Navbar items */}
             <PopoverGroup className="hidden lg:flex lg:gap-x-5 items-center mx-auto">
 
 
@@ -257,10 +273,18 @@ export default function Header() {
 
 
 
+
+
+
+
+
           {/* Mobile Nav sidebar */}
           <Transition show={mobileMenuOpen} as={Fragment}>
 
+
+
             <Dialog onClose={setMobileMenuOpen} className="lg:hidden relative z-50">
+
 
 
               {/* Backdrop */}
@@ -290,6 +314,7 @@ export default function Header() {
 
 
                 <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-slate-50 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+
 
                   {/* Logo Section */}
                   <div className="flex items-center justify-between">
@@ -381,17 +406,34 @@ export default function Header() {
                           </Link>
 
 
+
+
+                          {/* Plan Usage */}
+                          <Link
+                            to="/planusage"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
+                          >
+                            <div className="flex items-center space-x-2">
+                              <Gauge size={20} className="me-2" />
+                              <span>Plan Usage</span>
+                            </div>
+                          </Link>
+
+
+
+
                           {/* Login/Logout */}
                           {!isAuthenticated ? (
-                            <Link
-                              to="/auth"
+                            <div
+                              onClick={() => { setMobileMenuOpen(false) ,  setIsOpen(true) }}
                               className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                             >
                               <div className="flex items-center space-x-2">
                                 <KeyRound className="h-5 w-5" />
                                 <span>Login</span>
                               </div>
-                            </Link>
+                            </div>
                           ) : (
                             <button
                               onClick={HandleLogOut}
@@ -406,10 +448,11 @@ export default function Header() {
 
 
 
-
-
                         </div>
+
                       </div>
+
+                      
                     </div>
 
 
@@ -429,6 +472,10 @@ export default function Header() {
 
 
         </header>
+
+
+        {/* Login Modal */}
+        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
 
       </main>

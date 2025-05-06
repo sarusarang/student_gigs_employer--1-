@@ -167,7 +167,7 @@ export default function FilterBar() {
     const { isAuthenticated } = useAuth()
 
 
-    // Search keyword
+    // Search keyword for loaction
     const [Search, setSearch] = useState<string>("")
 
 
@@ -328,7 +328,7 @@ export default function FilterBar() {
 
 
                         {/* Search Button */}
-                        <button type='submit' className="bg-emerald-500 text-white px-8 py-3 rounded-lg sm:rounded-r-lg hover:bg-emerald-600 transition-colors flex items-center justify-center gap-2">
+                        <button type='submit' className="bg-emerald-500 hover:cursor-pointer text-white px-8 py-3 rounded-lg sm:rounded-r-lg hover:bg-emerald-600 transition-colors flex items-center justify-center gap-2">
                             <SearchIcon size={20} />
                             <span>Search</span>
                         </button>

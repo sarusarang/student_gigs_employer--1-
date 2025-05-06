@@ -58,10 +58,13 @@ export const GoogleLogin = async (data: any) => {
 }
 
 
-//Get Job Categories
-export const GetOnlineTalent = async () => {
 
-    return await CommonApi("GET", `${Base_Url}/talent-categories/`, "", "")
+//Get Job Categories
+export const GetCategorys = async (type : string) => {
+
+    const params = new URLSearchParams({ category_type: type })
+
+    return await CommonApi("GET", `${Base_Url}/talent-categories-view/?${params.toString()}`, "", "")
 
 }
 
@@ -192,19 +195,12 @@ export const GetJobApplicants = async (id: string, job_type: string, header: obj
 
 
 //GET Job Title
-export const GetJobTitle = async () => {
-
-    return await CommonApi("GET", `${Base_Url}/job-title/`, "", "")
-
-}
+export const GetJobTitle = async (category : string) => {
 
 
-//Post New Job Title
-export const PostNewJobTitle = async (job_title: string) => {
+    const params = new URLSearchParams({ category: category })
 
-    const params = new URLSearchParams({ job_title: job_title })
-
-    return await CommonApi("POST", `${Base_Url}/job-title/?${params.toString()}`, "", "")
+    return await CommonApi("GET", `${Base_Url}/job-titles-view/?${params.toString()}`, "", "")
 
 }
 
@@ -253,7 +249,7 @@ export const PostProfileCount = async (data: FormData, header: object) => {
 //GET All Search Category
 export const GetAllSearchCategory = async () => {
 
-    return await CommonApi("GET", `${Base_Url}/all-category-job-search/`, "", "")
+    return await CommonApi("GET", `${Base_Url}/category-and-title-view/`, "", "")
 
 }
 

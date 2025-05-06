@@ -1,9 +1,9 @@
 import RichTextEditor from '../Common/JobDis'
-import { FileText, X } from 'lucide-react';
+import { FileText, Loader, X } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
 import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
-import { AllLocations, JObTittles, OnlineTalentCategory, PostJobTittle } from '../../Hooks/Utlis';
+import { AllLocations, JObTittles, GetJobCategory } from '../../Hooks/Utlis';
 import { OnlineJobPost } from '../../Hooks/Jobform';
 import Academic from '../../Data/Academic.json';
 import toast from 'react-hot-toast';
@@ -55,43 +55,59 @@ const compensationTypes: Option[] = [
 export default function OnlineTalentPost() {
 
 
+
     const [isVisible, setIsVisible] = useState(true);
 
 
+
+    // React Hook Form state
+    const { register, handleSubmit, reset, watch, formState: { errors }, control } = useForm<Inputs>({ defaultValues: { job_description: "" } })
+
+
+
+    // Get selected Category 
+    const selectedCategory = watch("category");
+
+
+
+
     const Navigate = useNavigate()
+
 
 
     // Auth context
     const { usage, isPlanExpired, isFetchingPlan, refetchPlan } = useAuth()
 
 
+
+
     // Search keyword for loaction
     const [Search, setSearch] = useState<string>("")
 
 
-    // Post Job Tittle
-    const { mutate: PostJobTittleMutate } = PostJobTittle();
 
 
     // Get Job Title
-    const { data: JobTitle, isLoading: JobTitleLoading } = JObTittles()
+    const { data: JobTitle, isLoading: JobTitleLoading } = JObTittles(selectedCategory)
 
 
-    // Get Online Talent
-    const { data } = OnlineTalentCategory()
+
+
+    // Get Job Category
+    const { data: Category, isLoading: CategoryLoading, isFetching: CategoryFetching } = GetJobCategory("online")
+
+
 
 
     // Get All Locations
     const { data: Location, isLoading: LocationLoading } = AllLocations(Search)
 
 
+
+
     // Post Online Job
-    const { mutate: PostJob } = OnlineJobPost()
+    const { mutate: PostJob, isPending: isPosting } = OnlineJobPost()
 
-
-
-    // React Hook Form state
-    const { register, handleSubmit, reset, formState: { errors }, control } = useForm<Inputs>({ defaultValues: { job_description: "" } })
 
 
 
@@ -176,27 +192,6 @@ export default function OnlineTalentPost() {
 
 
 
-    // Function to handle new job title creation
-    const handleCreate = async (inputValue: string) => {
-
-        PostJobTittleMutate(inputValue, {
-
-            onSuccess: (response) => {
-
-                if (response.status >= 200 && response.status < 300) {
-
-                    toast.success("New Job Tittle Added Successfully");
-
-                } else {
-
-                    toast.error("Something went wrong. Please try again.");
-
-                }
-            },
-
-        })
-
-    };
 
 
     return (
@@ -272,13 +267,14 @@ export default function OnlineTalentPost() {
                                 render={({ field: { onChange, value, ref } }) => (
                                     <CreatableSelect
                                         ref={ref}
-                                        options={data?.online}
-                                        value={value ? data?.online.find((option: any) => option.value === value) : null}
+                                        options={Category}
+                                        value={value ? Category?.find((option: any) => option.value === value) : null}
                                         onChange={(selectedOption) => onChange(selectedOption?.value)}
                                         styles={customSelectStyles}
                                         placeholder="Select Job Category"
                                         className="mt-1"
                                         isClearable={true}
+                                        isLoading={CategoryFetching || CategoryLoading}
                                         classNamePrefix="select"
                                         isSearchable={true}
                                         noOptionsMessage={() => 'No options found'}
@@ -353,23 +349,20 @@ export default function OnlineTalentPost() {
                                 control={control}
                                 rules={{ required: "Job Title is required" }}
                                 render={({ field: { onChange, value, ref } }) => (
-                                    <CreatableSelect
+                                    <Select
                                         ref={ref}
                                         options={JobTitle}
                                         value={value ? JobTitle?.find((option: any) => option.label === value) : null}
                                         onChange={(selectedOption) => onChange(selectedOption?.label)}
                                         styles={customSelectStyles}
-                                        placeholder="Select Job Title"
+                                        placeholder={!selectedCategory ? "Select a Job Category First" : "Select Job Title"}
                                         className="mt-1"
-                                        onCreateOption={(inputValue) => {
-                                            handleCreate(inputValue);
-                                            onChange(inputValue);
-                                        }}
                                         isClearable={true}
+                                        isDisabled={!selectedCategory}
                                         classNamePrefix="select"
                                         isLoading={JobTitleLoading}
                                         isSearchable={true}
-                                        noOptionsMessage={() => 'No options found'}
+                                        noOptionsMessage={() => 'No Job Title found'}
 
                                     />
 
@@ -615,9 +608,10 @@ export default function OnlineTalentPost() {
                     <div>
                         <button
                             type="submit"
+                            disabled={isPosting}
                             className="inline-flex hover:cursor-pointer justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
-                            Post Job <FileText size={18} className='ms-2' />
+                            Post Job {isPosting ? <Loader size={18} className='ms-2 animate-spin duration-1000 transition-all' /> : <FileText size={18} className='ms-2' />}
                         </button>
                     </div>
 

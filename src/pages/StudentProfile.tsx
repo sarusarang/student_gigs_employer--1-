@@ -118,7 +118,7 @@ export default function StudentProfile() {
                                                 </div>
 
                                                 <div className="md:pt-12 pt-8">
-                                                    <h1 className="font-semibold text-md md:text-lg">{data?.name}</h1>
+                                                    <h1 className="font-semibold text-md md:text-lg">{data?.name.toUpperCase()}</h1>
                                                     <p className="font-[1rem] text-md md:text-lg text-gray-400">
                                                         {data?.job_title}
                                                     </p>

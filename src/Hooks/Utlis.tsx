@@ -1,30 +1,22 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { GetOnlineTalent, GetHomeSlider, GetLocations, GetSingleTalent, PostNewJobTitle, GetJobTitle, PostProfileCount, GetAllSearchCategory , GetTrendingJobs } from "../Services/AllApi";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { GetCategorys, GetHomeSlider, GetLocations, GetSingleTalent, GetJobTitle, PostProfileCount, GetAllSearchCategory, GetTrendingJobs } from "../Services/AllApi";
 
 
 
 
 
 // Get Online Talent
-export const OnlineTalentCategory = () => {
+export const GetJobCategory = (type: string) => {
 
     return useQuery({
 
-        queryKey: ["OnlineTalentCategory"],
+        queryKey: ["OnlineTalentCategory", type],
 
         queryFn: async () => {
 
-            try {
+            const Response = await GetCategorys(type)
 
-                const Response = await GetOnlineTalent()
-
-                return Response.data
-
-            } catch (err) {
-
-                console.log(err);
-
-            }
+            return Response.data
 
         },
         staleTime: 1000 * 60 * 10,
@@ -46,23 +38,17 @@ export const HomeSlider = () => {
 
         queryFn: async () => {
 
-            try {
+            const Response = await GetHomeSlider()
 
-                const Response = await GetHomeSlider()
-
-                return Response.data
-
-            } catch (err) {
-
-                console.log(err);
-
-            }
+            return Response.data
 
         },
 
     })
 
 }
+
+
 
 
 // Get All Locations
@@ -116,26 +102,19 @@ export const SingleTalent = (id: string) => {
 
         queryFn: async () => {
 
-            try {
-
-                const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token")
 
 
-                if (!token) {
-                    throw new Error("Authentication token not found");
-                }
-
-                const headers = { Authorization: `Bearer ${token}` }
-
-                const Response = await GetSingleTalent(id, headers)
-
-                return Response.data
-
-            } catch (err) {
-
-                console.log(err);
-
+            if (!token) {
+                throw new Error("Authentication token not found");
             }
+
+            const headers = { Authorization: `Bearer ${token}` }
+
+            const Response = await GetSingleTalent(id, headers)
+
+            return Response.data
+
         },
 
     })
@@ -148,27 +127,22 @@ export const SingleTalent = (id: string) => {
 
 
 // Get job tittles
-export const JObTittles = () => {
+export const JObTittles = (category : string) => {
 
     return useQuery({
 
-        queryKey: ["jobtittles"],
+        queryKey: ["jobtittles", category],
 
         queryFn: async () => {
 
-            try {
 
-                const Response = await GetJobTitle()
+            const Response = await GetJobTitle(category)
 
-                return Response.data
+            return Response.data
 
-            } catch (err) {
-
-                console.log(err);
-
-            }
 
         },
+
         staleTime: 1000 * 60 * 10,
 
     })
@@ -176,46 +150,6 @@ export const JObTittles = () => {
 }
 
 
-
-
-// Post new JobTittle
-export const PostJobTittle = () => {
-
-    const queryclient = useQueryClient();
-
-    return useMutation({
-
-        mutationFn: async (job_title: string) => {
-
-            try {
-
-                const Response = await PostNewJobTitle(job_title)
-
-                return Response
-
-            }
-            catch (err) {
-
-                console.log(err);
-
-            }
-
-        },
-
-        onSuccess: () => {
-
-            queryclient.invalidateQueries({ queryKey: ["jobtittles"] });
-
-        },
-        onError: (error) => {
-            console.error("Failed to Post Job Tittle", error);
-            queryclient.invalidateQueries({ queryKey: ["jobtittles"] });
-        },
-
-
-    })
-
-}
 
 
 

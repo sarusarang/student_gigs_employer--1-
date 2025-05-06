@@ -167,7 +167,7 @@ export default function FilterBar() {
     const { isAuthenticated } = useAuth()
 
 
-    // Search keyword
+    // Search keyword for loaction
     const [Search, setSearch] = useState<string>("")
 
 

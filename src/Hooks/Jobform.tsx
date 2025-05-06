@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { PostOnlineJob, PostOfflineJob, GetJobs , DeleteJobs } from "../Services/AllApi";
+import { PostOnlineJob, PostOfflineJob, GetJobs, DeleteJobs } from "../Services/AllApi";
 
 
 
@@ -106,24 +106,16 @@ export const OfflineJobPost = () => {
 
         mutationFn: async ({ formData }: MutationParams) => {
 
-            try {
 
-                if (!localStorage.getItem("token")) { throw new Error("Authentication token not found"); }
+            if (!localStorage.getItem("token")) { throw new Error("Authentication token not found"); }
 
-                const token = localStorage.getItem("token")
+            const token = localStorage.getItem("token")
 
-                const headers = { Authorization: `Bearer ${token}` }
+            const headers = { Authorization: `Bearer ${token}` }
 
-                const Response = await PostOfflineJob(formData, headers)
+            const Response = await PostOfflineJob(formData, headers)
 
-                return Response
-
-
-            } catch (err) {
-
-                console.log(err);
-
-            }
+            return Response
 
         },
         onError: (error) => {
@@ -160,7 +152,7 @@ export const DeletePostedJobs = () => {
 
                 const headers = { Authorization: `Bearer ${token}` }
 
-                const Response = await DeleteJobs(id, headers , type)
+                const Response = await DeleteJobs(id, headers, type)
 
                 return Response
 

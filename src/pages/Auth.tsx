@@ -486,18 +486,18 @@ export default function Auth() {
                                     <div className="pt-5 pb-4 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Don't have an account?
-                                            <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Sign up</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 hover:underline ms-3">Sign up</a>
                                         </p>
                                     </div>
 
                                     <div className=" text-center flex justify-center">
 
                                         <p className="whitespace-nowrap text-gray-600">
-                                            <a onClick={() => { setForgotModal(!forgotModal) }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Forget Password ?</a>
+                                            <a onClick={() => { setForgotModal(!forgotModal) }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 hover:underline ms-3">Forget Password & Uername ?</a>
                                         </p>
 
                                         <p className="whitespace-nowrap text-gray-600">
-                                            <a href="https://studentsgigs.com/auth" className="cursor-pointer underline-offset-4 font-semibold text-gray-900 underline ms-3">Login as Student</a>
+                                            <a href="https://studentsgigs.com/auth" className="cursor-pointer underline-offset-4 font-semibold text-gray-900 hover:underline ms-3">Login as Student</a>
                                         </p>
 
                                     </div>
@@ -652,7 +652,7 @@ export default function Auth() {
                                     <div className="py-12 text-center">
                                         <p className="whitespace-nowrap text-gray-600">
                                             Alredy have an account?
-                                            <a onClick={() => { SetStatus(!Status), reset() }} className="underline-offset-4 font-semibold text-gray-900 underline ms-3 cursor-pointer">Log In</a>
+                                            <a onClick={() => { SetStatus(!Status), reset() }} className="underline-offset-4 font-semibold text-gray-900 hover:underline ms-3 cursor-pointer">Log In</a>
                                         </p>
                                     </div>
 

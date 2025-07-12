@@ -3,7 +3,7 @@ import { CommonApi } from "./CommonApi";
 
 
 // Base Url
-const Base_Url = "https://server.studentsgigs.com/api/employer"
+const Base_Url = "http://127.0.0.1:8002/api/employer"
 
 
 

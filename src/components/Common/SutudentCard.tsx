@@ -125,7 +125,7 @@ export default function SutudentCard({ name, jobtitle, imageUrl, location, id, p
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-semibold text-gray-800">{name.toLocaleUpperCase()}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800 truncate  max-w-[250px]">{name.toLocaleUpperCase()}</h3>
                         <p className="text-gray-500 mb-4 truncate  max-w-[250px]">{jobtitle}</p>
 
 

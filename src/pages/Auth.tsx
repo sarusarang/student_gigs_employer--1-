@@ -6,12 +6,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../Context/AuthContext";
 import { useQueryClient } from "@tanstack/react-query";
-import { Eye, EyeOff, Loader } from "lucide-react";
-import EmailOtp from "@/components/Common/EmailOtp";
-import ForgetPassword from "@/components/Common/ForgetPassword";
+import { Eye, EyeOff, Loader, Phone } from "lucide-react";
+import EmailOtp from "@/components/otp/EmailOtp";
+import ForgetPassword from "@/components/otp/ForgetPassword";
+import MobileOtpModal from "@/components/otp/MobileOtp";
 
 
 
+// form inputs types
 type Inputs = {
     email: string
     password: string
@@ -29,12 +31,19 @@ export default function Auth() {
     const [showRePassword, setShowRePassword] = useState(false);
 
 
+
     // Register Data
     const [RegisterData, setRegisterData] = useState({});
 
 
-    // Otp Modal
+
+    // Email Otp Modal
     const [otpModal, setOtpModal] = useState(false);
+
+
+
+    // Mobile Otp Modal
+    const [isMobileOtpModalOpen, setIsMobileOtpModalOpen] = useState(false);
 
 
 
@@ -56,10 +65,6 @@ export default function Auth() {
     // Login and register status
     const [Status, SetStatus] = useState(true)
 
-
-
-    // Terms acceptance state
-    const [termsAccepted, setTermsAccepted] = useState(false)
 
 
 
@@ -88,7 +93,7 @@ export default function Auth() {
 
 
     // Mutate for Google Login
-    const { mutate: mutateGoogleLogin } = GoogleAuth()
+    const { mutate: mutateGoogleLogin, isPending: isGoogleLoginPending } = GoogleAuth()
 
 
 
@@ -104,12 +109,6 @@ export default function Auth() {
 
     // Submit Register
     const SubmitRegister = (data: any) => {
-
-
-        if (!termsAccepted) {
-            toast.error("Please accept the Terms and Conditions to continue.");
-            return;
-        }
 
 
         setRegisterData(data)
@@ -179,12 +178,6 @@ export default function Auth() {
 
     // Submit Login
     const SubmitLogin = (data: any) => {
-
-
-        if (!termsAccepted) {
-            toast.error("Please accept the Terms and Conditions to continue.");
-            return;
-        }
 
 
         const formdata = new FormData()
@@ -263,15 +256,7 @@ export default function Auth() {
     // Google Login
     const GoogleLogin = useGoogleLogin({
 
-
-
         onSuccess: async (tokenResponse) => {
-
-            if (!termsAccepted) {
-                toast.error("Please accept the Terms and Conditions to continue.");
-                return;
-            }
-
 
             try {
 
@@ -372,7 +357,7 @@ export default function Auth() {
 
                     <div className="flex w-full flex-col md:w-1/2">
 
-                        <div className="flex justify-center pt-12 md:-mb-24 md:justify-start md:pl-12">
+                        <div className="flex justify-center pt-5 md:-mb-24 md:justify-start md:pl-12">
                             <Link to="/" className="border-b-gray-700 border-b-4 pb-2 text-2xl font-bold text-gray-900 sm:mb-28 mb-3"> StudentsGigs </Link>
                         </div>
 
@@ -407,7 +392,7 @@ export default function Auth() {
 
 
                                         {/*Password */}
-                                        <div className="mb-12 flex flex-col pt-4">
+                                        <div className="mb-5 flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
                                                 <input type={showPassword ? "text" : "password"} id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Password"
 
@@ -425,44 +410,24 @@ export default function Auth() {
 
                                                 {errors.password && <p role="alert" className="text-red-500 text-sm">{errors.password.message}</p>}
                                             </div>
+
+                                            {/* Terms and Conditions Notice */}
+                                            <div className="mb-6 text-start mt-3 text-sm text-gray-600">
+                                                By logging in, you agree to our{" "}
+                                                <Link
+                                                    to="/loginterms"
+                                                    className="text-gray-900 font-medium underline hover:text-black transition-colors"
+                                                >
+                                                    Terms and Conditions
+                                                </Link>
+                                                .
+                                            </div>
+
                                         </div>
 
 
-
-                                        {/* Terms and Conditions Checkbox */}
-                                        <div className="flex items-center mb-6">
-                                            <input
-                                                type="checkbox"
-                                                id="terms"
-                                                className={`peer hidden`}
-                                                checked={termsAccepted}
-                                                onChange={(e) => setTermsAccepted(e.target.checked)}
-                                            />
-                                            <label
-                                                htmlFor="terms"
-                                                className={`h-4 w-4 border-2 border-gray-300 rounded flex items-center justify-center hover:cursor-pointer transition-all
-      ${termsAccepted ? "bg-black border-black" : "bg-white border-gray-300"}`}
-                                            >
-                                                {termsAccepted && (
-                                                    <svg
-                                                        className="w-3 h-3 text-white"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        strokeWidth="2"
-                                                        viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                )}
-                                            </label>
-                                            <label htmlFor="terms" className="ml-2 block text-sm text-gray-600">
-                                                I accept the <Link to={'/loginterms'} className="text-gray-900 underline">Terms and Conditions</Link>
-                                            </label>
-                                        </div>
-
-
-                                        <button type="submit" disabled={!termsAccepted || isLoginPending} className={`w-full cursor-pointer rounded-lg ${!termsAccepted || isLoginPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
+                                        {/* Login */}
+                                        <button type="submit" disabled={isLoginPending} className={`w-full cursor-pointer rounded-lg ${isLoginPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
                                             Log In {isLoginPending && <Loader className="animate-spin ms-3 duration-3000" />}
                                         </button>
 
@@ -476,11 +441,19 @@ export default function Auth() {
 
 
                                     {/* Google Login */}
-                                    <button onClick={() => GoogleLogin()} className={`cursor-pointer shadow-lg mt-8 flex items-center justify-center rounded-md  px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white ${!termsAccepted ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                        disabled={!termsAccepted}>
-                                        <img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google
+                                    <button disabled={isGoogleLoginPending} onClick={() => GoogleLogin()} className={`cursor-pointer shadow-lg mt-8 flex items-center justify-center rounded-md  px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white ${isGoogleLoginPending ? 'bg-gray-400 cursor-not-allowed' : ''} `}>
+                                        <img className="mr-2 h-5" src="https://static.cdnlogo.com/logos/g/35/google-icon.svg" alt="google-icon" /> Log in with Google {isGoogleLoginPending && <Loader className="animate-spin ms-3 duration-3000" />}
                                     </button>
 
+
+                                    {/* Mobile Number Login */}
+                                    <button
+                                        onClick={() => { setIsMobileOtpModalOpen(true) }}
+                                        className={`cursor-pointer shadow-lg mt-4 flex items-center justify-center rounded-md px-4 py-2 outline-none ring-gray-400 ring-offset-2 transition focus:ring-2 hover:border-transparent hover:bg-black hover:text-white `}
+                                    >
+                                        <Phone className="mr-2 h-5 w-5 hover:text-white" />
+                                        Log in with Phone
+                                    </button>
 
 
                                     <div className="pt-5 pb-4 text-center">
@@ -489,6 +462,7 @@ export default function Auth() {
                                             <a onClick={() => { SetStatus(!Status), reset() }} className="cursor-pointer underline-offset-4 font-semibold text-gray-900 hover:underline ms-3">Sign up</a>
                                         </p>
                                     </div>
+
 
                                     <div className=" text-center flex justify-center">
 
@@ -557,7 +531,6 @@ export default function Auth() {
 
 
 
-
                                         {/* Password */}
                                         <div className=" flex flex-col pt-4">
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
@@ -582,7 +555,8 @@ export default function Auth() {
 
 
                                         {/* Re-enter Password */}
-                                        <div className="mb-12 flex flex-col pt-4">
+                                        <div className="mb-3 flex flex-col pt-4">
+
                                             <div className="focus-within:border-b-gray-500 relative flex overflow-hidden border-b-2 transition">
                                                 <input type={showRePassword ? "text" : "password"} id="login-password" className="w-full flex-1 appearance-none border-gray-300 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 focus:outline-none" placeholder="Re-enter Password"
 
@@ -600,53 +574,30 @@ export default function Auth() {
 
                                                 {errors.repassword && <p role="alert" className="text-red-500 text-sm">{errors.repassword.message}</p>}
                                             </div>
+
+                                            {/* Terms and Conditions Notice */}
+                                            <div className="mb-6 text-start mt-3 text-sm text-gray-600">
+                                                By registering, you agree to our{" "}
+                                                <Link
+                                                    to="/loginterms"
+                                                    className="text-gray-900 font-medium underline hover:text-black transition-colors"
+                                                >
+                                                    Terms and Conditions
+                                                </Link>
+                                                .
+                                            </div>
+
                                         </div>
 
 
-
-                                        {/* Terms and Conditions Checkbox */}
-                                        <div className="flex items-center mb-6">
-                                            <input
-                                                type="checkbox"
-                                                id="terms"
-                                                className={`peer hidden`}
-                                                checked={termsAccepted}
-                                                onChange={(e) => setTermsAccepted(e.target.checked)}
-                                            />
-                                            <label
-                                                htmlFor="terms"
-                                                className={`h-4 w-4 border-2 border-gray-300 rounded flex items-center justify-center hover:cursor-pointer transition-all
-      ${termsAccepted ? "bg-black border-black" : "bg-white border-gray-300"}`}
-                                            >
-                                                {termsAccepted && (
-                                                    <svg
-                                                        className="w-3 h-3 text-white"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        strokeWidth="2"
-                                                        viewBox="0 0 24 24"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                    >
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"></path>
-                                                    </svg>
-                                                )}
-                                            </label>
-                                            <label htmlFor="terms" className="ml-2 block text-sm text-gray-600">
-                                                I accept the <Link to={'/loginterms'} className="text-gray-900 underline">Terms and Conditions</Link>
-                                            </label>
-                                        </div>
-
-
-
-                                        <button type="submit" disabled={!termsAccepted || isRegisterPending} className={`w-full cursor-pointer rounded-lg ${!termsAccepted || isRegisterPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
+                                        {/* Sign Up */}
+                                        <button type="submit" disabled={isRegisterPending} className={`w-full cursor-pointer rounded-lg ${isRegisterPending ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'} px-4 py-2 text-center text-base font-semibold text-white shadow-md ring-gray-500 ring-offset-2 transition focus:ring-2 flex items-center justify-center`}>
 
                                             Sign Up {isRegisterPending && <Loader className="animate-spin duration-3000 ms-3" />}
 
                                         </button>
 
-
                                     </form>
-
 
 
                                     <div className="py-12 text-center">
@@ -686,6 +637,11 @@ export default function Auth() {
 
                 {/* Forget Password Modal */}
                 <ForgetPassword isOpen={forgotModal} setIsOpen={setForgotModal} />
+
+
+
+                {/* Mobile OTP Modal */}
+                <MobileOtpModal isOpen={isMobileOtpModalOpen} setIsOpen={setIsMobileOtpModalOpen} />
 
 
             </main>

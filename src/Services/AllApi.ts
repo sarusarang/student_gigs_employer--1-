@@ -33,6 +33,24 @@ export const PostResendOtp = async (data: any) => {
 
 
 
+// Mobile Otp send
+export const PostMobileOtp = async (data: any) => {
+
+    return await CommonApi("POST", `${Base_Url}/send-sms-otp/`, data, "")
+
+}
+
+
+
+// Mobile Otp Verify
+export const PostMobileOtpVerify = async (data: any) => {
+
+    return await CommonApi("POST", `${Base_Url}/verify-sms-otp/`, data, "")
+
+}
+
+
+
 // Reset Password
 export const PostResetPassword = async (data: any) => {
 
@@ -60,7 +78,7 @@ export const GoogleLogin = async (data: any) => {
 
 
 //Get Job Categories
-export const GetCategorys = async (type : string) => {
+export const GetCategorys = async (type: string) => {
 
     const params = new URLSearchParams({ category_type: type })
 
@@ -195,7 +213,7 @@ export const GetJobApplicants = async (id: string, job_type: string, header: obj
 
 
 //GET Job Title
-export const GetJobTitle = async (category : string) => {
+export const GetJobTitle = async (category: string) => {
 
 
     const params = new URLSearchParams({ category: category })

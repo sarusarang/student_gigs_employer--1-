@@ -91,7 +91,7 @@ const Hero = () => {
                     className="w-full h-full"
                   >
 
-                    {slides.map((slide : Slide, index:number) => (
+                    {slides?.map((slide : Slide, index:number) => (
 
                       <SwiperSlide key={index}>
 

@@ -25,7 +25,7 @@ const LoginTerms = lazy(() => import("./pages/LoginTerms"));
 const Terms = lazy(() => import("./pages/Terms"));
 const Refund = lazy(() => import("./pages/Refund"));
 const Privacy = lazy(() => import("./pages/Privacy"));
-
+const Disclaimer = lazy(() => import("./pages/Disclaimer"));
 
 
 
@@ -103,6 +103,7 @@ function App() {
             <Route path="/privacypolicy" element={<Privacy />} />
             <Route path="/refundpolicy" element={<Refund />} />
             <Route path="/loginterms" element={<LoginTerms />} />
+            <Route path="/disclaimer" element={<Disclaimer />} />
 
 
             {/* Protected Routes */}

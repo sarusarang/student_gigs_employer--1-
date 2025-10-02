@@ -194,6 +194,7 @@ export default function MobileOtpModal({ isOpen, setIsOpen }: MobileOtpProps) {
                     setIsOpen(false);
                     mobileForm.reset();
                     otpForm.reset();
+                    setStep("mobile");
 
                     login(response.data.access)
 

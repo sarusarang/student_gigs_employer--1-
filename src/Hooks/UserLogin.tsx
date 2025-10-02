@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { RegisterUser, GoogleLogin, LoginUser, PostEmailVerification, PostResendOtp, PostResetPassword, PostMobileOtp , PostMobileOtpVerify } from "../Services/AllApi"
+import { RegisterUser, GoogleLogin, LoginUser, PostEmailVerification, PostResendOtp, PostResetPassword, PostMobileOtp, PostMobileOtpVerify } from "../Services/AllApi"
 
 
 
@@ -211,7 +211,7 @@ export const useMobileOtp = () => {
 
         },
         onError: (error) => {
-            console.error("Failed to Verify Email", error);
+            console.error("Failed to Verify Number", error);
         },
 
     })
@@ -243,9 +243,13 @@ export const useVerifyMobileOtp = () => {
 
         },
         onError: (error) => {
-            console.error("Failed to Verify Email", error);
+            console.error("Failed to Verify OTP", error);
         },
 
     })
 
 }
+
+
+
+

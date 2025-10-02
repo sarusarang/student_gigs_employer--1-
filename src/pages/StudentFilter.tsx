@@ -51,7 +51,7 @@ export default function StudentFilter() {
                             {/* Main heading */}
                             <p className="text-center text-2xl font-bold tracking-tight text-white sm:text-3xl mb-8 mt-5">
                                 <span className='font-extrabold'>Find the Right Student for the Job</span> <br />
-                                “Post roles and connect with student talent by city and salary”
+                                "Post roles and connect with student talent by city and salary"
                             </p>
 
                         </div>

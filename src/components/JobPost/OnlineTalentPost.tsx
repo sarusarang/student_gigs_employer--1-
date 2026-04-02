@@ -1,7 +1,6 @@
 import RichTextEditor from '../Common/JobDis'
 import { FileText, Loader, X } from 'lucide-react';
 import { useForm, Controller } from 'react-hook-form';
-import CreatableSelect from 'react-select/creatable';
 import Select from 'react-select';
 import { AllLocations, JObTittles, GetJobCategory } from '../../Hooks/Utlis';
 import { OnlineJobPost } from '../../Hooks/Jobform';
@@ -265,7 +264,7 @@ export default function OnlineTalentPost() {
                                 control={control}
                                 rules={{ required: "Job Category is required" }}
                                 render={({ field: { onChange, value, ref } }) => (
-                                    <CreatableSelect
+                                    <Select
                                         ref={ref}
                                         options={Category}
                                         value={value ? Category?.find((option: any) => option.value === value) : null}
@@ -424,7 +423,7 @@ export default function OnlineTalentPost() {
                                 control={control}
                                 rules={{ required: "Academic Course is required" }}
                                 render={({ field: { onChange, value, ref } }) => (
-                                    <CreatableSelect
+                                    <Select
                                         ref={ref}
                                         options={Academic}
                                         value={value ? Academic.find((option) => option.label === value) : null}
@@ -523,7 +522,7 @@ export default function OnlineTalentPost() {
                                 control={control}
                                 rules={{ required: "Compensation is required" }}
                                 render={({ field: { onChange, value, ref } }) => (
-                                    <CreatableSelect
+                                    <Select
                                         ref={ref}
                                         options={compensationTypes}
                                         value={value ? compensationTypes.find((option) => option.value === value) : null}

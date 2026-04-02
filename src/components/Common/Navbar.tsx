@@ -127,7 +127,7 @@ export default function Header() {
             <div className="flex items-center justify-between">
 
               <div className="flex lg:flex-1">
-                <a href="https://studentsgigs.com" className="-m-1.5 p-1.5">
+                <Link to={'/'} className="-m-1.5 p-1.5">
                   <span className="sr-only">Your Company</span>
                   <img
                     alt="nav-icon"
@@ -135,7 +135,7 @@ export default function Header() {
                     loading="lazy"
                     className="sm:h-20 sm:w-52 h-12 w-28"
                   />
-                </a>
+                </Link>
               </div>
 
 

@@ -242,7 +242,7 @@ export const GetAllPlans = async (header: object) => {
 // Create Payment Order
 export const PostCreateOrder = async (data: FormData, header: object) => {
 
-    return await CommonApi("POST", `${Base_Url}/create-order-employer/`, data, header)
+    return await CommonApi("POST", `${Base_Url}/create-order-employer-cashfree/`, data, header)
 
 }
 
@@ -254,6 +254,15 @@ export const PostVerifyPayment = async (data: any, header: object) => {
     return await CommonApi("POST", `${Base_Url}/verify-payment-employer/`, data, header)
 
 }
+
+
+// Verify plan payment
+export const PostVerifyPlanPayment = async (data: FormData, header: object) => {
+
+    return await CommonApi("POST", `${Base_Url}/verify-payment-employer-cashfree/`, data, header)
+
+}
+
 
 
 // Post Profile Count

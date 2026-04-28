@@ -15,7 +15,6 @@ import ProtectedPostJobButton from "./ProtectedPostJobButton";
 import { GetProfile } from "../../Hooks/UserProfile";
 import { useQueryClient } from "@tanstack/react-query";
 import ProfileMenu from "./ProfileMenu";
-import LoginModal from "../LoginModal/Loginmodal";
 
 
 
@@ -24,10 +23,6 @@ export default function Header() {
 
 
   const Navigate = useNavigate()
-
-
-  // Login Modal
-  const [isOpen, setIsOpen] = useState(false);
 
 
   // To check if the user is scrolled
@@ -149,7 +144,7 @@ export default function Header() {
 
 
                 {/* Profile image */}
-                <div onClick={() => setIsOpen(true)} className="ms-2 sm:hidden">
+                <div  className="ms-2 sm:hidden">
 
                   <img
                     src={data[0]?.profile?.profile_pic ?? "/DeaflutProfile.jpeg"}
@@ -426,13 +421,15 @@ export default function Header() {
                           {/* Login/Logout */}
                           {!isAuthenticated ? (
                             <div
-                              onClick={() => { setMobileMenuOpen(false) ,  setIsOpen(true) }}
+                              onClick={() => { setMobileMenuOpen(false) }}
                               className="group -mx-3 flex items-center gap-x-3 px-3 py-4 text-base font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-200 border-b border-gray-400/45"
                             >
-                              <div className="flex items-center space-x-2">
-                                <KeyRound className="h-5 w-5" />
-                                <span>Login</span>
-                              </div>
+                              <Link to={'/auth'}>
+                                <div className="flex items-center space-x-2">
+                                  <KeyRound className="h-5 w-5" />
+                                  <span>Login</span>
+                                </div>
+                              </Link>
                             </div>
                           ) : (
                             <button
@@ -472,10 +469,6 @@ export default function Header() {
 
 
         </header>
-
-
-        {/* Login Modal */}
-        <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
 
       </main>

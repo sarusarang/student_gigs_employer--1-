@@ -7,6 +7,7 @@ export default function PlanLoader() {
         <>
 
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-28 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
+            
                 <div className="max-w-7xl mx-auto relative z-10">
 
                     <div className="text-center mb-16">
@@ -23,8 +24,8 @@ export default function PlanLoader() {
                         </div>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-6 mb-16">
-                        {[1, 2, 3].map((_, index) => (
+                    <div className="grid md:grid-cols-2 gap-6 mb-16">
+                        {[1, 2].map((_, index) => (
                             <div key={index} className="bg-white shadow-lg rounded-2xl p-8 animate-pulse">
                                 <div className="h-4 w-52 bg-gray-200 rounded mb-2"></div>
                                 <div className="h-4 w-44 bg-gray-200 rounded mb-4"></div>

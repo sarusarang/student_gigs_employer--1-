@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { PostCreateOrder , PostVerifyPayment } from "@/Services/AllApi";
+import { PostCreateOrder, PostVerifyPayment, PostVerifyPlanPayment } from "@/Services/AllApi";
 
 
 
@@ -78,6 +78,40 @@ export const VerifyPayment = () => {
         onSuccess: () => {
 
             queryclient.invalidateQueries({ queryKey: ["allplans"] });
+
+        }
+
+    })
+
+}
+
+
+
+
+
+// Verify plan payment
+export const VerifyPlanPayment = () => {
+
+    const queryclient = useQueryClient();
+
+    return useMutation({
+
+        mutationFn: async (formData: FormData) => {
+
+            if (!localStorage.getItem("token")) { throw new Error("Authentication token not found"); }
+
+            const token = localStorage.getItem("token")
+
+            const headers = { Authorization: `Bearer ${token}` }
+
+            return await PostVerifyPlanPayment(formData, headers)
+
+        },
+        onSuccess: () => {
+
+            queryclient.invalidateQueries({ queryKey: ["userPlans"] });
+            queryclient.invalidateQueries({ queryKey: ["allplans"] });
+            queryclient.invalidateQueries({ queryKey: ["planUsage"] });
 
         }
 

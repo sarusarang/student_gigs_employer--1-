@@ -1,10 +1,10 @@
-import { ReactNode, Suspense, lazy, useEffect, useState } from "react";
+import { ReactNode, Suspense, lazy} from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useAuth } from "./Context/AuthContext";
 import { Toaster } from "react-hot-toast";
 import MainLoader from "./components/Common/MainLoader";
 import ProtectedDashboard from "./components/Protected/ProtectedDashBoard";
-import LoginModal from "./components/LoginModal/Loginmodal";
+
 
 
 
@@ -26,6 +26,9 @@ const Terms = lazy(() => import("./pages/Terms"));
 const Refund = lazy(() => import("./pages/Refund"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Disclaimer = lazy(() => import("./pages/Disclaimer"));
+const VerifyPlan = lazy(() => import("./pages/VerifyPlan"));
+
+
 
 
 
@@ -41,35 +44,6 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
 
 
 function App() {
-
-
-
-  // Authentication
-  const { isAuthenticated } = useAuth();
-
-
-  // Login Modal
-  const [isOpen, setIsOpen] = useState(false);
-
-
-
-  // Login Modal Open 
-  useEffect(() => {
-
-    if (!isAuthenticated && !sessionStorage.getItem("loginModalShown")) {
-
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-        sessionStorage.setItem("loginModalShown", "true");
-      }, 10000);
-
-      return () => clearTimeout(timer);
-
-    }
-
-  }, [isAuthenticated]);
-
-
 
 
   return (
@@ -104,6 +78,7 @@ function App() {
             <Route path="/refundpolicy" element={<Refund />} />
             <Route path="/loginterms" element={<LoginTerms />} />
             <Route path="/disclaimer" element={<Disclaimer />} />
+            <Route path="/planSuccess" element={<VerifyPlan />} />
 
 
             {/* Protected Routes */}
@@ -154,10 +129,6 @@ function App() {
 
       {/* Notifications */}
       <Toaster position="top-center" />
-
-
-      {/* Login Modal */}
-      <LoginModal isOpen={isOpen} setIsOpen={setIsOpen} />
 
 
     </>
